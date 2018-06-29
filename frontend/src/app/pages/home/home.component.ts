@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  fakeArray = new Array(4);
+  headers = [
+    {
+      title: 'Latest Publish'
+    }
+  ];
   constructor() { }
 
   ngOnInit() {

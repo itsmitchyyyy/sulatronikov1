@@ -1,21 +1,12 @@
 <div class="container-fluid">
-  <div class="mt-5 mb-5">
-      <span class="bg-primary headline p-3">
+  <div class="mt-5 mb-5 d-flex">
+      <span class="bg-primary d-flex headline p-3">
           Latest Publish
-          <i class="fas fa-angle-right"></i>
+          <mat-icon>chevron_right</mat-icon>
       </span>
   </div>
  <div class="row mt-2 mb-2">
-     <div class="col">
-         <img src="http://via.placeholder.com/350x150" alt="Image Here">
-     </div>
-     <div class="col">
-         <img src="http://via.placeholder.com/350x150" alt="Image Here">
-     </div>
-     <div class="col">
-         <img src="http://via.placeholder.com/350x150" alt="Image Here">
-     </div>
-     <div class="col">
+     <div class="col p-3" *ngFor="let array of fakeArray">
          <img src="http://via.placeholder.com/350x150" alt="Image Here">
      </div>
  </div>
