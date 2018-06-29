@@ -1,3 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+.bg-white{
+    & > .collapse{
+        & > .navbar-nav{
+            font-family: Roboto;
+            font-weight: bold;
+            font-size: 20px;
+          }
+    }
+    .active{
+        & > a {
+            color: $primary !important;
+            font-weight: 400;
+        }
+    }
+}
