@@ -4,6 +4,9 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
+body,html{
+    height: 100%;
+}
 .bg-white{
     & > .collapse{
         & > .navbar-nav{
