@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,10 @@ export class NavbarComponent implements OnInit {
 
   login(){
     this.modalService.open(LoginComponent, { windowClass: 'custom-modal', size: 'lg', centered: true });
+  }
+
+  register(){
+    this.modalService.open(RegisterComponent, { size: 'lg', centered: true });
   }
 
 }

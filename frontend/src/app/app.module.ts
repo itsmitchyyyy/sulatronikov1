@@ -9,6 +9,7 @@ import { CarouselComponent } from './shared/carousel/carousel.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './shared/login/login.component';
+import { RegisterComponent } from './shared/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,14 +17,18 @@ import { LoginComponent } from './shared/login/login.component';
     NavbarComponent,
     CarouselComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppMaterialModule,
     NgbModule.forRoot(),
   ],
-  entryComponents: [LoginComponent],
+  entryComponents: [
+    LoginComponent,
+    RegisterComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
