@@ -1,0 +1,25 @@
+@import '../../../assets/variables';
+.authentication{
+    &-container{
+        border: .1em solid $primary;
+        border-radius: 10px;
+        & > div {
+            & > span {
+                color: rgba(0, 0, 0, 0.5);
+                cursor: pointer;
+                 mat-icon{
+                    font-size: 28px;
+                }
+                &:hover{
+                    color: black
+                }
+            }
+        }
+        }
+    }
+    .custom-modal .modal-content{
+            width: 85% !important;
+            margin-right: auto;
+            margin-left: auto;
+    }
+    

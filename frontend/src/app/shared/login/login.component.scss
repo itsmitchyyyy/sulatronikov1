@@ -1,0 +1,7 @@
+@import '../../../assets/variables';
+
+::ng-deep .modal-header{
+    .header{
+        border-bottom: .2em solid $primary;
+    }
+}
