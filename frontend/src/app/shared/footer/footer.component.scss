@@ -1,0 +1,21 @@
+@import '../../../assets/variables';
+.footer{
+    display: flex;
+    background: $primary;
+    flex-flow: row wrap;
+    .content-left{
+        display: flex;
+        flex: 1;
+        flex-flow: row wrap;
+        & > span {
+            &:not(:last-child){
+                margin-right: 1em;
+            }
+        }
+    }
+    .content-right{
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+    }
+}
