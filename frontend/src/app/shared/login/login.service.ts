@@ -14,6 +14,10 @@ export class LoginService {
       if(res && res.token){
         localStorage.setItem('currentUser', JSON.stringify({ username: credentials.username, token: res.token}));
       }
-    }))
+    }));
+  }
+
+  getLoggedIn(){
+    return this.http.get<any>('http://127.0.0.1:8000/api/user');
   }
 }
