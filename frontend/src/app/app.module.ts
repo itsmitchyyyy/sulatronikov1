@@ -10,6 +10,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './shared/login/login.component';
 import { RegisterComponent } from './shared/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { RegisterComponent } from './shared/register/register.component';
     BrowserModule,
     AppMaterialModule,
     NgbModule.forRoot(),
+    HttpClientModule
   ],
   entryComponents: [
     LoginComponent,
