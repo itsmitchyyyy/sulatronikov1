@@ -38,4 +38,8 @@ class LoginController extends Controller
             return response()->json(['success' => false, 'error' => 'Failed to logout, please try again'], 500);
         }
     }
+
+    public function getUser(Request $request){
+        return $request->user()->load('roles');
+    }
 }
