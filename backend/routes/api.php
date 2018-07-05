@@ -13,8 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('jwt.auth')->get('/user', function (Request $request) {
-    return $request->user()->load('roles');
+// Route::middleware('jwt.auth')->get('/user', function (Request $request) {
+//     return $request->user()->load('roles');
+// });
+Route::group(['middleware' => ['jwt.auth']], function(){
+    Route::get('user', 'LoginController@getUser');
+    Route::get('logout', 'LoginController@logout');
 });
 Route::post('user/register', 'RegisterController@register');
 Route::post('user/login', 'LoginController@login');

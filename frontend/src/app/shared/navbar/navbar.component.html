@@ -53,11 +53,11 @@
                   </div>
               </div>
           </li>
-          <li class="nav-item dropdown" *ngIf="isAuthenticated">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <li class="nav-item dropdown" ngbDropdown *ngIf="isAuthenticated">
+              <a href="#" ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown">
                   Account
               </a>
-              <div class="dropdown-menu">
+              <div class="dropdown-menu" ngbDropdownMenu>
                   <a href="#" class="dropdown-item">Logout</a>
               </div>
           </li>
