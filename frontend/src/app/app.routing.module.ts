@@ -11,7 +11,7 @@ const Routes = [
         path: 'home', component: LandingPageComponent
     },
     {
-      path: 'listings', component: HomeComponent
+      path: 'listings', component: HomeComponent, canActivate: [AuthGuard]
     }
 ]
 @NgModule({

@@ -28,6 +28,7 @@ private router: Router) { }
       password: 'author',
     };
     this.loginService.login(credentials).subscribe((res) => {
+      sessionStorage.setItem('authenticated', JSON.stringify({isAuthenticated: true}));
       this.isLoading = false;
       this.activeModal.close(true);
     });
