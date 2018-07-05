@@ -29,8 +29,7 @@ private router: Router) { }
     };
     this.loginService.login(credentials).subscribe((res) => {
       this.isLoading = false;
-      this.activeModal.dismiss('Logged In');
-      this.router.navigate(['listings']);
+      this.activeModal.close(true);
     });
   }
 

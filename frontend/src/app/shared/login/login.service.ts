@@ -18,6 +18,7 @@ export class LoginService {
   }
 
   getLoggedIn(){
-    return this.http.get<any>('http://127.0.0.1:8000/api/user');
+    const data = JSON.parse(localStorage.getItem('currentUser'));
+    return this.http.get<any>('http://127.0.0.1:8000/api/user', { params: { token: data.token}});
   }
 }

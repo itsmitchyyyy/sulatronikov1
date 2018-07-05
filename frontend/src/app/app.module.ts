@@ -31,6 +31,11 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
     HttpClientModule,
     AppRoutingModule
   ],
+  exports: [
+    NavbarComponent,
+    CarouselComponent,
+    FooterComponent,
+  ],
   entryComponents: [
     LoginComponent,
     RegisterComponent

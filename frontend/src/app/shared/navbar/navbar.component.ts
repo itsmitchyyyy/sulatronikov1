@@ -10,14 +10,18 @@ import { RegisterComponent } from '../register/register.component';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
+  userRole: string;
+  isAuthenticated: boolean;
   constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.isAuthenticated = false;
   }
 
   login(){
-    this.modalService.open(LoginComponent, { windowClass: 'custom-modal', size: 'lg', centered: true });
+    this.modalService.open(LoginComponent, { windowClass: 'custom-modal', size: 'lg', centered: true }).result.then((res) => {
+      this.isAuthenticated = res;
+    });
   }
 
   register(){
