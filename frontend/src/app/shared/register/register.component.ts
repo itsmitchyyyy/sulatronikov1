@@ -8,9 +8,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RegisterComponent implements OnInit {
 
+  accountCredentials: any;
+
   constructor(private activeModal: NgbActiveModal) { }
 
   ngOnInit() {
+    this.accountCredentials = {};
   }
 
 }
