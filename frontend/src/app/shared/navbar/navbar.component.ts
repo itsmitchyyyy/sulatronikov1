@@ -47,4 +47,9 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  get userName(){
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    return currentUser.username;
+  }
+
 }
