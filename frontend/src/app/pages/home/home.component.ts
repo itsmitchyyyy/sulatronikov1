@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../shared/login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -6,15 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  fakeArray = new Array(4);
-  headers = [
-    {
-      title: 'Latest Publish'
-    }
-  ];
-  constructor() { }
+
+  constructor(private userService: LoginService) { }
 
   ngOnInit() {
+    this.getLoggedIn();
   }
 
+  getLoggedIn(){
+    this.userService.getLoggedIn().subscribe((res) => {
+    });
+  }
 }

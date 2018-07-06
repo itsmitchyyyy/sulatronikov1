@@ -28,4 +28,18 @@ class LoginController extends Controller
         }
         return response()->json(compact('token'));
     }
+
+    public function logout(Request $request){
+        $this->validate($request, ['token' => 'required']);
+        try {
+            JWTAuth::invalidate($request->input('token'));
+            return response()->json(['success' => true, 'message' => 'Logout successfully']);
+        } catch(JWTException $e){
+            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again'], 500);
+        }
+    }
+
+    public function getUser(Request $request){
+        return $request->user()->load('roles');
+    }
 }

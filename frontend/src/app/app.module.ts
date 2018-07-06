@@ -10,6 +10,9 @@ import { FooterComponent } from './shared/footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './shared/login/login.component';
 import { RegisterComponent } from './shared/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app.routing.module';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,12 +21,20 @@ import { RegisterComponent } from './shared/register/register.component';
     CarouselComponent,
     FooterComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
     AppMaterialModule,
     NgbModule.forRoot(),
+    HttpClientModule,
+    AppRoutingModule
+  ],
+  exports: [
+    NavbarComponent,
+    CarouselComponent,
+    FooterComponent,
   ],
   entryComponents: [
     LoginComponent,
