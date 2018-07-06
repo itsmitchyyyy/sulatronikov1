@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from './login.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,27 +9,33 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   isLoading: boolean;
+  isError: boolean;
+  username: string;
+  password: string;
+
   constructor(private activeModal: NgbActiveModal,
-  private loginService: LoginService,
-private router: Router) { }
+    private loginService: LoginService) { }
 
   ngOnInit() {
   }
 
-  close(){
+  close() {
     this.activeModal.dismiss('Dismiss');
   }
 
-  login(){
+  login() {
     this.isLoading = true;
     const credentials = {
-      username: 'author',
-      password: 'author',
+      username: this.username,
+      password: this.password,
     };
     this.loginService.login(credentials).subscribe((res) => {
-      sessionStorage.setItem('authenticated', JSON.stringify({isAuthenticated: true}));
+      sessionStorage.setItem('authenticated', JSON.stringify({ isAuthenticated: true }));
       this.isLoading = false;
       this.activeModal.close(true);
+    }, (error) => {
+        this.isError = true;
+        this.isLoading = false;
     });
   }
 
