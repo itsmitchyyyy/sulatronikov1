@@ -13,7 +13,7 @@ class LoginController extends Controller
     public function login(Request $request){
         $validator = Validator::make($request->all(), [
             'username' => 'required',
-            'password' => 'required|max:10',
+            'password' => 'required',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors());

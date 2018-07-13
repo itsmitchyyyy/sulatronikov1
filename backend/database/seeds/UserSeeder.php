@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             $role->lastName = $data;
             $role->contact = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
             $role->company = 'Company';
+            $role->address = 'Address';
             $role->city = 'City';
             $role->state = 'State';
             $role->zipcode = rand(pow(10, 6-1), pow(10, 6)-1);

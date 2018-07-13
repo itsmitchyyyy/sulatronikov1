@@ -11,13 +11,14 @@ import { LoginService } from '../login/login.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  userRole: string;
+  user: any;
   isAuthenticated: boolean;
   constructor(private modalService: NgbModal,
   private loginService: LoginService) { }
 
   ngOnInit() {
     this.isUserAuthenticated();
+    this.getUser();
   }
 
   login(){
@@ -47,9 +48,11 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  get userName(){
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    return currentUser.username;
+  getUser(){
+    this.loginService.getLoggedIn().subscribe((res) => {
+      console.log(res);
+      this.user = res;
+    });
   }
 
 }

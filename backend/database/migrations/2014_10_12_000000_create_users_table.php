@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('lastName');
             $table->string('contact');
             $table->string('company');
+            $table->string('address');
             $table->string('city');
             $table->string('state');
             $table->string('zipcode');
