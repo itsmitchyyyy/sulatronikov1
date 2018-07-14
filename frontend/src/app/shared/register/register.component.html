@@ -2,11 +2,22 @@
   <h1 class="modal-title">
     Create an account
   </h1>
-  <button class="close">
+  <button class="close" (click)="close()">
     <span>&times;</span>
   </button>
 </div>
 <div class="modal-body">
+  <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="hasErrors">
+    <div class="d-flex flex-column">
+      <span *ngFor="let errors of hasErrors.username">
+        {{ errors }}
+      </span>
+      <span *ngFor="let errors of hasErrors.email">
+        {{ errors }}
+      </span>
+    </div>
+  </ngb-alert>
+  <mat-progress-bar *ngIf="isLoading" class="mb-3" mode="indeterminate" [color]="green"></mat-progress-bar>
   <form #registerForm="ngForm" class="d-flex flex-wrap">
     <div class="d-flex flex-column p-2 flex-grow-1">
       <h4>Login Details</h4>
@@ -30,10 +41,7 @@
         <label for="email">Email</label>
         <input type="text" [class.is-invalid]="emailinput.touched && emailinput.invalid" #emailinput="ngModel" [(ngModel)]="accountCredentials.email"
           name="email" id="email" email required class="form-control">
-        <div class="invalid-feedback" *ngIf="!emailinput.required && emailinput.touched">
-          <span>Email field is required</span>
-        </div>
-        <div class="invalid-feedback" *ngIf="!emailinput.email && emailinput.dirty && emailinput.value !== ''">
+        <div class="invalid-feedback" *ngIf="!emailinput.email && emailinput.touched">
           <span>Invalid email</span>
         </div>
       </div>

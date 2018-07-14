@@ -9,6 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RegisterComponent implements OnInit {
 
+  hasErrors: string;
   isLoading: boolean;
   accountCredentials: any;
 
@@ -20,9 +21,20 @@ export class RegisterComponent implements OnInit {
     this.accountCredentials = {};
   }
 
+  close() {
+    this.activeModal.dismiss('Dismiss');
+  }
+
   register() {
     this.isLoading = true;
-    this.registerService.register(this.accountCredentials).subscribe((res) => {
+    this.registerService.register(this.accountCredentials).subscribe((res: any) => {
+      if (res && res.token) {
+        sessionStorage.setItem('currentUser', JSON.stringify({ token: res.token }));
+        sessionStorage.setItem('authenticated', JSON.stringify({ isAuthenticated: true }));
+        this.activeModal.close(true);
+      } else if (res && (res.email || res.username)) {
+        this.hasErrors = res;
+      }
       this.isLoading = false;
     });
   }

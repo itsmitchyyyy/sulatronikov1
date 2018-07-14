@@ -11,11 +11,6 @@ export class RegisterService {
 
   register(account: any) {
     return this.http.post<any>('http://127.0.0.1:8000/api/user/register', account)
-      .pipe(map((res: any) => {
-        if (res && res.token) {
-          sessionStorage.setItem('currentUser', JSON.stringify({ token: res.token }));
-        }
-      }));
+      .pipe(map(res => res));
   }
-
 }
