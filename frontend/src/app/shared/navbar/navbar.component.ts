@@ -14,45 +14,53 @@ export class NavbarComponent implements OnInit {
   user: any;
   isAuthenticated: boolean;
   constructor(private modalService: NgbModal,
-  private loginService: LoginService) { }
+    private loginService: LoginService) { }
 
   ngOnInit() {
     this.isUserAuthenticated();
-    this.getUser();
   }
 
-  login(){
+  login() {
     this.modalService.open(LoginComponent, { windowClass: 'custom-modal', size: 'lg', centered: true }).result.then(() => {
-      const checkAuthenticated = JSON.parse(sessionStorage.getItem('authenticated'));      
-      this.isAuthenticated = checkAuthenticated.isAuthenticated;
+      this.isUserAuthenticated();
     });
   }
 
-  register(){
-    this.modalService.open(RegisterComponent, { size: 'lg', centered: true });
+  register() {
+    this.modalService.open(RegisterComponent, { size: 'lg', centered: true }).result.then(() => {
+      this.isUserAuthenticated();
+    });
   }
 
-  logout(){
+  logout() {
     this.loginService.logout().subscribe(() => {
       sessionStorage.clear();
       this.isAuthenticated = false;
     });
   }
 
-  isUserAuthenticated(){
+  isUserAuthenticated() {
     const checkAuthenticated = JSON.parse(sessionStorage.getItem('authenticated'));
-    if(checkAuthenticated){
-      this.isAuthenticated = checkAuthenticated.isAuthenticated
-    }else{
+    if (checkAuthenticated) {
+      this.isAuthenticated = checkAuthenticated.isAuthenticated;
+      this.getUser();
+    } else {
       this.isAuthenticated = false;
     }
   }
 
-  getUser(){
+  getUser() {
     this.loginService.getLoggedIn().subscribe((res) => {
       console.log(res);
       this.user = res;
     });
+  }
+
+  get userName() {
+    if (this.user) {
+      return this.user.firstName;
+    }
+    return 'Unknown';
   }
 
 }
