@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Role;
 use JWTFactory;
@@ -30,11 +31,11 @@ class RegisterController extends Controller
             return response()->json($validator->errors());
         }
         $role = $request->get('role');
-        User::create([
+        $user = User::create([
             'firstName' => $request->get('firstName'), 
             'username' => $request->get('username'),
             'email' => $request->get('email'),
-            'password' => $request->get('password'),
+            'password' => Hash::make($request->get('password')),
             'lastName' => $request->get('lastName'), 
             'contact' => $request->get('contact'),
             'company' => $request->get('company'),
@@ -42,9 +43,8 @@ class RegisterController extends Controller
             'city' => $request->get('city'),
             'state' => $request->get('state'),
             'zipcode' => $request->get('zipcode'),
-        ])->roles()->attach(Role::where('name', $role)->first());
-        $user = User::first();
-        // $user->roles()->attach(Role::where('name', $role)->first());
+        ]);
+        $user->roles()->attach(Role::where('name', $role)->first());
         $token = JWTAuth::fromUser($user);
 
         return Response::json(compact('token'));
