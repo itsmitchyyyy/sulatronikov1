@@ -13,6 +13,7 @@
         <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="isError">
             <strong>Failed!</strong> Error signing in. Please check your credentials
         </ngb-alert>
+        <mat-progress-bar *ngIf="isLoading" class="mb-3" mode="indeterminate" [color]="green"></mat-progress-bar>
         <form #loginForm="ngForm">
             <div class="form-group">
                 <input type="text" [class.is-invalid]="usernameInput.touched && usernameInput.invalid" name="username" #usernameInput="ngModel"
@@ -22,7 +23,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="text" [class.is-invalid]="passwordInput.touched && passwordInput.invalid" name="password" #passwordInput="ngModel"
+                <input type="password" [class.is-invalid]="passwordInput.touched && passwordInput.invalid" name="password" #passwordInput="ngModel"
                     id="password" [(ngModel)]="password" class="form-control" placeholder="Password" required>
                 <div class="invalid-feedback" *ngIf="!passwordInput.required">
                     <span>Password field is required</span>

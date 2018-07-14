@@ -5,3 +5,14 @@
         border-bottom: .2em solid $primary;
     }
 }
+
+::ng-deep mat-progress-bar{
+    .mat-progress-bar-buffer{
+        background-color: #E4E8EB;
+    }
+.mat-progress-bar-fill{
+    &:after{
+        background: $primary;
+    }
+}
+}

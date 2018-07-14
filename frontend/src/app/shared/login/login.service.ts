@@ -11,7 +11,7 @@ export class LoginService {
     return this.http.post<any>('http://127.0.0.1:8000/api/user/login', credentials)
     .pipe(map((res: any) => {
       if(res && res.token){
-        sessionStorage.setItem('currentUser', JSON.stringify({ username: credentials.username, token: res.token}));
+        sessionStorage.setItem('currentUser', JSON.stringify({token: res.token}));
       }
     }));
   }
