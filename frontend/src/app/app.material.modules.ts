@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {MatIconModule} from '@angular/material';
+import { MatIconModule, MatProgressBarModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -7,11 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatProgressBarModule
   ],
   exports: [
     MatIconModule,
     ReactiveFormsModule,
     FormsModule,
+    MatProgressBarModule
   ]
 })
 export class AppMaterialModule { }
