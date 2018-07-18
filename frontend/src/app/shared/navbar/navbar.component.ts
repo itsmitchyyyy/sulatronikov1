@@ -3,6 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { LoginService } from '../login/login.service';
+import { SharedService } from '../shared.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-navbar',
@@ -13,8 +15,10 @@ import { LoginService } from '../login/login.service';
 export class NavbarComponent implements OnInit {
   user: any;
   isAuthenticated: boolean;
+  isCollapsed = false;
   constructor(private modalService: NgbModal,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this.isUserAuthenticated();
@@ -22,6 +26,10 @@ export class NavbarComponent implements OnInit {
 
   login() {
     this.modalService.open(LoginComponent, { windowClass: 'custom-modal', size: 'lg', centered: true }).result.then(() => {
+      if (!this.isAuthenticated) {
+        this.isUserAuthenticated();
+        this.sharedService.openSnackBar(`Welcome ${this.user.firstName}`);
+      }
       this.isUserAuthenticated();
     });
   }
@@ -51,8 +59,11 @@ export class NavbarComponent implements OnInit {
 
   getUser() {
     this.loginService.getLoggedIn().subscribe((res) => {
-      console.log(res);
       this.user = res;
+    }, (error) => {
+      sessionStorage.clear();
+      this.isAuthenticated = false;
+      this.sharedService.openSnackBar('Session Expired');
     });
   }
 
