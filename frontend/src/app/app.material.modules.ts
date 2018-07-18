@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule, MatProgressBarModule } from '@angular/material';
+import { MatIconModule, MatProgressBarModule, MatSnackBarModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatProgressBarModule
+    MatSnackBarModule,
+    MatProgressBarModule,
+    NgbModule.forRoot(),
   ],
   exports: [
     MatIconModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     FormsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgbModule
   ]
 })
 export class AppMaterialModule { }
