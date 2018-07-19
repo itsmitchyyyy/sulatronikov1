@@ -3,6 +3,7 @@ import { BooksComponent } from './books/books.component';
 import { PageRoutingModule } from "./page.routing.module";
 import { AppMaterialModule } from "../app.material.modules";
 import { BrowserModule } from "@angular/platform-browser";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
     declarations: [BooksComponent],
@@ -10,8 +11,9 @@ import { BrowserModule } from "@angular/platform-browser";
     imports: [
         BrowserModule,
         PageRoutingModule,
-        AppMaterialModule
+        AppMaterialModule,
+        SharedModule
     ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PageModule { }
