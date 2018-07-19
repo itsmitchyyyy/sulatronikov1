@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
@@ -18,7 +18,8 @@ export class NavbarComponent implements OnInit {
   isCollapsed = false;
   constructor(private modalService: NgbModal,
     private loginService: LoginService,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private zone: NgZone) { }
 
   ngOnInit() {
     this.isUserAuthenticated();
@@ -28,7 +29,9 @@ export class NavbarComponent implements OnInit {
     this.modalService.open(LoginComponent, { windowClass: 'custom-modal', size: 'lg', centered: true }).result.then(() => {
       if (!this.isAuthenticated) {
         this.isUserAuthenticated();
-        this.sharedService.openSnackBar(`Welcome ${this.user.firstName}`);
+        this.sharedService.openSnackBar(`Welcome ${this.user.firstName}`, null, {
+          duration: 2000
+        });
       }
       this.isUserAuthenticated();
     });
@@ -59,11 +62,15 @@ export class NavbarComponent implements OnInit {
 
   getUser() {
     this.loginService.getLoggedIn().subscribe((res) => {
-      this.user = res;
+      this.zone.run(() => {
+        this.user = res;
+      });
     }, (error) => {
       sessionStorage.clear();
       this.isAuthenticated = false;
-      this.sharedService.openSnackBar('Session Expired');
+      this.sharedService.openSnackBar('Session Expired', null, {
+        duration: 2000
+      });
     });
   }
 
