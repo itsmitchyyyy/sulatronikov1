@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule, MatProgressBarModule, MatSnackBarModule } from '@angular/material';
+import { MatIconModule, MatProgressBarModule, MatSnackBarModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
     MatSnackBarModule,
     MatProgressBarModule,
@@ -18,7 +20,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     FormsModule,
     MatProgressBarModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
   ]
 })
 export class AppMaterialModule { }
