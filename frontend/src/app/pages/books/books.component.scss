@@ -1,0 +1,14 @@
+@import '../../../assets/variables';
+
+::ng-deep .books-container {
+    .book{
+        &-list{
+            display: grid;
+            grid-template-columns: repeat(4, minmax(270px, 1fr));
+            grid-row-gap: 5em;
+            &-photo {
+                min-height: 300px;
+            }
+        }
+    }
+}
