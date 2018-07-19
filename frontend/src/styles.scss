@@ -16,7 +16,7 @@ body,html{
     }
     .active{
         & > a {
-            color: $primary !important;
+            color: map_get($md-sulatroniko, 500) !important;
             font-weight: 400;
         }
     }

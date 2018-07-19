@@ -1,0 +1,94 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat-core();
+
+$md-sulatroniko: (
+    50 : #eafcf5,
+    100 : #caf7e6,
+    200 : #a7f2d6,
+    300 : #83ecc6,
+    400 : #69e8b9,
+    500 : #4ee4ad,
+    600 : #47e1a6,
+    700 : #3ddd9c,
+    800 : #35d993,
+    900 : #25d183,
+    A100 : #ffffff,
+    A200 : #daffed,
+    A400 : #a7ffd5,
+    A700 : #8dffc9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$md-sulatroniko2: (
+    50 : #f3fdf9,
+    100 : #e2f9f1,
+    200 : #cff6e8,
+    300 : #bbf2de,
+    400 : #adefd7,
+    500 : #9eecd0,
+    600 : #96eacb,
+    700 : #8ce7c4,
+    800 : #82e4be,
+    900 : #70dfb3,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #f2fffa,
+    A700 : #d9ffef,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+// Define the default theme (same as the example above).
+$hero-app-primary: mat-palette($md-sulatroniko);
+$hero-app-accent:  mat-palette($md-sulatroniko2, A200, A100, A400);
+$hero-app-theme:   mat-light-theme($hero-app-primary, $hero-app-accent);
+
+// Include the default theme styles.
+@include angular-material-theme($hero-app-theme);
+
+
+// Define an alternate dark theme.
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+$dark-warn:    mat-palette($mat-deep-orange);
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+// Include the alternative theme styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
+.unicorn-dark-theme {
+  @include angular-material-theme($dark-theme);
+}
