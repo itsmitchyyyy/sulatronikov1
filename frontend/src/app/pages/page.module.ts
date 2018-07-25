@@ -4,9 +4,10 @@ import { PageRoutingModule } from "./page.routing.module";
 import { AppMaterialModule } from "../app.material.modules";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "../shared/shared.module";
+import { AuthorsComponent } from './users/authors/authors.component';
 
 @NgModule({
-    declarations: [BooksComponent],
+    declarations: [BooksComponent, AuthorsComponent],
     exports: [],
     imports: [
         BrowserModule,
