@@ -24,16 +24,14 @@
                     <a href="#" class="dropdown-item">Menu 4</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <li class="nav-item dropdown" ngbDropdown>
+                <a ngbDropdownToggle class="pointer nav-link dropdown-toggle" data-toggle="dropdown">
                     Clubs
                 </a>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Menu 1</a>
-                    <a href="#" class="dropdown-item">Menu 2</a>
-                    <a href="#" class="dropdown-item">Menu 3</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">Menu 4</a>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                    <a routerLink="/authors" class="dropdown-item">Authors</a>
+                    <a class="dropdown-item">Publishers</a>
+                    <a class="dropdown-item">Copywriters</a>
                 </div>
             </li>
             <li class="nav-item">
