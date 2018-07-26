@@ -4,16 +4,17 @@ import { PageRoutingModule } from "./page.routing.module";
 import { AppMaterialModule } from "../app.material.modules";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "../shared/shared.module";
-import { AuthorsComponent } from './users/authors/authors.component';
+import { AuthorModule } from "./users/authors/authors.module";
 
 @NgModule({
-    declarations: [BooksComponent, AuthorsComponent],
+    declarations: [BooksComponent],
     exports: [],
     imports: [
+        SharedModule,
         BrowserModule,
+        AuthorModule,
         PageRoutingModule,
         AppMaterialModule,
-        SharedModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
