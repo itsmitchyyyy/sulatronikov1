@@ -1,5 +1,5 @@
 @import './theme';
-$icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap';
+// $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap';
 // Body
 $body-bg: #f5f8fa;
 
@@ -9,3 +9,4 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 $white: map_get($md-sulatroniko2, A100);
 $primary: map_get($md-sulatroniko, 500);
+@import '../../node_modules/bootstrap/scss/bootstrap';
