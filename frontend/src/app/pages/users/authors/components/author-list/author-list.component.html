@@ -1,6 +1,7 @@
 <div class="mt-5 authors-container">
   <div class="authors-list mb-5">
-    <div class="authors-list-photo d-flex justify-content-center flex-column align-items-center" *ngFor="let array of fakeArray">
+    <div matTooltip="View Author" matTooltipPosition="above" [routerLink]="'../profile/' + generateRandomNumbers" class="authors-list-photo d-flex justify-content-center flex-column align-items-center"
+      *ngFor="let array of fakeArray">
       <img src="http://via.placeholder.com/350x150" alt="Image Here" class="w-50 flex-grow-1">
       <div>
         <span>Name Here</span>
