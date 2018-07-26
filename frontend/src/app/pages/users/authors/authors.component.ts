@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./authors.component.scss']
 })
 export class AuthorsComponent implements OnInit {
-  fakeArray = new Array(12);
 
   constructor() { }
 
