@@ -1,0 +1,20 @@
+@import '../../../../../../assets/variables';
+
+::ng-deep .publishers-container{
+    .publisher{
+        &-right{
+            width: 60%;
+        }
+        &-left{
+            .img-card{
+                height: 300px;
+                width: 300px;
+            }
+            .tags{
+                padding: 1em;
+                border-radius: 10px;
+                background: #4ee4ad;
+            }
+        }
+    }
+}
