@@ -7,16 +7,13 @@ import { Component, OnInit } from '@angular/core';
 export class CarouselComponent implements OnInit {
   imageUrls = [
     {
-      url: 'http://via.placeholder.com/350x150', 
-      caption: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+      url: '../../../assets/images/coverv1.jpg', 
     },
     {
-      url: 'http://via.placeholder.com/350x200', 
-      caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      url: '../../../assets/images/coverv2.jpg', 
     },
     {
-      url: 'http://via.placeholder.com/350x250', 
-      caption: 'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
+      url: '../../../assets/images/coverv3.jpg', 
     },
   ]
   constructor() { }
