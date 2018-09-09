@@ -16,6 +16,32 @@
                 border-style: solid;
                 border-width: 0;
             }
+
+            .talkbubble{
+                width: 200px;
+                min-height: 100px;
+                background: #f5f8fa;
+                position: relative;
+                border: 1px solid rgba(0, 0, 0, 0.125);
+                border-radius: 10px;
+                &:before{
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    top: 100%;
+                    width: 0;
+                    height: 0;
+                    border-top: 20px solid rgba(0, 0, 0, 0.125);
+                    border-right: 26px solid transparent;
+                    border-bottom: 26px solid transparent;
+                }
+            }
+
+            .comments{
+                &:not(:first-child){
+                    margin-left: 1em;
+                }
+            }
          
             aside{
                 &.read-here{
