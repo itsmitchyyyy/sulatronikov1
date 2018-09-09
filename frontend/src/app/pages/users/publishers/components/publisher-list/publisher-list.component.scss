@@ -25,12 +25,12 @@
                     height: 65px;
                     right: -50px;
                     top: 75%;
-                    background: orange;
+                    background: $primary;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     &:before {
-                        border-color: orange transparent;
+                        border-color: $primary transparent;
                         left: -32px;
                         border-width: 32px 0 33px 32px;
                       }

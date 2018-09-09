@@ -5,6 +5,7 @@ import { AppMaterialModule } from "../app.material.modules";
 import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "../shared/shared.module";
 import { AuthorModule } from "./users/authors/authors.module";
+import { PublisherModule } from "./users/publishers/publishers.module";
 
 @NgModule({
     declarations: [BooksComponent],
@@ -13,6 +14,7 @@ import { AuthorModule } from "./users/authors/authors.module";
         SharedModule,
         BrowserModule,
         AuthorModule,
+        PublisherModule,
         PageRoutingModule,
         AppMaterialModule,
     ],
