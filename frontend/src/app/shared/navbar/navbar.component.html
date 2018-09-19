@@ -62,7 +62,7 @@
                     {{ userName.toUpperCase() }}
                 </a>
                 <div class="dropdown-menu" ngbDropdownMenu>
-                    <a routerLink="/profile" class="pointer dropdown-item">Profile</a>
+                    <a [routerLink]="userProfile" class="pointer dropdown-item">Profile</a>
                     <a class="pointer dropdown-item" (click)="logout()">Logout</a>
                 </div>
             </li>

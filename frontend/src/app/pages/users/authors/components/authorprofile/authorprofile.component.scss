@@ -1,0 +1,27 @@
+@import '../../../../../../assets/variables';
+
+.profile{
+	&-container{
+		.navigation{
+			border-radius: 20px;
+
+			.text-font{
+				font-size: 20px;
+			}
+		}
+
+		.left-side{
+			.upper{
+				border-top-left-radius: 20px;
+				border-top-right-radius: 20px;
+			}
+			.lower{
+				border-bottom-left-radius: 20px;
+				border-bottom-right-radius: 20px;
+			}
+		}
+		.right-side{
+			border-radius: 20px;
+		}
+	}
+}

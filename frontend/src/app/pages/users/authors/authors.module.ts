@@ -6,8 +6,9 @@ import { AppMaterialModule } from "../../../app.material.modules";
 import { AuthorsComponent } from "./authors.component";
 import { AuthorListComponent } from './components/author-list/author-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AuthorprofileComponent } from './components/authorprofile/authorprofile.component';
 @NgModule({
-    declarations: [AuthorsComponent, AuthorListComponent, ProfileComponent],
+    declarations: [AuthorsComponent, AuthorListComponent, ProfileComponent, AuthorprofileComponent],
     exports: [AuthorsComponent, AuthorListComponent],
     imports: [
         SharedModule,

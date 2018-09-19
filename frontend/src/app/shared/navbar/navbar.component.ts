@@ -75,6 +75,13 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  get userProfile(){
+    if(this.user){
+        return this.user.roles[0].name + `s/profile/${this.user.id}/edit`;
+    }
+    return 'Unknown';
+  }
+
   get userName() {
     if (this.user) {
       return this.user.firstName;

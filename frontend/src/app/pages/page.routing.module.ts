@@ -7,6 +7,10 @@ import { ProfileComponent } from "./users/authors/components/profile/profile.com
 import { PublishersComponent } from "./users/publishers/publishers.component";
 import { PublisherListComponent } from "./users/publishers/components/publisher-list/publisher-list.component";
 import { PublisherTlistComponent } from "./users/publishers/components/publisher-tlist/publisher-tlist.component";
+import { PublishermanuscriptComponent } from "./users/publishers/components/publishermanuscript/publishermanuscript.component";
+import { PublisherprofileComponent } from "./users/publishers/components/publisherprofile/publisherprofile.component";
+import { AuthorprofileComponent } from "./users/authors/components/authorprofile/authorprofile.component";
+import { AuthGuard } from "../shared/login/auth.guard";
 
 const routes: Routes = [
     {
@@ -24,8 +28,13 @@ const routes: Routes = [
             {
                 path: 'profile/:id',
                 component: ProfileComponent
+            },
+            {
+                path: 'profile/:id/edit',
+                component: AuthorprofileComponent
             }
-        ]
+        ],
+        canActivate: [AuthGuard]
     },
     {
         path: 'publishers',
@@ -38,8 +47,17 @@ const routes: Routes = [
             {
                 path: 'profile/:id',
                 component: PublisherListComponent
+            },
+            {
+                path: 'profile/:id/manuscript',
+                component: PublishermanuscriptComponent
+            },
+            {
+                path: 'profile/:id/edit',
+                component: PublisherprofileComponent
             }
-        ]
+        ],
+        canActivate: [AuthGuard]
     }
 ]
 
