@@ -5,9 +5,10 @@ import { PageRoutingModule } from "../../page.routing.module";
 import { AppMaterialModule } from "../../../app.material.modules";
 import { PublishersComponent } from "./publishers.component";
 import { PublisherListComponent } from "./components/publisher-list/publisher-list.component";
+import { PublisherTlistComponent } from './components/publisher-tlist/publisher-tlist.component';
 @NgModule({
-    declarations: [PublishersComponent, PublisherListComponent],
-    exports: [PublishersComponent, PublisherListComponent],
+    declarations: [PublishersComponent, PublisherListComponent, PublisherTlistComponent],
+    exports: [PublishersComponent, PublisherListComponent, PublisherTlistComponent],
     imports: [
         SharedModule,
         BrowserModule,

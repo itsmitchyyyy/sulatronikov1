@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from './shared/login/auth.guard';
+import { ProfileComponent } from './shared/profile/profile.component';
 const Routes = [
     {
         path: '', redirectTo: 'home', pathMatch: 'full',
@@ -12,6 +13,9 @@ const Routes = [
     },
     {
       path: 'listings', component: HomeComponent, canActivate: [AuthGuard]
+    },
+    {
+      path: 'profile', component: ProfileComponent
     }
 ]
 @NgModule({
