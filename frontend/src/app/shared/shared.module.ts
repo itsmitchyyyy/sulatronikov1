@@ -11,6 +11,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "../app.routing.module";
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         FooterComponent,
         LoginComponent,
         RegisterComponent,
-        LandingPageComponent
+        LandingPageComponent,
+        ProfileComponent
     ],
     exports: [
         NavbarComponent,

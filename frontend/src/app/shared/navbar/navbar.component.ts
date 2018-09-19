@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   user: any;
   isAuthenticated: boolean;
   isCollapsed = false;
+  isSearchClicked = false;
   constructor(private modalService: NgbModal,
     private loginService: LoginService,
     private sharedService: SharedService,
