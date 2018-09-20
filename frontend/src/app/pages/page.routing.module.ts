@@ -13,6 +13,8 @@ import { AuthorprofileComponent } from "./users/authors/components/authorprofile
 import { AuthGuard } from "../shared/login/auth.guard";
 import { AuthormanuscriptComponent } from "./users/authors/components/authormanuscript/authormanuscript.component";
 import { AuthormessageComponent } from "./users/authors/components/authormessage/authormessage.component";
+import { AuthortransactionComponent } from "./users/authors/components/authortransaction/authortransaction.component";
+import { AuthornotificationComponent } from "./users/authors/components/authornotification/authornotification.component";
 
 const routes: Routes = [
     {
@@ -42,6 +44,14 @@ const routes: Routes = [
             {
                 path: 'profile/:id/message',
                 component: AuthormessageComponent
+            },
+            {
+                path: 'profile/:id/transaction',
+                component: AuthortransactionComponent
+            },
+            {
+                path: 'profile/:id/notification',
+                component: AuthornotificationComponent
             }
         ],
         canActivate: [AuthGuard]

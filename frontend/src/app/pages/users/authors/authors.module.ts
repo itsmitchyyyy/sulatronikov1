@@ -9,8 +9,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AuthorprofileComponent } from './components/authorprofile/authorprofile.component';
 import { AuthormanuscriptComponent } from "./components/authormanuscript/authormanuscript.component";
 import { AuthormessageComponent } from './components/authormessage/authormessage.component';
+import { AuthortransactionComponent } from './components/authortransaction/authortransaction.component';
+import { AuthornotificationComponent } from './components/authornotification/authornotification.component';
 @NgModule({
-    declarations: [AuthorsComponent, AuthorListComponent, ProfileComponent, AuthorprofileComponent, AuthormanuscriptComponent, AuthormessageComponent],
+    declarations: [AuthorsComponent, AuthorListComponent, ProfileComponent, AuthorprofileComponent, AuthormanuscriptComponent, AuthormessageComponent, AuthortransactionComponent, AuthornotificationComponent],
     exports: [AuthorsComponent, AuthorListComponent],
     imports: [
         SharedModule,

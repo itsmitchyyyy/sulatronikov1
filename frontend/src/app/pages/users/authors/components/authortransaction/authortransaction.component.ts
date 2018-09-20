@@ -3,12 +3,11 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-authormanuscript',
-  templateUrl: './authormanuscript.component.html',
-  styleUrls: ['./authormanuscript.component.scss']
+  selector: 'app-authortransaction',
+  templateUrl: './authortransaction.component.html',
+  styleUrls: ['./authortransaction.component.scss']
 })
-export class AuthormanuscriptComponent implements OnInit, OnDestroy {
-  fakeArray = new Array(10);
+export class AuthortransactionComponent implements OnInit, OnDestroy {
   id: number;
   private subscription = new Map<String, Subscription>();
 
@@ -24,4 +23,5 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.forEach(sub => sub.unsubscribe());
   }
+
 }

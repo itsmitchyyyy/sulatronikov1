@@ -3,12 +3,11 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-authormanuscript',
-  templateUrl: './authormanuscript.component.html',
-  styleUrls: ['./authormanuscript.component.scss']
+  selector: 'app-authornotification',
+  templateUrl: './authornotification.component.html',
+  styleUrls: ['./authornotification.component.scss']
 })
-export class AuthormanuscriptComponent implements OnInit, OnDestroy {
-  fakeArray = new Array(10);
+export class AuthornotificationComponent implements OnInit, OnDestroy {
   id: number;
   private subscription = new Map<String, Subscription>();
 
@@ -16,9 +15,9 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription.set('routeSubscription', this.route.
-      params.subscribe(params => {
-        this.id = +params['id'];
-      }));
+    params.subscribe(params => {
+      this.id = +params['id'];
+    }));
   }
 
   ngOnDestroy() {
