@@ -1,0 +1,69 @@
+<div class="message-container mt-2 mb-2">
+  <div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'edit']" class="text-black-50 text-font"><strong>Profile</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'manuscript']" class="text-black-50 text-font"><strong>Manuscript</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'message']" class="text-body text-font"><strong>Message</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'manuscript']" class="text-black-50 text-font"><strong>Transaction</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'manuscript']" class="text-black-50 text-font"><strong>Notification</strong></a>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row flex-wrap m-2 p-4 border justify-content-between">
+    <div class="d-flex flex-column right-side mr-2">
+      <div class="d-flex flex-row flex-wrap">
+        <div class="p-2 w-25">
+          <button class="btn btn-primary w-100">Compose</button>
+        </div>
+        <div class="form-group w-75 p-2">
+          <select class="form-control">
+            <option>All Messages</option>
+          </select>
+        </div>
+      </div>
+      <div class="d-flex flex-row flex-wrap">
+        <div class="form-group w-100">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+      </div>
+      <hr>
+      <div class="d-flex flex-row flex-wrap">
+        <div class="message-box card"></div>
+      </div>
+    </div>
+    <div class="d-flex-flex-column left-side ml-2 border">
+      <div class="d-flex flex-row flex-wrap border-bottom">
+        <div class="d-flex">
+          <img src="../../../../../../assets/images/logo.png" height="100" width="100" class="image-header">
+        </div>
+        <div class="d-flex align-items-center">
+          <span>New Message</span>
+        </div>
+      </div>
+      <div class="d-flex flex-column m-2">
+        <div class="form-group w-50">
+          <input type="text" class="form-control">
+        </div>
+        <div class="form-group w-50">
+          <textarea class="form-control" cols="30" rows="10"></textarea>
+        </div>
+        <div class="form-group">
+          <span><b>Tip:</b> For Technical issues related to the sulatroniko site or questions,
+            please contact support</span>
+        </div>
+        <div class="d-flex flex-row flex-wrap">
+          <button class="btn btn-primary mr-2 buttons">Send</button>
+          <button class="btn btn-outline-secondary buttons">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

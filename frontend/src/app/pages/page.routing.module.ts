@@ -11,6 +11,8 @@ import { PublishermanuscriptComponent } from "./users/publishers/components/publ
 import { PublisherprofileComponent } from "./users/publishers/components/publisherprofile/publisherprofile.component";
 import { AuthorprofileComponent } from "./users/authors/components/authorprofile/authorprofile.component";
 import { AuthGuard } from "../shared/login/auth.guard";
+import { AuthormanuscriptComponent } from "./users/authors/components/authormanuscript/authormanuscript.component";
+import { AuthormessageComponent } from "./users/authors/components/authormessage/authormessage.component";
 
 const routes: Routes = [
     {
@@ -32,6 +34,14 @@ const routes: Routes = [
             {
                 path: 'profile/:id/edit',
                 component: AuthorprofileComponent
+            },
+            {
+                path: 'profile/:id/manuscript',
+                component: AuthormanuscriptComponent
+            },
+            {
+                path: 'profile/:id/message',
+                component: AuthormessageComponent
             }
         ],
         canActivate: [AuthGuard]

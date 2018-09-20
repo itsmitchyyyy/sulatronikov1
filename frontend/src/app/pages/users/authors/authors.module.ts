@@ -7,8 +7,10 @@ import { AuthorsComponent } from "./authors.component";
 import { AuthorListComponent } from './components/author-list/author-list.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthorprofileComponent } from './components/authorprofile/authorprofile.component';
+import { AuthormanuscriptComponent } from "./components/authormanuscript/authormanuscript.component";
+import { AuthormessageComponent } from './components/authormessage/authormessage.component';
 @NgModule({
-    declarations: [AuthorsComponent, AuthorListComponent, ProfileComponent, AuthorprofileComponent],
+    declarations: [AuthorsComponent, AuthorListComponent, ProfileComponent, AuthorprofileComponent, AuthormanuscriptComponent, AuthormessageComponent],
     exports: [AuthorsComponent, AuthorListComponent],
     imports: [
         SharedModule,

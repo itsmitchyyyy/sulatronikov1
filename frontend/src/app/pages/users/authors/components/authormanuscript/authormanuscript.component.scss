@@ -25,6 +25,9 @@
 		}
 
 		.unpublished{
+			&-container{
+				width: 90%;
+			}
 			&-list{
 				width: 200px;
 				height: 200px;
@@ -32,6 +35,9 @@
 		}
 
 		.published{
+			&-container{
+				width: 90%;
+			}
 			&-list{
 				width: 200px;
 				height: 200px;
