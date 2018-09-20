@@ -49,7 +49,10 @@
         <div class="d-flex flex-row flex-wrap justify-content-center mr-2 border">
           <div class="d-flex flex-row flex-wrap unpublished-container">
             <div class="unpublished-list m-1" *ngFor="let array of fakeArray">
-              <img src="http://via.placeholder.com/350x150" class="w-100 h-100">
+              <a [routerLink]="[12, 'edit']">
+                <img src="http://via.placeholder.com/350x150" class="w-100 h-100">
+              </a>
+              <router-link></router-link>
             </div>
           </div>
         </div>

@@ -15,6 +15,8 @@ import { AuthormanuscriptComponent } from "./users/authors/components/authormanu
 import { AuthormessageComponent } from "./users/authors/components/authormessage/authormessage.component";
 import { AuthortransactionComponent } from "./users/authors/components/authortransaction/authortransaction.component";
 import { AuthornotificationComponent } from "./users/authors/components/authornotification/authornotification.component";
+import { AuthorviewmanuscriptComponent } from "./users/authors/components/authormanuscript/components/authorviewmanuscript/authorviewmanuscript.component";
+import { patch } from "webdriver-js-extender";
 
 const routes: Routes = [
     {
@@ -39,11 +41,15 @@ const routes: Routes = [
             },
             {
                 path: 'profile/:id/manuscript',
-                component: AuthormanuscriptComponent
+                component: AuthormanuscriptComponent,
+            },
+            {
+                path: 'profile/:id/manuscript/:manuscriptId/edit',
+                component: AuthorviewmanuscriptComponent
             },
             {
                 path: 'profile/:id/message',
-                component: AuthormessageComponent
+                component: AuthormessageComponent,
             },
             {
                 path: 'profile/:id/transaction',
@@ -70,7 +76,7 @@ const routes: Routes = [
             },
             {
                 path: 'profile/:id/manuscript',
-                component: PublishermanuscriptComponent
+                component: PublishermanuscriptComponent,
             },
             {
                 path: 'profile/:id/edit',

@@ -11,9 +11,23 @@ import { AuthormanuscriptComponent } from "./components/authormanuscript/authorm
 import { AuthormessageComponent } from './components/authormessage/authormessage.component';
 import { AuthortransactionComponent } from './components/authortransaction/authortransaction.component';
 import { AuthornotificationComponent } from './components/authornotification/authornotification.component';
+import { AuthorviewmanuscriptComponent } from './components/authormanuscript/components/authorviewmanuscript/authorviewmanuscript.component';
 @NgModule({
-    declarations: [AuthorsComponent, AuthorListComponent, ProfileComponent, AuthorprofileComponent, AuthormanuscriptComponent, AuthormessageComponent, AuthortransactionComponent, AuthornotificationComponent],
-    exports: [AuthorsComponent, AuthorListComponent],
+    declarations: [
+        AuthorsComponent,
+        AuthorListComponent,
+        ProfileComponent,
+        AuthorprofileComponent,
+        AuthormanuscriptComponent,
+        AuthormessageComponent,
+        AuthortransactionComponent,
+        AuthornotificationComponent,
+        AuthorviewmanuscriptComponent
+    ],
+    exports: [
+        AuthorsComponent,
+        AuthorListComponent
+    ],
     imports: [
         SharedModule,
         BrowserModule,
