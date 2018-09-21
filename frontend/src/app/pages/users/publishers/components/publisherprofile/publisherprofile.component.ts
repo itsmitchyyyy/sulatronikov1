@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../user.service';
+import { SharedService } from '../../../../../shared/shared.service';
 
 @Component({
   selector: 'app-publisherprofile',
@@ -11,11 +12,16 @@ import { UserService } from '../../../user.service';
 export class PublisherprofileComponent implements OnInit, OnDestroy {
   id: number;
   private subscription = new Map<String, Subscription>();
-  userData: any;
+  userData: Author;
+  updateBtn = false;
+  password;
+  confirmPassword;
+  newPassword;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
+    private sharedService: SharedService,
   ) { }
 
   ngOnInit() {
@@ -23,21 +29,51 @@ export class PublisherprofileComponent implements OnInit, OnDestroy {
       params.subscribe(params => {
         this.id = +params['id'];
       }));
-      if(this.id != null){
-      this.getUserProfile();
-      }
+    if (this.id != null) {
+      this.userProfile();
+    }
   }
 
-  getUserProfile() {
+  userProfile() {
     this.subscription.set('profileSubscription', this.userService.
       getUser(this.id).subscribe((data => {
         this.userData = data;
-        console.log(this.userData);
       })));
+  }
+
+  updateProfile() {
+    this.updateBtn = true;
+    if (this.newPassword && this.confirmPassword) {
+      const data = JSON.parse(sessionStorage.getItem('currentUser'));
+      const credentials = {
+        password: this.password,
+        newPassword: this.newPassword,
+        token: data.token
+      }
+      this.userService.updatePassword(credentials).subscribe();
+    }
+
+    this.userService.updateUser(this.userData).subscribe(() => {
+      this.sharedService.openSnackBar('Profile Updated', null, {
+        duration: 2000
+      });
+      this.updateBtn = false;
+      window.scrollTo({ behavior: 'smooth', left: 0, top: 0 });
+    }, ((error) => {
+      this.sharedService.openSnackBar('Error updating profile', null, {
+        duration: 2000
+      });
+    }));
+  }
+
+  get userRole() {
+    if (this.userData) {
+      return this.userData.roles[0].name;
+    }
+    return 'None';
   }
 
   ngOnDestroy() {
     this.subscription.forEach(sub => sub.unsubscribe());
   }
-
 }

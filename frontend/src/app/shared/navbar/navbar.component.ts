@@ -31,12 +31,6 @@ export class NavbarComponent implements OnInit {
 
   login() {
     this.modalService.open(LoginComponent, { windowClass: 'custom-modal', size: 'lg', centered: true }).result.then(() => {
-      if (!this.isAuthenticated) {
-        this.isUserAuthenticated();
-        this.sharedService.openSnackBar(`Welcome ${this.user.firstName}`, null, {
-          duration: 2000
-        });
-      }
       this.isUserAuthenticated();
     });
   }

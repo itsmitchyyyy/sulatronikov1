@@ -16,9 +16,10 @@ export class AuthorviewmanuscriptComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subscription.set('routerSubscription', this.router.params.subscribe(params => {
-      this.id = +params['id'];
-    }));
+    this.subscription.set('routerSubscription', this.router
+      .params.subscribe(params => {
+        this.id = +params['id'];
+      }));
   }
 
   ngOnDestroy() {

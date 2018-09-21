@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../user.service';
 import { SharedService } from '../../../../../shared/shared.service';
-import { AbstractControl, FormBuilder, Validators, Form, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-authorprofile',
