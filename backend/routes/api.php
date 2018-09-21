@@ -22,3 +22,6 @@ Route::group(['middleware' => ['jwt.auth']], function(){
 });
 Route::post('user/register', 'RegisterController@register');
 Route::post('user/login', 'LoginController@login');
+Route::get('getUser', 'UserController@get');
+Route::post('updateUser', 'UserController@update');
+Route::post('updatePassword', 'UserController@updatePassword');
