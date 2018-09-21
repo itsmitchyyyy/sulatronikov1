@@ -76,6 +76,7 @@ export class NavbarComponent implements OnInit {
       this.sharedService.openSnackBar('Session Expired', null, {
         duration: 2000
       });
+      this.router.navigate(['home']);
     });
   }
 
