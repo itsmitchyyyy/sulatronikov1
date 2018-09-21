@@ -9,6 +9,8 @@ import { PublisherTlistComponent } from './components/publisher-tlist/publisher-
 import { PublisherprofileComponent } from './components/publisherprofile/publisherprofile.component';
 import { PublishermanuscriptComponent } from './components/publishermanuscript/publishermanuscript.component';
 import { PublishermessageComponent } from './components/publishermessage/publishermessage.component';
+import { PublishertransactionComponent } from './components/publishertransaction/publishertransaction.component';
+import { PublishernotificationComponent } from './components/publishernotification/publishernotification.component';
 @NgModule({
     declarations: [
         PublishersComponent,
@@ -16,7 +18,9 @@ import { PublishermessageComponent } from './components/publishermessage/publish
         PublisherTlistComponent,
         PublisherprofileComponent,
         PublishermanuscriptComponent,
-        PublishermessageComponent
+        PublishermessageComponent,
+        PublishertransactionComponent,
+        PublishernotificationComponent
     ],
     exports: [
         PublishersComponent,

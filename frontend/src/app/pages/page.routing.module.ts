@@ -17,6 +17,9 @@ import { AuthortransactionComponent } from "./users/authors/components/authortra
 import { AuthornotificationComponent } from "./users/authors/components/authornotification/authornotification.component";
 import { AuthorviewmanuscriptComponent } from "./users/authors/components/authormanuscript/components/authorviewmanuscript/authorviewmanuscript.component";
 import { patch } from "webdriver-js-extender";
+import { PublishermessageComponent } from "./users/publishers/components/publishermessage/publishermessage.component";
+import { PublishertransactionComponent } from "./users/publishers/components/publishertransaction/publishertransaction.component";
+import { PublishernotificationComponent } from "./users/publishers/components/publishernotification/publishernotification.component";
 
 const routes: Routes = [
     {
@@ -81,6 +84,18 @@ const routes: Routes = [
             {
                 path: 'profile/:id/edit',
                 component: PublisherprofileComponent
+            },
+            {
+                path: 'profile/:id/message',
+                component: PublishermessageComponent
+            },
+            {
+                path: 'profile/:id/transaction',
+                component: PublishertransactionComponent
+            },
+            {
+                path: 'profile/:id/notification',
+                component: PublishernotificationComponent
             }
         ],
         canActivate: [AuthGuard]

@@ -1,0 +1,14 @@
+@import '../../../../../../assets/variables';
+
+.notification{
+	&-container{
+		.navigation{
+			border-radius: 20px;
+
+			.text-font{
+				font-size: 20px;
+			}
+		}
+
+	}
+}
