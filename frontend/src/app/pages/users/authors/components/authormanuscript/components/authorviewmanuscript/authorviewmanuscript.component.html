@@ -1,3 +1,55 @@
-<p>
-  authorviewmanuscript works!
-</p>
+<div class="manuscript-container mt-2 mb-2">
+  <div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'edit']" class="text-black-50 text-font"><strong>Profile</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'manuscript']" class="text-body text-font"><strong>Manuscript</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'message']" class="text-black-50 text-font"><strong>Message</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'transaction']" class="text-black-50 text-font"><strong>Transaction</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/authors/profile', id, 'notification']" class="text-black-50 text-font"><strong>Notification</strong></a>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row flex-wrap m-5 border">
+    <div class="flex-row d-flex flex-wrap w-100 justify-content-between">
+      <div class="d-flex flex-column w-50 justify-content-center align-items-center">
+        <div class="form-group w-75">
+          <label>Title</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="form-group w-75">
+          <label>Genre</label>
+          <select class="form-control">
+            <option>Educational</option>
+          </select>
+        </div>
+        <div class="form-group w-75">
+          <label>Sypnosis</label>
+          <textarea class="form-control" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+      <div class="flex-column d-flex w-50">
+        <div class="flex-row d-flex flex-wrap justify-content-center">
+          <div class="form-group w-75 mr-2">
+            <label>Manuscript</label>
+            <input type="file" class="form-control">
+          </div>
+          <div class="form-group">
+            <label><span class="sr-only">Upload</span></label>
+            <button class="btn btn-primary btn-upload">Upload</button>
+          </div>
+        </div>
+        <div class="align-items-end d-flex flex-grow-1 justify-content-end m-4">
+          <button class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
