@@ -1,0 +1,38 @@
+@import '../../../../../../assets/variables';
+
+.message{
+	&-container{
+		.navigation{
+			border-radius: 20px;
+
+			.text-font{
+				font-size: 20px;
+			}
+		}
+
+		.right-side{
+			width: 25%;
+			hr{
+				background: rgba(0,0,0,.1);
+    			height: 1px;
+    			width: 100%;
+			}
+			.message-box{
+				min-height: 500px;
+				max-height: 500px;
+				width: 100%;
+			}
+		}
+
+		.left-side{
+			width: 70%;
+			.image-header{
+				border-radius: 50%;
+			}
+			.buttons{
+				width: 15%;
+			}
+		}
+
+	}
+}

@@ -8,13 +8,15 @@ import { PublisherListComponent } from "./components/publisher-list/publisher-li
 import { PublisherTlistComponent } from './components/publisher-tlist/publisher-tlist.component';
 import { PublisherprofileComponent } from './components/publisherprofile/publisherprofile.component';
 import { PublishermanuscriptComponent } from './components/publishermanuscript/publishermanuscript.component';
+import { PublishermessageComponent } from './components/publishermessage/publishermessage.component';
 @NgModule({
     declarations: [
         PublishersComponent,
         PublisherListComponent,
         PublisherTlistComponent,
         PublisherprofileComponent,
-        PublishermanuscriptComponent
+        PublishermanuscriptComponent,
+        PublishermessageComponent
     ],
     exports: [
         PublishersComponent,

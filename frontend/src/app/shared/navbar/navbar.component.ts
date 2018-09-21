@@ -5,6 +5,7 @@ import { RegisterComponent } from '../register/register.component';
 import { LoginService } from '../login/login.service';
 import { SharedService } from '../shared.service';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -17,10 +18,12 @@ export class NavbarComponent implements OnInit {
   isAuthenticated: boolean;
   isCollapsed = false;
   isSearchClicked = false;
-  constructor(private modalService: NgbModal,
+  constructor(
+    private modalService: NgbModal,
     private loginService: LoginService,
     private sharedService: SharedService,
-    private zone: NgZone) { }
+    private zone: NgZone,
+    private router: Router) { }
 
   ngOnInit() {
     this.isUserAuthenticated();
@@ -48,6 +51,7 @@ export class NavbarComponent implements OnInit {
     this.loginService.logout().subscribe(() => {
       sessionStorage.clear();
       this.isAuthenticated = false;
+      this.router.navigate(['home']);
     });
   }
 

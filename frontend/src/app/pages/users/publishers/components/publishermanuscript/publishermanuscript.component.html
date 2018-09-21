@@ -1,3 +1,73 @@
-<p>
-  publishermanuscript works!
-</p>
+<div class="manuscript-container mt-2 mb-2">
+  <div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'edit']" class="text-black-50 text-font"><strong>Profile</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'manuscript']" class="text-body text-font"><strong>Manuscript</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'message']" class="text-black-50 text-font"><strong>Message</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'transaction']" class="text-black-50 text-font"><strong>Transaction</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'notification']" class="text-black-50 text-font"><strong>Notification</strong></a>
+    </div>
+  </div>
+  <div class="d-flex flex-column mt-2 mb-2">
+    <div class="flex-row d-flex flex-wrap justify-content-around m-5">
+      <div class="flex-grow-1 d-flex justify-content-center">
+        <div class="form-group w-75">
+          <label>Sort By: </label>
+          <select class="form-control">
+            <option>Title: A-to-Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex-grow-1 d-flex justify-content-center">
+        <div class="form-group w-75">
+          <label>Filter by: </label>
+          <select class="form-control">
+            <option>Non-fiction</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex-grow-1 d-flex justify-content-center">
+        <div class="form-group w-75">
+          <label><span class="sr-only">Search</span></label>
+          <input type="text" class="mt-2 form-control" placeholder="Search">
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row flex-wrap">
+      <div class="d-flex flex-column w-50">
+        <div class="text-center w-100">
+          <h4>Unpublished</h4>
+        </div>
+        <div class="d-flex flex-row flex-wrap justify-content-center mr-2 border">
+          <div class="d-flex flex-row flex-wrap unpublished-container">
+            <div class="unpublished-list m-1" *ngFor="let array of fakeArray">
+              <a [routerLink]="[12, 'edit']">
+                <img src="http://via.placeholder.com/350x150" class="w-100 h-100">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column w-50">
+        <div class="text-center w-100">
+          <h4>Published</h4>
+        </div>
+        <div class="flex-row flex-wrap d-flex justify-content-center ml-2 border">
+          <div class="d-flex flex-row flex-wrap published-container">
+            <div class="published-list m-1" *ngFor="let array of fakeArray">
+              <img src="http://via.placeholder.com/350x150" class="h-100 w-100">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

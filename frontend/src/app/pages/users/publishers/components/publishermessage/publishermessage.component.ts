@@ -3,11 +3,11 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-publisherprofile',
-  templateUrl: './publisherprofile.component.html',
-  styleUrls: ['./publisherprofile.component.scss']
+  selector: 'app-publishermessage',
+  templateUrl: './publishermessage.component.html',
+  styleUrls: ['./publishermessage.component.scss']
 })
-export class PublisherprofileComponent implements OnInit, OnDestroy {
+export class PublishermessageComponent implements OnInit, OnDestroy {
   id: number;
   private subscription = new Map<String, Subscription>();
 
