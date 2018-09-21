@@ -22,7 +22,7 @@ import { AuthorviewmanuscriptComponent } from './components/authormanuscript/com
         AuthormessageComponent,
         AuthortransactionComponent,
         AuthornotificationComponent,
-        AuthorviewmanuscriptComponent
+        AuthorviewmanuscriptComponent,
     ],
     exports: [
         AuthorsComponent,
