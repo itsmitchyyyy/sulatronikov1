@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../user.service';
 import { SharedService } from '../../../../../shared/shared.service';
+import { AbstractControl, FormBuilder, Validators, Form, FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-authorprofile',
@@ -15,11 +16,15 @@ export class AuthorprofileComponent implements OnInit, OnDestroy {
   userData: Author;
   updatePassword: any;
   updateBtn = false;
+  password;
+  confirmPassword;
+  newPassword;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -42,17 +47,16 @@ export class AuthorprofileComponent implements OnInit, OnDestroy {
 
   updateProfile() {
     this.updateBtn = true;
-    if (this.updatePassword.password) {
-      if (this.updatePassword.newPassword == this.updatePassword.confirmPassword) {
-        const data = JSON.parse(sessionStorage.getItem('currentUser'));
-        const credentials = {
-          password: this.updatePassword.password,
-          newPassword: this.updatePassword.newPassword,
-          token: data.token
-        }
-        this.userService.updatePassword(credentials).subscribe();
+    if (this.newPassword && this.confirmPassword) {
+      const data = JSON.parse(sessionStorage.getItem('currentUser'));
+      const credentials = {
+        password: this.password,
+        newPassword: this.newPassword,
+        token: data.token
       }
+      this.userService.updatePassword(credentials).subscribe();
     }
+
     this.userService.updateUser(this.userData).subscribe(() => {
       this.sharedService.openSnackBar('Profile Updated', null, {
         duration: 2000
