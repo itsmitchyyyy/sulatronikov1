@@ -12,6 +12,7 @@ import { AppRoutingModule } from "../app.routing.module";
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './profile/profile.component';
+import { PasswordvalidatorDirective } from './passwordvalidator.directive';
 
 @NgModule({
     declarations: [
@@ -22,16 +23,18 @@ import { ProfileComponent } from './profile/profile.component';
         LoginComponent,
         RegisterComponent,
         LandingPageComponent,
-        ProfileComponent
+        ProfileComponent,
+        PasswordvalidatorDirective
     ],
     exports: [
         NavbarComponent,
         CarouselComponent,
         FooterComponent,
+        PasswordvalidatorDirective
     ],
     entryComponents: [
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
     ],
     imports: [
         BrowserModule,
