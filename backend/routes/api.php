@@ -25,3 +25,4 @@ Route::post('user/login', 'LoginController@login');
 Route::get('getUser', 'UserController@get');
 Route::post('updateUser', 'UserController@update');
 Route::post('updatePassword', 'UserController@updatePassword');
+Route::post('addManuscript', 'ManuscriptController@create');

@@ -15,11 +15,13 @@ class CreateManuscriptsTable extends Migration
     {
         Schema::create('manuscripts', function (Blueprint $table) {
             $table->increments('id');
+            $table->binary('photo');
             $table->string('title');
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->text('sypnosis');
-            $table->string('chapter');
+            $table->string('chapter')->nullable();
             $table->integer('authorID')->unsigned();
+            $table->integer('genreID')->unsigned();
             $table->timestamps();
         });
     }
