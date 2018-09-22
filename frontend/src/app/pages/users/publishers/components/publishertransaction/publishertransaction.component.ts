@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { HttpHeaders } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { PublisherService } from '../../publisher.service';
 
 @Component({
   selector: 'app-publishertransaction',
@@ -15,12 +14,13 @@ export class PublishertransactionComponent implements OnInit, OnDestroy {
   private subscription = new Map<String, Subscription>();
   loading: boolean = false;
   form: FormGroup;
-
+  photo: File;
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private publisherService: PublisherService
   ) { }
 
   ngOnInit() {
@@ -39,19 +39,22 @@ export class PublishertransactionComponent implements OnInit, OnDestroy {
 
   fileUpload(event) {
     if (event.target.files.length > 0) {
-      let file = event.target.files[0];
-      this.form.get('photo').setValue(file);
+      this.photo = event.target.files[0];
+      this.form.get('photo').setValue(this.photo);
     }
   }
 
   submitBook() {
     const bookData = this.prepareSave();
-   
+    this.loading = true;
+    this.publisherService.addBook(bookData).subscribe(() => {
+      this.loading = false;
+    });
   }
 
   private prepareSave() {
     let input = new FormData();
-    input.append('photo', this.form.get('photo').value);
+    input.append('photo', this.photo, this.photo.name);
     input.append('title', this.form.get('title').value);
     input.append('sypnosis', this.form.get('sypnosis').value);
     input.append('authorID', this.form.get('authorID').value);
