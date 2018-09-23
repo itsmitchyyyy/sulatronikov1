@@ -26,3 +26,5 @@ Route::get('getUser', 'UserController@get');
 Route::post('updateUser', 'UserController@update');
 Route::post('updatePassword', 'UserController@updatePassword');
 Route::post('addManuscript', 'ManuscriptController@create');
+Route::get('allGenre', 'GenreController@all');
+Route::get('searchUser', 'UserController@search');

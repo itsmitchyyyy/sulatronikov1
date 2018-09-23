@@ -9,6 +9,7 @@ use Hash;
 use Auth;
 use JWTFactory;
 use JWTAuth;
+use DB;
 class UserController extends Controller
 {
     //
@@ -29,6 +30,12 @@ class UserController extends Controller
     public function update(Request $request){
         $user = User::find($request->id)->update($request->except(['id']));
         return response()->json($user);
+    }
+
+    public function search(){
+        $term = $_GET['search'];
+        $user = User::where(DB::raw('CONCAT(firstName," ",lastName)'), 'LIKE', '%'.$term.'%')->get();
+        return $user;
     }
 
 }
