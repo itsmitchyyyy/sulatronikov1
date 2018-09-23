@@ -36,6 +36,13 @@ export class UserService {
       );
   }
 
+  updateProfilePic(data: any): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/addProfilePic', data)
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
   search(terms: Observable<any>) {
     return terms.pipe(
       debounceTime(400),
@@ -44,7 +51,7 @@ export class UserService {
   }
 
   searchUser(term: string) {
-    if(!term.trim()){
+    if (!term.trim()) {
       return 'E';
     }
     return this.http.get<any>('http://127.0.0.1:8000/api/searchUser', { params: { search: term } })

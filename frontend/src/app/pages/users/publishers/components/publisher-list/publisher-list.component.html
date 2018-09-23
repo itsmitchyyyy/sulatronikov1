@@ -56,8 +56,12 @@
       </div>
     </div>
   </div>
-  <div class="d-flex flex-column flex-fill publisher-left">
+  <div class="d-flex flex-column flex-fill publisher-left" *ngIf="publisher">
     <div class="card d-flex flex-row justify-content-center p-3">
+      <a class="mr-1 p-2" [routerLink]="['/authors/profile', currentUser.id, 'message', id]" mat-raised-button>
+        <mat-icon>message</mat-icon>
+        Message
+      </a>
       <button class="mr-1 p-2" mat-raised-button>
         <mat-icon>add_circle_outline</mat-icon>
         Add
@@ -69,7 +73,7 @@
     </div>
     <div class="card d-flex flex-row flex-wrap mt-2">
       <div class="p-3">
-        <img class="img-card" src="http://via.placeholder.com/350x150">
+        <img class="img-card" [src]="publisher.avatar || '../../../../../../assets/images/blank.png'">
       </div>
       <div class="d-flex flex-fill p-3">
         <div class="p-3 d-flex flex-column">

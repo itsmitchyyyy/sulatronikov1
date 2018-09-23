@@ -20,12 +20,14 @@
   <div class="d-flex flex-row mt-2">
     <div class="d-flex flex-column left-side">
       <div class="d-flex flex-column justify-content-center align-items-center border upper">
-        <img src="../../../../../../assets/images/logo.png" height="200" width="200">
-        <h4>Carlo</h4>
-        <h4>Author</h4>
-      </div>
-      <div class="d-flex justify-content-center align-items-center border lower">
-        <h4>User</h4>
+        <label for="profilePic" class="pointer">
+          <div class="mt-2" [matTooltip]="imgSrc ? 'Change Profile Picture' : 'Add Profile Picture'" matTooltipPosition="above">
+            <img [src]="imgSrc || '../../../assets/images/blank.png'" height="200" width="200" class="profile-image">
+          </div>
+        </label>
+        <input type="file" (change)="addProfilePicture($event)" class="fade" id="profilePic">
+        <h4 class="text-capitalize" *ngIf="userData">{{  userData.firstName }} {{ userData.lastName }}</h4>
+        <h4 class="text-capitalize">{{ userRole }}</h4>
       </div>
     </div>
     <div class="d-flex flex-column flex-grow-1 ml-3 border right-side" *ngIf="userData">

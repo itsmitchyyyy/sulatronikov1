@@ -7,22 +7,22 @@ import { map } from 'rxjs/operators';
 export class LoginService {
   constructor(private http: HttpClient) { }
 
-  login(credentials: Credentials){
+  login(credentials: Credentials) {
     return this.http.post<any>('http://127.0.0.1:8000/api/user/login', credentials)
-    .pipe(map((res: any) => {
-      if(res && res.token){
-        sessionStorage.setItem('currentUser', JSON.stringify({token: res.token}));
-      }
-    }));
+      .pipe(map((res: any) => {
+        if (res && res.token) {
+          sessionStorage.setItem('currentUser', JSON.stringify({ token: res.token }));
+        }
+      }));
   }
 
-  logout(){
+  logout() {
     const data = JSON.parse(sessionStorage.getItem('currentUser'));
-    return this.http.get<any>('http://127.0.0.1:8000/api/logout', { params: { token: data.token}});
+    return this.http.get<any>('http://127.0.0.1:8000/api/logout', { params: { token: data.token } });
   }
 
-  getLoggedIn(){
+  getLoggedIn() {
     const data = JSON.parse(sessionStorage.getItem('currentUser'));
-    return this.http.get<any>('http://127.0.0.1:8000/api/user', { params: { token: data.token}})
+    return this.http.get<any>('http://127.0.0.1:8000/api/user', { params: { token: data.token } })
   }
 }

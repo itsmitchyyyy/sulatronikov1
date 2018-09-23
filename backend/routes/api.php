@@ -22,9 +22,18 @@ Route::group(['middleware' => ['jwt.auth']], function(){
 });
 Route::post('user/register', 'RegisterController@register');
 Route::post('user/login', 'LoginController@login');
+Route::post('addProfilePic', 'UserController@profile');
+Route::get('allPublisher', 'UserCOntroller@allPublisher');
 Route::get('getUser', 'UserController@get');
 Route::post('updateUser', 'UserController@update');
 Route::post('updatePassword', 'UserController@updatePassword');
 Route::post('addManuscript', 'ManuscriptController@create');
 Route::get('allGenre', 'GenreController@all');
+Route::get('findGenre', 'GenreController@find');
 Route::get('searchUser', 'UserController@search');
+Route::post('addMessage', 'MessageController@create');
+Route::post('replyMessage', 'MessageController@replyMessage');
+Route::get('getReplies', 'MessageController@getReplies');
+Route::get('getMessage', 'MessageController@getMessages');
+Route::get('messageConversation', 'MessageController@getMessage');
+Route::get('getManuscript', 'ManuscriptController@get');

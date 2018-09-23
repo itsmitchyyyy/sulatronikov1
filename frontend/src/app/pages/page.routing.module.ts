@@ -16,10 +16,10 @@ import { AuthormessageComponent } from "./users/authors/components/authormessage
 import { AuthortransactionComponent } from "./users/authors/components/authortransaction/authortransaction.component";
 import { AuthornotificationComponent } from "./users/authors/components/authornotification/authornotification.component";
 import { AuthorviewmanuscriptComponent } from "./users/authors/components/authormanuscript/components/authorviewmanuscript/authorviewmanuscript.component";
-import { patch } from "webdriver-js-extender";
 import { PublishermessageComponent } from "./users/publishers/components/publishermessage/publishermessage.component";
 import { PublishertransactionComponent } from "./users/publishers/components/publishertransaction/publishertransaction.component";
 import { PublishernotificationComponent } from "./users/publishers/components/publishernotification/publishernotification.component";
+import { AuthorviewmessageComponent } from "./users/authors/components/authormessage/components/authorviewmessage/authorviewmessage.component";
 
 const routes: Routes = [
     {
@@ -53,6 +53,14 @@ const routes: Routes = [
             {
                 path: 'profile/:id/message',
                 component: AuthormessageComponent,
+            },
+            {
+                path: 'profile/:id/message/:pubID',
+                component: AuthormessageComponent
+            },
+            {
+                path: 'profile/:id/message/:pubID/conversation/:mesID',
+                component: AuthorviewmessageComponent
             },
             {
                 path: 'profile/:id/transaction',
