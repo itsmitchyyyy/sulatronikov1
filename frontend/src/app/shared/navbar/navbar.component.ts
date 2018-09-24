@@ -6,6 +6,8 @@ import { LoginService } from '../login/login.service';
 import { SharedService } from '../shared.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
+import { UserService } from '../../pages/users/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,14 +17,21 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   user: any;
+  searchUser$ = new Subject<string>();
   isAuthenticated: boolean;
   isCollapsed = false;
   isSearchClicked = false;
+  isSearched;
+  searchData: any;
+  isSearching;
+  private subscription = new Map<String, Subscription>();
+
   constructor(
     private modalService: NgbModal,
     private loginService: LoginService,
     private sharedService: SharedService,
     private zone: NgZone,
+    private userService: UserService,
     private router: Router) { }
 
   ngOnInit() {
@@ -59,6 +68,27 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  userSearch(text) {
+    this.isSearching = true;
+    this.isSearched = true;
+    this.searchUser$.next(text);
+    this.subscription.set('searchSub', this.userService
+      .search(this.searchUser$)
+      .subscribe(res => {
+        if(res.length < 0){
+          this.searchData = [];
+          this.isSearching = false;
+          return;
+        }
+        if (res === 'E') {
+          this.isSearched = false;
+          return;
+        }
+        this.isSearching = false;
+        this.searchData = res;
+      }))
+  }
+
   getUser() {
     this.loginService.getLoggedIn().subscribe((res) => {
       this.zone.run(() => {
@@ -74,9 +104,15 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  get userProfile(){
-    if(this.user){
-        return this.user.roles[0].name + `s/profile/${this.user.id}/edit`;
+  navigateProfile(item){
+    this.isSearched = false;
+    this.isSearchClicked = false;
+    this.router.navigate([`${item.roles[0].name}s/profile`,item.id]);
+  }
+
+  get userProfile() {
+    if (this.user) {
+      return this.user.roles[0].name + `s/profile/${this.user.id}/edit`;
     }
     return 'Unknown';
   }

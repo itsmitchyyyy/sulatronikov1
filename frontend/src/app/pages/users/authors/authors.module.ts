@@ -13,6 +13,7 @@ import { AuthortransactionComponent } from './components/authortransaction/autho
 import { AuthornotificationComponent } from './components/authornotification/authornotification.component';
 import { AuthorviewmanuscriptComponent } from './components/authormanuscript/components/authorviewmanuscript/authorviewmanuscript.component';
 import { AuthorviewmessageComponent } from './components/authormessage/components/authorviewmessage/authorviewmessage.component';
+import { AuthoraddmanuscriptComponent } from './components/authormanuscript/components/authoraddmanuscript/authoraddmanuscript.component';
 @NgModule({
     declarations: [
         AuthorsComponent,
@@ -25,6 +26,7 @@ import { AuthorviewmessageComponent } from './components/authormessage/component
         AuthornotificationComponent,
         AuthorviewmanuscriptComponent,
         AuthorviewmessageComponent,
+        AuthoraddmanuscriptComponent,
     ],
     exports: [
         AuthorsComponent,

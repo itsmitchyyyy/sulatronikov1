@@ -28,6 +28,8 @@ import { CopywriterlistComponent } from "./users/copywriters/components/copywrit
 import { CopywriterprofileComponent } from "./users/copywriters/components/copywriterprofile/copywriterprofile.component";
 import { CopywritermessageComponent } from "./users/copywriters/components/copywritermessage/copywritermessage.component";
 import { CopywriterviewmessageComponent } from "./users/copywriters/components/copywritermessage/components/copywriterviewmessage/copywriterviewmessage.component";
+import { PublisheditmanuscriptComponent } from "./users/publishers/components/publishermanuscript/components/publisheditmanuscript/publisheditmanuscript.component";
+import { AuthoraddmanuscriptComponent } from "./users/authors/components/authormanuscript/components/authoraddmanuscript/authoraddmanuscript.component";
 
 const routes: Routes = [
     {
@@ -53,6 +55,10 @@ const routes: Routes = [
             {
                 path: 'profile/:id/manuscript',
                 component: AuthormanuscriptComponent,
+            },
+            {
+                path: 'profile/:id/manuscript/add',
+                component: AuthoraddmanuscriptComponent
             },
             {
                 path: 'profile/:id/manuscript/:manuscriptId/edit',
@@ -100,6 +106,10 @@ const routes: Routes = [
             {
                 path: 'profile/:id/books/add',
                 component: PublisheraddmanuscriptComponent
+            },
+            {
+                path :'profile/:id/books/:bookID/edit',
+                component: PublisheditmanuscriptComponent
             },
             {
                 path: 'profile/:id/edit',

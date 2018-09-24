@@ -53,7 +53,7 @@
         <div class="d-flex flex-row flex-wrap justify-content-center mr-2 border">
           <div class="d-flex flex-row flex-wrap unpublished-container">
             <div class="pointer unpublished-list m-1 position-relative" (mouseenter)="showDescription(manuscript.id)"
-              (mouseleave)="hideDescription(manuscript.id)" [routerLink]="[manuscript.id, 'edit']" *ngFor="let manuscript of manuscripts">
+              (mouseleave)="hideDescription(manuscript.id)" [routerLink]="[manuscript.manuscriptID, 'edit']" *ngFor="let manuscript of manuscripts">
               <a>
                 <img [src]="manuscript.photo" class="w-100 h-100">
               </a>

@@ -10,20 +10,6 @@
 			}
 		}
 
-		.left-side{
-			.upper{
-				border-top-left-radius: 20px;
-				border-top-right-radius: 20px;
-			}
-			.lower{
-				border-bottom-left-radius: 20px;
-				border-bottom-right-radius: 20px;
-			}
-		}
-		.right-side{
-			border-radius: 20px;
-		}
-
 		.unpublished{
 			&-container{
 				width: 90%;
@@ -31,6 +17,12 @@
 			&-list{
 				width: 200px;
 				height: 200px;
+				.description {
+					bottom: 0;
+   					right: 0;
+    				top: 0;
+    				background: rgba(0,0,0,.7);
+				}
 			}
 		}
 
