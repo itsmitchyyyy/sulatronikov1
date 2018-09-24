@@ -61,6 +61,15 @@ export class CopywritermessageComponent implements OnInit, OnDestroy {
       }));
   }
 
+  validateSender(id) {
+    if(this.currentUser) {
+     if (id === this.currentUser.id) {
+       return true;
+     }
+    }
+     return false;
+   }
+
   getMessages() {
     this.subscription.set('messageSubscription', this.messageService
       .getMessages(this.id)

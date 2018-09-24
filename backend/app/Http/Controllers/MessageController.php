@@ -10,6 +10,13 @@ class MessageController extends Controller
 {
     //
     public function create(Request $request){
+        $verify = Message::where([
+            ['senderID','=', $request->request->get('senderID')],
+            ['recepientID','=', $request->request->get('recepientID')]
+        ])->exists();
+        if($verify){
+            $this.replyMessage($request);
+        }else{
         if(Input::hasFile('attachment')){
             $messageContent = Input::file('attachment');
             $messageContent->move('docs', $messageContent->getClientOriginalName());
@@ -24,7 +31,7 @@ class MessageController extends Controller
         $message->recepientID = $request->request->get('recepientID');
         $message->senderID = $request->request->get('senderID');
         $message->save();
-           
+    }
     }
 
     public function getMessages(){
@@ -44,6 +51,7 @@ class MessageController extends Controller
             'messages.updated_at as messageDate',
             'messages.id as messageID')
             ->where('messages.recepientID', $id)
+            ->orWhere('messages.senderID', $id)
             ->groupBy('messages.recepientID', 'messages.senderID')
             ->orderByDesc('messages.created_at')
             ->get();
@@ -52,7 +60,6 @@ class MessageController extends Controller
 
     public function getMessage(){
        $id = $_GET['id'];
-       $secondary = $_GET['secondary'];
        $message = DB::table('messages')
            ->join('users as recepient', 'recepient.id', '=', 'messages.recepientID')
            ->join('users as sender', 'sender.id', '=', 'messages.senderID')
@@ -63,10 +70,7 @@ class MessageController extends Controller
            'recepient.avatar as recepientAvatar',
            'messages.updated_at as messageDate',
            'messages.id as messageID')
-           ->where('messages.recepientID', $id)
-           ->orWhere('messages.recepientID', $secondary)
-           ->where('messages.senderID', $secondary)
-           ->orWhere('messages.senderID', $id)
+           ->where('messages.id', $id)
            ->get(); 
         return $message;
     }
@@ -74,22 +78,19 @@ class MessageController extends Controller
     public function getReplies(){
         $id = $_GET['id'];
         $replies = DB::table('replies')
-            ->join('messages', 'messages.id' , '=', 'replies.messageID')
-            ->join('users as recepient', 'recepient.id', '=', 'messages.recepientID')
-            ->join('users as sender', 'sender.id', '=', 'messages.senderID')
+            ->join('users as recepient', 'recepient.id', '=', 'replies.recipientID')
+            ->join('users as sender', 'sender.id', '=', 'replies.senderID')
             ->select('*', 
             'recepient.firstName as recepientFirstName', 
             'recepient.lastName as recepientLastName', 
             'recepient.id as repID',
             'recepient.avatar as recepientAvatar',
-            'messages.updated_at as messageDate',
-            'messages.id as messageID')
+            'replies.updated_at as messageDate',
+            'replies.id as messageID')
             ->where('replies.messageID', $id)
-            ->orWhere('messages.senderID', $id)
-            ->orderByDesc('messages.recepientID')
-            ->orderByDesc('messages.senderID')
+            ->orderBy('replies.created_at', 'ASC')
             ->get(); 
-            return $replies;
+            return response()->json($replies);
     }
 
     public function replyMessage(Request $request){
@@ -105,6 +106,8 @@ class MessageController extends Controller
             'repContent' => $request->request->get('content'),
             'repAttachment' => $docs_path,
             'messageID' => $request->request->get('messageID'),
+            'recipientID' => $request->request->get('recepientID'),
+            'senderID' => $request->request->get('senderID'),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);

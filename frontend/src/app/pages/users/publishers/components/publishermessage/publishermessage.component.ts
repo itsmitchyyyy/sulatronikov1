@@ -100,6 +100,15 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
 
   }
 
+  validateSender(id) {
+    if(this.currentUser) {
+     if (id === this.currentUser.id) {
+       return true;
+     }
+    }
+     return false;
+   }
+
   private prepareSave() {
     let data = new FormData();
     if (this.attachment) {

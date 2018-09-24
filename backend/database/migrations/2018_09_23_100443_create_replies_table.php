@@ -18,6 +18,8 @@ class CreateRepliesTable extends Migration
             $table->text('repContent')->nullable();
             $table->string('repAttachment')->nullable();
             $table->integer('messageID')->unsigned();
+            $table->integer('recipientID')->unsigned();
+            $table->integer('senderID')->unsigned();
             $table->timestamps();
         });
     }

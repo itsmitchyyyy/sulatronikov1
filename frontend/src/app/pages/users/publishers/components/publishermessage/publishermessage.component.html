@@ -38,17 +38,17 @@
       <div class="d-flex flex-row flex-wrap">
         <div class="message-box card">
           <div class="list-group" *ngIf="currentUser">
-            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/publishers/profile', id, 'message', (message.recepientID === currentUser.id) ? message.senderID : message.recepientID, 'conversation']"
+              <div class="list-group-item list-group-item-action pointer" [routerLink]="['/publishers/profile', id, 'message', validateSender(message.senderID) ? message.recepientID : message.senderID, 'conversation', message.messageID]"
               *ngFor="let message of messages">
               <div class="d-flex flex-row flex-wrap">
                 <div class="d-flex">
-                  <img class="message-avatar" [src]="(message.recepientID === currentUser.id) ? message.recepientAvatar : message.senderAvatar || '../../../../../../assets/images/blank.png'"
-                    height="50" width="50">
+                  <img class="message-avatar" [src]="validateSender(message.senderID) ? message.senderAvatar : message.recepientAvatar || '../../../../../../assets/images/blank.png'"
+                    height="50" width="50" style="border-radius:50%">
                 </div>
                 <div class="d-flex flex-column flex-grow-1 ml-2">
                   <div class="d-flex flex-row flex-wrap">
                     <div class="d-flex flex-grow-1">
-                      <span *ngIf="message.repID !== currentUser.id; else sender">{{ message.recepientFirstName }} {{
+                      <span *ngIf="validateSender(message.senderID); else sender">{{ message.recepientFirstName }} {{
                         message.recepientLastName }}</span>
                       <ng-template #sender>
                         <span>{{ message.senderFirstName }} {{ message.senderLastName }}</span>

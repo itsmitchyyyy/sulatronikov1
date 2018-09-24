@@ -22,7 +22,7 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
   publisher: any;
   messages: any;
   currentUser: any;
-  
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -98,6 +98,15 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
         this.getMessages();
       }))
 
+  }
+
+  validateSender(id) {
+   if(this.currentUser) {
+    if (id === this.currentUser.id) {
+      return true;
+    }
+   }
+    return false;
   }
 
   private prepareSave() {

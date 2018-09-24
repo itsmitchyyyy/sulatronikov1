@@ -1,7 +1,7 @@
 <div class="message-container mt-2 mb-2">
     <div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
       <div class="flex-grow-1 justify-content-center align-items-center d-flex">
-        <a [routerLink]="['/writers/profile', id, 'edit']" class="text-body text-font"><strong>Profile</strong></a>
+        <a [routerLink]="['/writers/profile', id, 'edit']" class="text-black-50 text-font"><strong>Profile</strong></a>
       </div>
       <div class="flex-grow-1 justify-content-center align-items-center d-flex">
         <a [routerLink]="['/writers/profile', id, 'manuscript']" class="text-black-50 text-font"><strong>Manuscript</strong></a>
@@ -38,17 +38,17 @@
         <div class="d-flex flex-row flex-wrap">
           <div class="message-box card">
             <div class="list-group" *ngIf="currentUser">
-              <div class="list-group-item list-group-item-action pointer" [routerLink]="['/writers/profile', id, 'message', (message.recepientID !== currentUser.id) ? message.recepientID : message.senderID, 'conversation', message.messageID]"
+              <div class="list-group-item list-group-item-action pointer" [routerLink]="['/writers/profile', id, 'message', validateSender(message.senderID) ? message.recepientID : message.senderID, 'conversation', message.messageID]"
                 *ngFor="let message of messages">
                 <div class="d-flex flex-row flex-wrap">
                   <div class="d-flex">
-                    <img class="message-avatar" [src]="message.recepientAvatar || '../../../../../../assets/images/blank.png'"
+                    <img class="message-avatar" [src]="validateSender(message.senderID) ? message.recepientAvatar : message.senderAvatar || '../../../../../../assets/images/blank.png'"
                       height="50" width="50">
                   </div>
                   <div class="d-flex flex-column flex-grow-1 ml-2">
                     <div class="d-flex flex-row flex-wrap">
                       <div class="d-flex flex-grow-1">
-                        <span *ngIf="message.repID !== currentUser.id; else sender">{{ message.recepientFirstName }} {{
+                        <span *ngIf="validateSender(message.senderID); else sender">{{ message.recepientFirstName }} {{
                           message.recepientLastName }}</span>
                         <ng-template #sender>
                           <span>{{ message.senderFirstName }} {{ message.senderLastName }}</span>
