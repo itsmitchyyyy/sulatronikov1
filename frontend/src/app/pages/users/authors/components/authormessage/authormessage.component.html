@@ -38,7 +38,7 @@
       <div class="d-flex flex-row flex-wrap">
         <div class="message-box card">
           <div class="list-group">
-            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/authors/profile', id, 'message', message.recepientID, 'conversation', message.messageID]"
+            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/authors/profile', id, 'message', (message.recepientID === currentUser.id) ? message.senderID : message.recepientID, 'conversation']"
               *ngFor="let message of messages">
               <div class="d-flex flex-row flex-wrap">
                 <div class="d-flex">

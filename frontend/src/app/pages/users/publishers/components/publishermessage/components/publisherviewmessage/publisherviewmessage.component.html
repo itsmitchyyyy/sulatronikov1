@@ -38,11 +38,11 @@
       <div class="d-flex flex-row flex-wrap">
         <div class="message-box card">
           <div class="list-group" *ngIf="currentUser">
-            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/publishers/profile', id, 'message', (message.recepientID !== currentUser.id) ? message.recepientID : message.senderID, 'conversation', message.messageID]"
+            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/publishers/profile', id, 'message', (message.recepientID === currentUser.id) ? message.senderID : message.recepientID, 'conversation']"
               *ngFor="let message of messages">
               <div class="d-flex flex-row flex-wrap">
                 <div class="d-flex">
-                  <img class="message-avatar" style="border-radius:50%" [src]="(message.recepientID !== currentUser.id) ? message.recepientAvatar : message.senderAvatar || '../../../../../../assets/images/blank.png'"
+                  <img class="message-avatar" style="border-radius:50%" [src]="(validateUser(message.recepientID)) ? message.recepientAvatar : message.senderAvatar || '../../../../../../assets/images/blank.png'"
                     height="50" width="50">
                 </div>
                 <div class="d-flex flex-column flex-grow-1 ml-2">
@@ -77,38 +77,19 @@
       <div class="d-flex flex-row flex-wrap card conversation-container w-50">
         <div class="d-flex flex-column justify-content-end m-2 w-100">
           <div class="d-flex flex-column justify-content-end w-100" *ngIf="currentUser && conversations.length">
-            <div class="d-flex flex-wrap mb-2 align-items-center" [ngClass]="(validateUser(conversation.senderID) === 'sender') ? 'flex-row-reverse' : 'flex-row'"
+            <div class="d-flex flex-wrap mb-2 align-items-center" [ngClass]="(validateUser(conversation.senderID)) ? 'flex-row-reverse' : 'flex-row'"
               *ngFor="let conversation of conversations">
-              <img *ngIf="(validateUser(conversation.senderID) === 'sender') ? false : true" [src]="conversation.recepientAvatar || '../../../../../../assets/images/blank.png'"
+              <img *ngIf="(validateUser(conversation.senderID)) ? false : true" [src]="conversation.recepientAvatar || '../../../../../../assets/images/blank.png'"
                 style="border-radius:50%" height="50" width="50">
-              <div class="card d-flex flex-column w-50" [ngClass]="(validateUser(conversation.senderID) === 'sender') ? 'bg-light mr-1':' ml-1'">
-                <div class="align-items-center d-flex" [ngClass]="(validateUser(conversation.senderID) === 'sender') ? 'justify-content-end mr-2':'ml-2'">
+              <div class="card d-flex flex-column w-50" [ngClass]="(validateUser(conversation.senderID)) ? 'bg-light mr-1':' ml-1'">
+                <div class="align-items-center d-flex" [ngClass]="(validateUser(conversation.senderID)) ? 'justify-content-end mr-2':'ml-2'">
                   <span>{{ conversation.content }}</span>
                 </div>
-                <div class="align-items-center d-flex" [ngClass]="(validateUser(conversation.senderID) === 'sender') ? 'justify-content-end mr-2':' ml-2'"
+                <div class="align-items-center d-flex" [ngClass]="(validateUser(conversation.senderID)) ? 'justify-content-end mr-2':' ml-2'"
                   *ngIf="conversation.attachment">
-                  <a href="{{ conversation.attachment }}" class="w-100" [ngClass]="(validateUser(conversation.senderID) === 'sender') ? 'text-right':''"
+                  <a href="{{ conversation.attachment }}" class="w-100" [ngClass]="(validateUser(conversation.senderID)) ? 'text-right':''"
                     target="_blank" download>
                     {{ conversation.attachment.replace('http://127.0.0.1:8000/docs/','') }}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex flex-column justify-content-end w-100" *ngIf="currentUser && replies">
-            <div class="d-flex flex-wrap mb-2 align-items-center" [ngClass]="(validateUser(reply.recepientID) === 'sender') ? 'flex-row-reverse' : 'flex-row'"
-              *ngFor="let reply of replies">
-              <img *ngIf="(validateUser(reply.recepientID) === 'sender') ? false : true" [src]="(reply.recepientID !== currentUser.id) ? reply.recepientAvatar : reply.senderAvatar || '../../../../../../assets/images/blank.png'"
-                style="border-radius:50%" height="50" width="50">
-              <div class="card d-flex flex-column w-50" [ngClass]="(validateUser(reply.recepientID) === 'sender') ? 'bg-light mr-1':' ml-1'">
-                <div class="align-items-center d-flex " [ngClass]="(validateUser(reply.recepientID) === 'sender') ? 'justify-content-end mr-2':'ml-2'">
-                  <span>{{ reply.repContent }}</span>
-                </div>
-                <div class="align-items-center d-flex" [ngClass]="(validateUser(reply.recepientID) === 'sender') ? 'justify-content-end mr-2':' ml-2'"
-                  *ngIf="reply.repAttachment">
-                  <a href="{{ reply.repAttachment }}" class="w-100" [ngClass]="(validateUser(reply.recepientID) === 'sender') ? 'text-right':''"
-                    target="_blank" download>
-                    {{ reply.repAttachment.replace('http://127.0.0.1:8000/docs/','') }}
                   </a>
                 </div>
               </div>

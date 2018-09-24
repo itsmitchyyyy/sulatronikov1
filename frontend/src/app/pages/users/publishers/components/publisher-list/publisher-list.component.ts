@@ -44,6 +44,12 @@ export class PublisherListComponent implements OnInit, OnDestroy {
       }));
   }
 
+  get messageRoute() {
+    if (this.currentUser) {
+      return `/${this.currentUser.roles[0].name}s/profile` 
+    }
+  }
+
   ngOnDestroy() {
     this.subscription.forEach(sub => sub.unsubscribe());
   }

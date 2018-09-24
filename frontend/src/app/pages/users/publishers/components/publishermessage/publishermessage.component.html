@@ -38,11 +38,11 @@
       <div class="d-flex flex-row flex-wrap">
         <div class="message-box card">
           <div class="list-group" *ngIf="currentUser">
-            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/publishers/profile', id, 'message', (message.recepientID !== currentUser.id) ? message.recepientID : message.senderID, 'conversation', message.messageID]"
+            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/publishers/profile', id, 'message', (message.recepientID === currentUser.id) ? message.senderID : message.recepientID, 'conversation']"
               *ngFor="let message of messages">
               <div class="d-flex flex-row flex-wrap">
                 <div class="d-flex">
-                  <img class="message-avatar" [src]="message.recepientAvatar || '../../../../../../assets/images/blank.png'"
+                  <img class="message-avatar" [src]="(message.recepientID === currentUser.id) ? message.recepientAvatar : message.senderAvatar || '../../../../../../assets/images/blank.png'"
                     height="50" width="50">
                 </div>
                 <div class="d-flex flex-column flex-grow-1 ml-2">

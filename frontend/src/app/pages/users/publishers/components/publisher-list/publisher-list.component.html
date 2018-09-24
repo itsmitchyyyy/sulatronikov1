@@ -58,7 +58,7 @@
   </div>
   <div class="d-flex flex-column flex-fill publisher-left" *ngIf="publisher">
     <div class="card d-flex flex-row justify-content-center p-3">
-      <a class="mr-1 p-2" [routerLink]="['/authors/profile', currentUser.id, 'message', id]" mat-raised-button>
+      <a class="mr-1 p-2" [routerLink]="[messageRoute, currentUser.id, 'message', id]" mat-raised-button>
         <mat-icon>message</mat-icon>
         Message
       </a>

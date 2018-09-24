@@ -24,7 +24,6 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
   messages: any;
   currentUser: any;
   conversations: any;
-  replies: any;
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +31,6 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private sharedService: SharedService,
     private userService: UserService,
-    private loginService: LoginService,
   ) { }
 
   ngOnInit() {
@@ -48,8 +46,6 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
 
         this.getMessages();
         this.getMessage();
-        this.getLoggedIn();
-        this.messageReplies();
         if (this.authID) {
           this.getAuthor();
         }
@@ -58,11 +54,13 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
       'content': null,
       'attachment': null,
     });
+    
+    this.getLoggedIn();
   }
 
   getLoggedIn() {
-    this.subscription.set('loggedUserSubscription', this.loginService
-      .getLoggedIn()
+    this.subscription.set('loggedUserSubscription', this.userService
+      .getUser(this.id)
       .subscribe(res => {
         this.currentUser = res;
       }));
@@ -100,31 +98,22 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
   }
 
   validateUser(id){
-    if(id !== this.currentUser.id){
-      return 'recipient';
+    if(id === this.currentUser.id){
+      return true;
     }
-    return 'sender';
-  }
-
-  messageReplies() {
-    this.subscription.set('repliesSubscription', this.messageService
-      .getReplies(this.mesID)
-      .subscribe(res => {
-        this.replies = res;
-      }))
+    return false;
   }
 
   submitMessage() {
     this.isSending = true;
     const messageData = this.prepareSave();
     this.subscription.set('messageSubscription', this.messageService
-      .replyMessage(messageData)
+      .addMessage(messageData)
       .subscribe(() => {
         this.isSending = false;
         this.sharedService.openSnackBar('Message sent', null, { duration: 2000 })
         this.formGroup.reset();
         this.attachment = null;
-        this.messageReplies();
         this.getMessages();
       }))
 
@@ -138,7 +127,8 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
     if (this.formGroup.get('content').value !== null) {
       data.append('content', this.formGroup.get('content').value);
     }
-    data.append('messageID', `${this.mesID}`);
+    data.append('recepientID', `${this.authID}`);
+    data.append('senderID', `${this.id}`);
     return data;
   }
 

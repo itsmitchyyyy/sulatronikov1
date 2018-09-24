@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -38,8 +38,8 @@ export class MessageService {
       );
   }
 
-  getMessage(id: any) {
-    return this.http.get<any>('http://127.0.0.1:8000/api/messageConversation', { params: { id: id } })
+  getMessage(id: any, secondary: any) {
+    return this.http.get<any>('http://127.0.0.1:8000/api/messageConversation', { params: { id: id, secondary: secondary } })
       .pipe(
         catchError(val => of(val))
       );

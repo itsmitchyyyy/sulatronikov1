@@ -40,9 +40,12 @@
 			.conversation-container{
 				min-height: 550px;
 				max-height: 550px;
-				overflow: auto;
 				border-bottom-right-radius: 0 !important;
 				border-bottom-left-radius: 0 !important;
+				.conversation-area{
+					overflow: auto;
+					min-height: 550px;
+				}
 			}
 			.conversation-text-area{
 				border-top-right-radius: 0 !important;
