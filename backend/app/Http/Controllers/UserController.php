@@ -44,6 +44,35 @@ class UserController extends Controller
         return $user;
     }
 
+    public function allAuthor(){
+        $user = User::whereHas('roles', function($q){
+            $q->where('name','author');
+        })->get();
+        return $user;
+    }
+
+    public function addCopyWriter(Request $request){
+        $user = new User();
+        if(Input::hasFile('avatar')){
+            $messageContent = Input::file('avatar');
+            $messageContent->move('docs', $messageContent->getClientOriginalName());
+            $docs_path = "http://127.0.0.1:8000/uploads/".$messageContent->getClientOriginalName();
+        }else{
+            $docs_path = null;
+        }
+        $user->avatar = $docs_path;
+        $user->username = $request->request->get('userName');
+        $user->password = Hash::make($request->request->get('userName'));
+        $user->email = $request->request->get('userName').'@sulatroniko.com';
+        $user->firstName = $request->request->get('firstName');
+        $user->lastName = $request->request->get('lastName');
+        $user->biography = $request->request->get('biography');
+        $user->specialization = $request->request->get('genreID');
+        $user->save();
+        $user->roles()->attach(Role::where('name', $request->request->get('role'))->first());
+        return $user->id;
+    }
+
     public function update(Request $request){
         $user = User::find($request->id)->update($request->except(['id']));
         return response()->json($user);
@@ -53,6 +82,48 @@ class UserController extends Controller
         $term = $_GET['search'];
         $user = User::where(DB::raw('CONCAT(firstName," ",lastName)'), 'LIKE', '%'.$term.'%')->get();
         return $user;
+    }
+
+    public function addCopyWriterPub(Request $request){
+        DB::table('copywriterspub')
+            ->insert([
+                'userId' => $request->id,
+                'pubId' => $request->pubId,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+    }
+
+    public function allCopyPub(){
+        $id = $_GET['id'];
+        $copyWriter = DB::table('copywriterspub')
+            ->join('users as user', 'user.id' ,'=', 'copywriterspub.userId')
+            ->join('users as publisher', 'publisher.id', '=','copywriterspub.pubId')
+            ->select('*',
+            'publisher.firstName as publisherFirstName',
+            'publisher.lastName as publisherLastName',
+            'publisher.id as publisherId',
+            'user.firstName as userFirstName',
+            'user.lastName as userLastName',
+            'user.id as userId')
+            ->where('copywriterspub.pubId', $id)
+            ->get();
+        return $copyWriter;
+    }
+
+    public function allCopyWriter(){
+        $copyWriter = DB::table('copywriterspub')
+            ->join('users as user', 'user.id' ,'=', 'copywriterspub.userId')
+            ->join('users as publisher', 'publisher.id', '=','copywriterspub.pubId')
+            ->select('*',
+            'publisher.firstName as publisherFirstName',
+            'publisher.lastName as publisherLastName',
+            'publisher.id as publisherId',
+            'user.firstName as userFirstName',
+            'user.lastName as userLastName',
+            'user.id as userId')
+            ->get();
+        return $copyWriter;
     }
 
 }

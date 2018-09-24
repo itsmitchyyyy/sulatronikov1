@@ -1,0 +1,73 @@
+<div class="transaction-container mt-2 mb-2">
+  <div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'edit']" class="text-black-50 text-font"><strong>Profile</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'books']" class="text-black-50 text-font"><strong>Books</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'message']" class="text-black-50 text-font"><strong>Message</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'writer']" class="text-body text-font"><strong>Copy Writer</strong></a>
+    </div>
+    <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+      <a [routerLink]="['/publishers/profile', id, 'notification']" class="text-black-50 text-font"><strong>Notification</strong></a>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row flex-wrap m-2 p-4 border">
+    <form [formGroup]="form" class="w-100">
+      <div class="flex-row flex-wrap d-flex w-100">
+        <div class="d-flex flex-column add-photo-container">
+          <div class="form-group">
+            <label for="copywriterAvatar" class="w-100">
+              <div [matTooltip]="imgSrc ? 'Change Photo' : 'Add Photo'" matTooltipPosition="above" class="align-items-center image-label border d-flex flex-column justify-content-center">
+                <div *ngIf="!imgSrc; else imagePreview">
+                  <mat-icon class="f-60">add_a_photo</mat-icon>
+                  <span>Add Photo</span>
+                </div>
+                <ng-template #imagePreview>
+                  <div class="h-100">
+                    <img [src]="imgSrc" class="h-100">
+                  </div>
+                </ng-template>
+              </div>
+            </label>
+            <input type="file" (change)="fileUpload($event)" id="copywriterAvatar" class="fade" #fileInput>
+          </div>
+        </div>
+        <div class="d-flex flex-column ml-5 w-50">
+          <div class="form-group w-75">
+            <label>Username</label>
+            <input type="text" formControlName="userName" class="form-control">
+          </div>
+          <div class="form-group w-75">
+            <label>FirstName</label>
+            <input type="text" formControlName="firstName" class="form-control">
+          </div>
+          <div class="formGroup w-75">
+            <label>LastName</label>
+            <input type="text" formControlName="lastName" class="form-control">
+          </div>
+          <div class="form-group w-75">
+            <label>Genre</label>
+            <select class="form-control" formControlName="genreID">
+              <option value="{{ genre.id }}" *ngFor="let genre of genres">{{ genre.genreName }}</option>
+            </select>
+          </div>
+          <div class="form-group w-75">
+            <label>Biography</label>
+            <textarea class="form-control" formControlName="biography" cols="30" rows="10"></textarea>
+          </div>
+        </div>
+        <div class="align-items-end d-flex flex-column-reverse flex-grow-1">
+          <div class="form-group">
+            <button class="btn btn-primary" [disabled]="loading" (click)="addCopyWriter()">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

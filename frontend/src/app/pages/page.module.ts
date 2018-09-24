@@ -6,6 +6,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { SharedModule } from "../shared/shared.module";
 import { AuthorModule } from "./users/authors/authors.module";
 import { PublisherModule } from "./users/publishers/publishers.module";
+import { CopyWriterModule } from "./users/copywriters/copywriters.module";
 
 @NgModule({
     declarations: [BooksComponent],
@@ -15,6 +16,7 @@ import { PublisherModule } from "./users/publishers/publishers.module";
         BrowserModule,
         AuthorModule,
         PublisherModule,
+        CopyWriterModule,
         PageRoutingModule,
         AppMaterialModule,
     ],

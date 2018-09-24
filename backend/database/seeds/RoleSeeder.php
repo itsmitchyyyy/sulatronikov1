@@ -11,7 +11,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $roles = ['$author', '$writers', '$publisher'];
+        $roles = ['$author', '$writer', '$publisher'];
         foreach($roles as $role){
             $data = str_replace('$','',$role);
             $role = new Role();

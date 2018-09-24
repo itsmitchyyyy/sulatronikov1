@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { MessageService } from '../../../message.service';
 import { SharedService } from '../../../../../shared/shared.service';
 import { UserService } from '../../../user.service';
+import { LoginService } from '../../../../../shared/login/login.service';
 
 @Component({
   selector: 'app-authormessage',
@@ -20,13 +21,15 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
   pubID: number;
   publisher: any;
   messages: any;
-
+  currentUser: any;
+  
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private sharedService: SharedService,
-    private userService: UserService
+    private userService: UserService,
+    private loginService: LoginService,
   ) { }
 
   ngOnInit() {
@@ -44,9 +47,18 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
       'attachment': null,
     });
     this.getMessages();
+    this.getLoggedIn();
     if (this.pubID) {
       this.getPublisher();
     }
+  }
+
+  getLoggedIn() {
+    this.subscription.set('loggedUserSubscription', this.loginService
+      .getLoggedIn()
+      .subscribe(res => {
+        this.currentUser = res;
+      }));
   }
 
   getMessages() {

@@ -51,11 +51,15 @@ class MessageController extends Controller
             'recepient.firstName as recepientFirstName', 
             'recepient.lastName as recepientLastName', 
             'recepient.id as repID',
-            'recepient.avatar as recepientAvatar',
+            'recepient.avatar as senderAvatar', 
+            'sender.firstName as senderFirstName', 
+            'sender.lastName as senderLastName', 
+            'sender.id as sendID',
+            'sender.avatar as senderAvatar',
             'messages.updated_at as messageDate',
             'messages.id as messageID')
             ->where('messages.senderID', $id)
-            ->orderByDesc('messages.updated_at')
+            ->orWhere('messages.recepientID', $id)
             ->get();
         return $message;
     }
@@ -73,7 +77,6 @@ class MessageController extends Controller
            'messages.updated_at as messageDate',
            'messages.id as messageID')
            ->where('messages.id', $id)
-           ->orderByDesc('messages.updated_at')
            ->get(); 
         return $message;
     }
@@ -92,7 +95,6 @@ class MessageController extends Controller
             'messages.updated_at as messageDate',
             'messages.id as messageID')
             ->where('replies.messageID', $id)
-            ->orderByDesc('replies.updated_at')
             ->get(); 
             return $replies;
     }

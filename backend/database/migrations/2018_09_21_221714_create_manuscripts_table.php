@@ -15,7 +15,7 @@ class CreateManuscriptsTable extends Migration
     {
         Schema::create('manuscripts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('title');
             $table->string('type')->nullable();
             $table->text('sypnosis');

@@ -42,13 +42,17 @@
               *ngFor="let message of messages">
               <div class="d-flex flex-row flex-wrap">
                 <div class="d-flex">
-                  <img class="message-avatar" [src]="message.recepientAvatar || '../../../../../../assets/images/blank.png'"
+                  <img class="message-avatar" [src]="(message.recepientID !== currentUser.id) ? message.recepientAvatar : message.senderAvatar || '../../../../../../assets/images/blank.png'"
                     height="50" width="50">
                 </div>
                 <div class="d-flex flex-column flex-grow-1 ml-2">
                   <div class="d-flex flex-row flex-wrap">
                     <div class="d-flex flex-grow-1">
-                      <span>{{ message.recepientFirstName }} {{ message.recepientLastName }}</span>
+                      <span *ngIf="message.repID !== currentUser.id; else sender">{{ message.recepientFirstName }} {{
+                        message.recepientLastName }}</span>
+                      <ng-template #sender>
+                        <span>{{ message.senderFirstName }} {{ message.senderLastName }}</span>
+                      </ng-template>
                     </div>
                     <div class="d-flex flex-grow-1 justify-content-end">
                       <small>{{ message.messageDate | date: 'HH:mm' }}</small>

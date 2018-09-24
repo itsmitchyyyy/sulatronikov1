@@ -20,6 +20,14 @@ import { PublishermessageComponent } from "./users/publishers/components/publish
 import { PublishertransactionComponent } from "./users/publishers/components/publishertransaction/publishertransaction.component";
 import { PublishernotificationComponent } from "./users/publishers/components/publishernotification/publishernotification.component";
 import { AuthorviewmessageComponent } from "./users/authors/components/authormessage/components/authorviewmessage/authorviewmessage.component";
+import { PublisherviewmessageComponent } from "./users/publishers/components/publishermessage/components/publisherviewmessage/publisherviewmessage.component";
+import { PublishertransactionaddonComponent } from "./users/publishers/components/publishertransaction/components/publishertransactionaddon/publishertransactionaddon.component";
+import { PublisheraddmanuscriptComponent } from "./users/publishers/components/publishermanuscript/components/publisheraddmanuscript/publisheraddmanuscript.component";
+import { CopywritersComponent } from "./users/copywriters/copywriters.component";
+import { CopywriterlistComponent } from "./users/copywriters/components/copywriterlist/copywriterlist.component";
+import { CopywriterprofileComponent } from "./users/copywriters/components/copywriterprofile/copywriterprofile.component";
+import { CopywritermessageComponent } from "./users/copywriters/components/copywritermessage/copywritermessage.component";
+import { CopywriterviewmessageComponent } from "./users/copywriters/components/copywritermessage/components/copywriterviewmessage/copywriterviewmessage.component";
 
 const routes: Routes = [
     {
@@ -86,8 +94,12 @@ const routes: Routes = [
                 component: PublisherListComponent
             },
             {
-                path: 'profile/:id/manuscript',
+                path: 'profile/:id/books',
                 component: PublishermanuscriptComponent,
+            },
+            {
+                path: 'profile/:id/books/add',
+                component: PublisheraddmanuscriptComponent
             },
             {
                 path: 'profile/:id/edit',
@@ -98,13 +110,52 @@ const routes: Routes = [
                 component: PublishermessageComponent
             },
             {
-                path: 'profile/:id/transaction',
+                path: 'profile/:id/message/:authID',
+                component: PublishermessageComponent
+            },
+            {
+                path: 'profile/:id/message/:authID/conversation/:mesID',
+                component: PublisherviewmessageComponent
+            },
+            {
+                path: 'profile/:id/writer',
                 component: PublishertransactionComponent
+            },
+            {
+                path: 'profile/:id/writer/add',
+                component: PublishertransactionaddonComponent
             },
             {
                 path: 'profile/:id/notification',
                 component: PublishernotificationComponent
             }
+        ],
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'writers',
+        component: CopywritersComponent,
+        children: [
+            {
+                path: 'list',
+                component: CopywriterlistComponent
+            },
+            {
+                path: 'profile/:id/edit',
+                component: CopywriterprofileComponent
+            },
+            {
+                path: 'profile/:id/message',
+                component: CopywritermessageComponent
+            },
+            {
+                path: 'profile/:id/message/:authID',
+                component: CopywritermessageComponent
+            },
+            {
+                path: 'profile/:id/message/:authID/conversation/:mesID',
+                component: CopywriterviewmessageComponent
+            },
         ],
         canActivate: [AuthGuard]
     }

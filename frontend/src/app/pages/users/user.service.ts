@@ -43,6 +43,27 @@ export class UserService {
       );
   }
 
+  addCopyWriter(data: any): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/addCopyWriter', data)
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
+  addCopyWriterPub(data: any): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/addCopyWriterPub', data)
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
+  allCopyPub(userId: any): Observable<any> {
+    return this.http.get<any>('http://127.0.0.1:8000/api/allCopyPub', { params: { id: userId } })
+      .pipe(
+        catchError((val => of(val)))
+      );
+  }
+
   search(terms: Observable<any>) {
     return terms.pipe(
       debounceTime(400),

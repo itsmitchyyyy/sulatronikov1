@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $roles = ['$author', '$writers', '$publisher'];
+        $roles = ['$author', '$writer', '$publisher'];
         
         foreach($roles as $role){
             $data = str_replace('$','',$role);

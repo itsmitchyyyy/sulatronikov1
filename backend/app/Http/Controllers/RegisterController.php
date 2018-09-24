@@ -19,12 +19,6 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required',
             'lastName' => 'required|string', 
-            'contact' => 'required',
-            'company' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zipcode' => 'required',
             'role' => 'required|min:author,writers,publisher',
         ]);
         if($validator->fails()){

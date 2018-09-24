@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
   hasErrors: string;
   isLoading: boolean;
   accountCredentials: any;
+  selectedRole;
 
   constructor(private activeModal: NgbActiveModal,
     private registerService: RegisterService) { }
@@ -23,6 +24,14 @@ export class RegisterComponent implements OnInit {
 
   close() {
     this.activeModal.dismiss('Dismiss');
+  }
+
+  getRole(event){
+    if(event === 'publisher'){
+      this.selectedRole = true;
+      return;
+    }
+    this.selectedRole = false;
   }
 
   register() {

@@ -25,6 +25,7 @@ export class PublishertransactionComponent implements OnInit, OnDestroy {
     authors: any;
     authorID: any;
     imgSrc: any;
+    copyWriter: any;
 
     constructor(
         private fb: FormBuilder,
@@ -47,6 +48,7 @@ export class PublishertransactionComponent implements OnInit, OnDestroy {
             'author': null,
             'genreID': null
         });
+        this.allCopyPub();
         this.allGenre();
     }
 
@@ -102,6 +104,14 @@ export class PublishertransactionComponent implements OnInit, OnDestroy {
         });
     }
 
+    allCopyPub() {
+        this.subscription.set('copyPubSub', this.userService
+            .allCopyPub(this.id)
+            .subscribe(res => {
+                this.copyWriter = res;
+            }))
+    }
+
     private prepareSave() {
         let input = new FormData();
         input.append('photo', this.photo, this.photo.name);
@@ -110,6 +120,7 @@ export class PublishertransactionComponent implements OnInit, OnDestroy {
         input.append('authorID', this.authorID);
         input.append('publisherID', `${this.id}`);
         input.append('genreID', this.form.get('genreID').value);
+        input.append('role', 'writer');
         return input;
     }
 

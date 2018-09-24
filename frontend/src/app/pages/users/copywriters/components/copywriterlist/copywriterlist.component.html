@@ -1,0 +1,11 @@
+<div class="mt-5 copywriter-container">
+    <div class="copywriter-list mb-5">
+      <div matTooltip="View Copywriter" matTooltipPosition="above" [routerLink]="'../profile/' + copywriter.userId" class="copywriter-list-photo d-flex justify-content-center flex-column align-items-center"
+        *ngFor="let copywriter of copywriters">
+        <img [src]="copywriter.avatar || '../../../../../../assets/images/blank.png'" class="w-50 flex-grow-1">
+        <div>
+          <span class="text-capitalize">{{ copywriter.userFirstName }} {{ copywriter.userLastName }}</span>
+        </div>
+      </div>
+    </div>
+  </div>

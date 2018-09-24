@@ -107,6 +107,13 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
       }))
   }
 
+  validateUser(id){
+    if(id !== this.currentUser.id){
+      return 'recipient';
+    }
+    return 'sender';
+  }
+
   submitMessage() {
     this.isSending = true;
     const messageData = this.prepareSave();
@@ -117,7 +124,6 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
         this.sharedService.openSnackBar('Message sent', null, { duration: 2000 })
         this.formGroup.reset();
         this.attachment = null;
-        window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
         this.messageReplies();
         this.getMessages();
       }))
