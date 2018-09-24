@@ -11,10 +11,18 @@ class ManuscriptController extends Controller
     //
     public function create(Request $request){
      $manuscript = new Manuscript();
+     if(Input::hasFile('photo')){
      $photo = Input::file('photo');
      $photo->move('manuscript', $photo->getClientOriginalName());
      $photo_path = "http://127.0.0.1:8000/manuscript/".$photo->getClientOriginalName();
      $manuscript->photo = $photo_path; 
+    }
+    if(Input::hasFile('attachment')){
+        $attachment = Input::file('attachment');
+        $attachment->move('manuscript', $attachment->getClientOriginalName());
+        $attachment_path = "http://127.0.0.1:8000/manuscript/".$attachment->getClientOriginalName();
+        $manuscript->attachment = $attachment_path; 
+    }
      $manuscript->title = $request->request->get('title');
      $manuscript->sypnosis = $request->request->get('sypnosis');
      $manuscript->authorID = $request->request->get('authorID');
@@ -28,9 +36,65 @@ class ManuscriptController extends Controller
         $manuscript = DB::table('manuscripts')
             ->join('users', 'users.id', '=', 'manuscripts.authorID')
             ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
-            ->select('*', 'manuscripts.created_at as publishedDate')
-            ->where('manuscripts.publisherID', $id)
+            ->select('*', 
+            'manuscripts.created_at as publishedDate',
+            'manuscripts.id as manuscriptID')
+            ->where([
+                ['manuscripts.publisherID', '=', $id],
+                ['manuscripts.status','=',0]
+            ])
             ->get();
         return $manuscript;
+    }
+
+    public function authorManuscriptUnpublished(){
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+            ->join('users', 'users.id', '=', 'manuscripts.authorID')
+            ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+            ->select('*', 
+            'manuscripts.created_at as publishedDate',
+            'manuscripts.id as manuscriptID')
+            ->where([
+                ['manuscripts.authorID', '=', $id],
+                ['manuscripts.status','=',0]
+            ])
+            ->get();
+            return $manuscript;
+    }
+
+    public function edit(){
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+            ->join('users', 'users.id', '=', 'manuscripts.authorID')
+            ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+            ->select('*', 
+            'manuscripts.created_at as publishedDate',
+            'manuscripts.id as manuscriptID')
+            ->where('manuscripts.id', $id)
+            ->first();
+        return response()->json($manuscript);
+    }
+
+    public function update(Request $request){
+        $id = $request->request->get('id');
+        $manuscript = Manuscript::find($id);
+        if(Input::hasFile('photo')){
+            $photo = Input::file('photo');
+            $photo->move('manuscript', $photo->getClientOriginalName());
+            $photo_path = "http://127.0.0.1:8000/manuscript/".$photo->getClientOriginalName();
+                    $manuscript->photo = $photo_path; 
+        }
+                $manuscript->title = $request->request->get('title');
+                $manuscript->sypnosis = $request->request->get('sypnosis');
+                $manuscript->authorID = $request->request->get('authorID');
+                $manuscript->publisherID = $request->request->get('publisherID');
+                $manuscript->genreID = $request->request->get('genreID');
+                $manuscript->save();
+    }
+
+    public function delete(){
+        $id = $_GET['id'];
+        Manuscript::find($id)->delete();
     }
 }

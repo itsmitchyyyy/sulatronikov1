@@ -42,3 +42,7 @@ Route::get('getReplies', 'MessageController@getReplies');
 Route::get('getMessage', 'MessageController@getMessages');
 Route::get('messageConversation', 'MessageController@getMessage');
 Route::get('getManuscript', 'ManuscriptController@get');
+Route::get('editManuscript', 'ManuscriptController@edit');
+Route::post('updateManuscript', 'ManuscriptController@update');
+Route::get('authorManuscript', 'ManuscriptController@authorManuscriptUnpublished');
+Route::get('deleteManuscript' ,'ManuscriptController@delete');

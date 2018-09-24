@@ -80,7 +80,9 @@ class UserController extends Controller
 
     public function search(){
         $term = $_GET['search'];
-        $user = User::where(DB::raw('CONCAT(firstName," ",lastName)'), 'LIKE', '%'.$term.'%')->get();
+        $user = User::where(DB::raw('CONCAT(firstName," ",lastName)'), 'LIKE', '%'.$term.'%')
+        ->get()
+        ->load('roles');
         return $user;
     }
 
