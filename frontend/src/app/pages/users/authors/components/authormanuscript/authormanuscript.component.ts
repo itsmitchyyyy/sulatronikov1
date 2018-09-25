@@ -26,6 +26,7 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
   manuscripts: any;
   hoveredDiv: string;
   genre: any;
+  publishedManuscripts: any;
   private subscription = new Map<String, Subscription>();
   searchManuscript$ = new Subject<string>();
 
@@ -40,8 +41,9 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
       params.subscribe(params => {
         this.id = +params['id'];
       }));
-      this.authorManuscript();
-      this.allGenre();
+    this.authorManuscript();
+    this.getPublishedManuscript();
+    this.allGenre();
   }
 
   sortBy(sort) {
@@ -84,6 +86,14 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
 
   showDescription(selectedDiv) {
     this.hoveredDiv = `${selectedDiv}-active`;
+  }
+
+  getPublishedManuscript() {
+    this.subscription.set('manuscriptSubscription', this.manuscriptService
+      .authorPublishedManuscript(this.id)
+      .subscribe(res => {
+        this.publishedManuscripts = res;
+      }));
   }
 
 

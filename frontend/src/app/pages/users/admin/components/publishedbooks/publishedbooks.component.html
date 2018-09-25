@@ -1,13 +1,18 @@
 <div class="bg-primary d-flex flex-grow-1 flex-row flex-wrap justify-content-around p-4">
-    <div class="d-flex">
-      <a style="font-size: 24px" class="text-body" [routerLink]="['/admin/accounts']">Accounts</a>
-    </div>
-    <div class="d-flex">
-      <a style="font-size: 24px" class="text-black-50" [routerLink]="['/admin/books']">Published Books</a>
+  <div class="d-flex">
+    <a style="font-size: 24px" class="text-black-50" [routerLink]="['/admin/accounts']">Accounts</a>
+  </div>
+  <div class="d-flex">
+    <a style="font-size: 24px" class="text-body" [routerLink]="['/admin/books']">Published Books</a>
+  </div>
+</div>
+<div class="d-flex flex-row flex-wrap">
+  <div class="d-flex flex-grow-1 flex-wrap flex-row">
+    <div class="d-flex flex-column" *ngFor="let manuscript of pendingManuscripts">
+      <div class="card ml-3 mr-3 mt-3" style="max-height:150px;max-width:150px">
+        <img [src]="manuscript.photo ? manuscript.photo : '../../../../../../assets/images/blank.png'" class="h-100 w-100">
+      </div>
+      <button class="btn btn-primary m-3" [disabled]="(manuscript.manuscriptStatus == 2) ? true : false" (click)="publishBook(manuscript.manuscriptID)">{{ (manuscript.manuscriptStatus == 2) ? 'Approved' : 'Approve' }}</button>
     </div>
   </div>
-  <div class="d-flex flex-row flex-wrap">
-    <div class="d-flex flex-grow-1 flex-wrap flex-row">
-      
-    </div>
-  </div>
+</div>

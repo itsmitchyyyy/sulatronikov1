@@ -24,6 +24,13 @@ export class ManuscriptService {
       );
   }
 
+  pendingManuscript() {
+    return this.http.get<any>('http://127.0.0.1:8000/api/pendingManuscripts')
+      .pipe(
+        catchError(val => of(val))
+      )
+  }
+
   editManuscript(id: any): Observable<any> {
     return this.http.get<any>('http://127.0.0.1:8000/api/editManuscript', { params: { id: id } })
       .pipe(
@@ -60,14 +67,14 @@ export class ManuscriptService {
       );
   }
 
-  sortManuscript(sort, id){
+  sortManuscript(sort, id) {
     return this.http.get<any>('http://127.0.0.1:8000/api/sortManuscript', { params: { id: id, sort: sort } })
       .pipe(
         catchError(val => of(val))
       );
   }
 
-  sortManuscriptGenre(sort, id){
+  sortManuscriptGenre(sort, id) {
     return this.http.get<any>('http://127.0.0.1:8000/api/sortManuscriptGenre', { params: { id: id, sort: sort } })
       .pipe(
         catchError(val => of(val))
@@ -82,7 +89,7 @@ export class ManuscriptService {
       switchMap(term => this.searchManuscript(term, id)));
   }
 
-  searchManuscript(sort, id){
+  searchManuscript(sort, id) {
     return this.http.get<any>('http://127.0.0.1:8000/api/searchManuscript', { params: { id: id, sort: sort } })
       .pipe(
         catchError(val => of(val))
@@ -90,14 +97,14 @@ export class ManuscriptService {
   }
 
 
-  sortAuthManuscript(sort, id){
+  sortAuthManuscript(sort, id) {
     return this.http.get<any>('http://127.0.0.1:8000/api/sortAuthManuscript', { params: { id: id, sort: sort } })
       .pipe(
         catchError(val => of(val))
       );
   }
 
-  sorAuthManuscriptGenre(sort, id){
+  sorAuthManuscriptGenre(sort, id) {
     return this.http.get<any>('http://127.0.0.1:8000/api/sortAuthManuscriptGenre', { params: { id: id, sort: sort } })
       .pipe(
         catchError(val => of(val))
@@ -112,8 +119,22 @@ export class ManuscriptService {
       switchMap(term => this.searchAuthManuscript(term, id)));
   }
 
-  searchAuthManuscript(sort, id){
+  searchAuthManuscript(sort, id) {
     return this.http.get<any>('http://127.0.0.1:8000/api/searchAuthManuscript', { params: { id: id, sort: sort } })
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
+  publishBook(id) {
+    return this.http.get<any>('http://127.0.0.1:8000/api/publishBook', { params: { id: id } })
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
+  allBooks() {
+    return this.http.get<any>('http://127.0.0.1:8000/api/allBooks')
       .pipe(
         catchError(val => of(val))
       );

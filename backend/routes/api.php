@@ -57,3 +57,6 @@ Route::get('sortAuthManuscriptGenre', 'ManuscriptController@sortByAuthGenre');
 Route::get('searchAuthManuscript', 'ManuscriptController@searchAuthManuscript');
 Route::get('publishedGet', 'ManuscriptController@publishedGet');
 Route::get('authorManuscriptPublished', 'ManuscriptController@authorManuscriptPublished');
+Route::get('pendingManuscripts', 'ManuscriptController@getPendingManuscripts');
+Route::get('publishBook', 'ManuscriptController@publishBook');
+Route::get('allBooks', 'ManuscriptController@allBooks');

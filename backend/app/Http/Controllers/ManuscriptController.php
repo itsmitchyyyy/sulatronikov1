@@ -107,6 +107,18 @@ class ManuscriptController extends Controller
         return response()->json($manuscript);
     }
 
+    function publishBook(){
+        $id = $_GET['id'];
+        $manuscript = Manuscript::find($id);
+        $manuscript->status = 2;
+        $manuscript->save();
+    }
+
+    function allBooks(){
+        $manuscript = Manuscript::where('status', 2)->get();
+        return $manuscript;
+    }
+
     public function update(Request $request){
         $id = $request->request->get('id');
         $manuscript = Manuscript::find($id);
@@ -131,9 +143,12 @@ class ManuscriptController extends Controller
             ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
             ->select('*', 
             'manuscripts.created_at as publishedDate',
-            'manuscripts.id as manuscriptID')
+            'manuscripts.id as manuscriptID',
+            'manuscripts.status as manuscriptStatus')
             ->where('manuscripts.status',1)
+            ->orWhere('manuscripts.status',2)
             ->get();
+            return $manuscript;
     }
 
     public function delete(){

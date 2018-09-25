@@ -98,13 +98,38 @@
         </div>
       </div>
       <div class="d-flex flex-column w-50">
-        <div class="text-center w-100">
+        <div class="d-flex flex-row justify-content-center w-100">
           <h4>Published</h4>
         </div>
         <div class="flex-row flex-wrap d-flex justify-content-center ml-2 border">
           <div class="d-flex flex-row flex-wrap published-container">
-            <div class="published-list m-1" *ngFor="let array of fakeArray">
-              <img src="http://via.placeholder.com/350x150" class="h-100 w-100">
+            <div class="pointer unpublished-list m-1 position-relative" [routerLink]="[manuscript.manuscriptID, 'edit']" (mouseenter)="showDescription(manuscript.manuscriptID)"
+              (mouseleave)="hideDescription(manuscript.manuscriptID)" *ngFor="let manuscript of publishedManuscripts">
+              <a>
+                <img [src]="manuscript.photo ? manuscript.photo : 'http://via.placeholder.com/350x150'" class="w-100 h-100">
+              </a>
+              <div *ngIf="(hoveredDiv === manuscript.manuscriptID + '-active') ? true : false" [@slideInOut] class="d-flex flex-column text-white w-100 position-absolute description">
+                <div class="d-flex flex-row flex-wrap">
+                  <h5>Title: {{ manuscript.title }}</h5>
+                </div>
+                <div class="d-flex flex-row flex-wrap">
+                  <p>Date Posted: {{ manuscript.publishedDate | date }}</p>
+                </div>
+                <div class="d-flex flex-column flex-grow-1">
+                  <span>Content:</span>
+                  <div class="d-flex flex-row flex-wrap">
+                    <span>{{ manuscript.sypnosis }}</span>
+                  </div>
+                </div>
+                <div class="d-flex flex-row flex-wrap">
+                  <span>Genre: {{ manuscript.genreName }}</span>
+                </div>
+                <div class="d-flex flex-row flex-wrap">
+                  <span>Author:
+                    <strong class="text-capitalize">{{ manuscript.firstName }} {{ manuscript.lastName }}</strong>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

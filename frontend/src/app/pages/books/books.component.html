@@ -1,9 +1,9 @@
 <div class="mt-5 books-container">
-  <ngb-pagination class="d-flex justify-content-center mb-5" [collectionSize]="120" [maxSize]="10" [rotate]="true" [ellipses]="false"></ngb-pagination>
+  <!-- <ngb-pagination class="d-flex justify-content-center mb-5" [collectionSize]="120" [maxSize]="10" [rotate]="true" [ellipses]="false"></ngb-pagination> -->
   <div class="book-list mb-5">
-    <div class="book-list-photo d-flex justify-content-center" *ngFor="let array of fakeArray">
-      <img src="http://via.placeholder.com/350x150" alt="Image Here" class="w-50">
+    <div class="book-list-photo d-flex justify-content-center" *ngFor="let book of books">
+      <img [src]="book.photo ? book.photo : '../../../assets/images/blank.png'" alt="Image Here" class="w-50">
     </div>
   </div>
-  <ngb-pagination class="d-flex justify-content-center mb-5" [collectionSize]="120" [maxSize]="10" [rotate]="true" [ellipses]="false"></ngb-pagination>
+  <!-- <ngb-pagination class="d-flex justify-content-center mb-5" [collectionSize]="120" [maxSize]="10" [rotate]="true" [ellipses]="false"></ngb-pagination> -->
 </div>

@@ -32,6 +32,7 @@ import { PublisheditmanuscriptComponent } from "./users/publishers/components/pu
 import { AuthoraddmanuscriptComponent } from "./users/authors/components/authormanuscript/components/authoraddmanuscript/authoraddmanuscript.component";
 import { AdminComponent } from "./users/admin/admin.component";
 import { AccountsComponent } from "./users/admin/components/accounts/accounts.component";
+import { PublishedbooksComponent } from "./users/admin/components/publishedbooks/publishedbooks.component";
 
 const routes: Routes = [
     {
@@ -178,6 +179,10 @@ const routes: Routes = [
             {
                 path: 'accounts',
                 component: AccountsComponent
+            },
+            {
+                path: 'books',
+                component: PublishedbooksComponent
             }
         ],
         canActivate: [AuthGuard]
