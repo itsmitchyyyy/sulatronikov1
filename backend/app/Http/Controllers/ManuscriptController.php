@@ -97,4 +97,56 @@ class ManuscriptController extends Controller
         $id = $_GET['id'];
         Manuscript::find($id)->delete();
     }
+
+    public function sortBy(){
+        $sort = $_GET['sort'];
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+        ->join('users', 'users.id', '=', 'manuscripts.authorID')
+        ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+        ->select('*', 
+        'manuscripts.created_at as publishedDate',
+        'manuscripts.id as manuscriptID')
+        ->where([
+            ['manuscripts.publisherID', '=', $id],
+            ['manuscripts.status','=',0]
+        ])
+        ->orderBy('manuscripts.title', $sort)
+        ->get();
+        return $manuscript;
+    }
+
+    public function sortByGenre(){
+        $sort = $_GET['sort'];
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+        ->join('users', 'users.id', '=', 'manuscripts.authorID')
+        ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+        ->select('*', 
+        'manuscripts.created_at as publishedDate',
+        'manuscripts.id as manuscriptID')
+        ->where([
+            ['manuscripts.publisherID', '=', $id],
+            ['manuscripts.genreID','=',$sort]
+        ])
+        ->get();
+        return $manuscript;
+    }
+
+    public function searchManuscript(){
+        $sort = $_GET['sort'];
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+        ->join('users', 'users.id', '=', 'manuscripts.authorID')
+        ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+        ->select('*', 
+        'manuscripts.created_at as publishedDate',
+        'manuscripts.id as manuscriptID')
+        ->where([
+            ['manuscripts.publisherID', '=', $id],
+            ['manuscripts.title','LIKE', '%'.$sort.'%']
+        ])
+        ->get();
+        return $manuscript;
+    }
 }

@@ -1,19 +1,29 @@
 <div class="profile-container mt-2 mb-2">
 	<div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
 		<div class="flex-grow-1 justify-content-center align-items-center d-flex">
-			<a [routerLink]="['/publishers/profile', id, 'edit']" class="text-body text-font"><strong>Profile</strong></a>
+			<a [routerLink]="['/publishers/profile', id, 'edit']" class="text-body text-font">
+				<strong>Profile</strong>
+			</a>
 		</div>
 		<div class="flex-grow-1 justify-content-center align-items-center d-flex">
-			<a [routerLink]="['/publishers/profile', id, 'books']" class="text-black-50 text-font"><strong>Books</strong></a>
+			<a [routerLink]="['/publishers/profile', id, 'books']" class="text-black-50 text-font">
+				<strong>Books</strong>
+			</a>
 		</div>
 		<div class="flex-grow-1 justify-content-center align-items-center d-flex">
-			<a [routerLink]="['/publishers/profile', id, 'message']" class="text-black-50 text-font"><strong>Message</strong></a>
+			<a [routerLink]="['/publishers/profile', id, 'message']" class="text-black-50 text-font">
+				<strong>Message</strong>
+			</a>
 		</div>
 		<div class="flex-grow-1 justify-content-center align-items-center d-flex">
-			<a [routerLink]="['/publishers/profile', id, 'writer']" class="text-black-50 text-font"><strong>Copy Writer</strong></a>
+			<a [routerLink]="['/publishers/profile', id, 'writer']" class="text-black-50 text-font">
+				<strong>Copy Writer</strong>
+			</a>
 		</div>
 		<div class="flex-grow-1 justify-content-center align-items-center d-flex">
-			<a [routerLink]="['/publishers/profile', id, 'notification']" class="text-black-50 text-font"><strong>Notification</strong></a>
+			<a [routerLink]="['/publishers/profile', id, 'notification']" class="text-black-50 text-font">
+				<strong>Notification</strong>
+			</a>
 		</div>
 	</div>
 
@@ -31,9 +41,9 @@
 			</div>
 		</div>
 		<div class="d-flex flex-row flex-wrap flex-grow-1 ml-3 border right-side">
+
 			<form>
-				<div class="d-flex flex-column m-5" ngModelGroup="validatePassword" #validatePassword="ngModelGroup"
-				 appPasswordvalidator>
+				<div class="d-flex flex-column m-5" ngModelGroup="validatePassword" #validatePassword="ngModelGroup" appPasswordvalidator>
 					<div class="form-group">
 						<label>Username</label>
 						<input type="text" name="username" [(ngModel)]="userData.username" class="form-control">
@@ -82,7 +92,9 @@
 					<label>Company/Institution</label>
 					<input type="text" name="company" [(ngModel)]="userData.company" class="w-50 form-control">
 				</div>
-				<h5>Job Description: <span class="text-capitalize">{{ userRole }}</span></h5>
+				<h5>Job Description:
+					<span class="text-capitalize">{{ userRole }}</span>
+				</h5>
 				<div class="form-group">
 					<label>Address</label>
 					<input type="text" name="address" [(ngModel)]="userData.address" class="form-control">
@@ -102,8 +114,15 @@
 					<input type="text" name="zipcode" [(ngModel)]="userData.zipcode" class="w-50 form-control">
 				</div>
 			</div>
-			<div class="align-items-end d-flex flex-column flex-grow-1 justify-content-end m-3">
-				<button class="btn btn-primary" [disabled]="updateBtn" (click)="updateProfile()">Save Changes</button>
+			<div class="d-flex flex-column flex-grow-1 justify-content-end m-3">
+				<div class="align-items-baseline d-flex flex-grow-1 justify-content-end">
+					<button class="bg-transparent border-0" (click)="deactivate()" matTooltip="Deactivate account" matTooltipPosition="above">
+						<mat-icon class="text-danger pointer">not_interested</mat-icon>
+					</button>
+				</div>
+				<div class="d-flex justify-content-end align-items-end">
+					<button class="btn btn-primary" [disabled]="updateBtn" (click)="updateProfile()">Save Changes</button>
+				</div>
 			</div>
 		</div>
 	</div>

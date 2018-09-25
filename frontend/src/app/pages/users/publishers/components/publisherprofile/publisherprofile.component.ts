@@ -3,11 +3,13 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../user.service';
 import { SharedService } from '../../../../../shared/shared.service';
+import { NavbarComponent } from '../../../../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-publisherprofile',
   templateUrl: './publisherprofile.component.html',
-  styleUrls: ['./publisherprofile.component.scss']
+  styleUrls: ['./publisherprofile.component.scss'],
+  providers: [NavbarComponent]
 })
 export class PublisherprofileComponent implements OnInit, OnDestroy {
   id: number;
@@ -24,6 +26,7 @@ export class PublisherprofileComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private sharedService: SharedService,
+    private navbarComponent: NavbarComponent
   ) { }
 
   ngOnInit() {
@@ -34,6 +37,15 @@ export class PublisherprofileComponent implements OnInit, OnDestroy {
     if (this.id != null) {
       this.userProfile();
     }
+  }
+
+  deactivate() {
+    const data = { id: this.id, status: 0 };
+    this.subscription.set('updateSub', this.userService
+      .updateStatus(data)
+      .subscribe(() => {
+        this.navbarComponent.logout();
+      }))
   }
 
   addProfilePicture(event) {

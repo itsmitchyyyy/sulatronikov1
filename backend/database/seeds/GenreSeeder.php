@@ -19,7 +19,6 @@ class GenreSeeder extends Seeder
             'General Fiction',
             'Historical',
             'Horror',
-            'Classics',
             'Non Fiction'
         ];
         

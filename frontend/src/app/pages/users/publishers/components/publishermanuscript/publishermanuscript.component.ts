@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ManuscriptService } from '../../../manuscript.service';
 import { transition, style, trigger, animate } from '@angular/animations';
@@ -29,6 +29,8 @@ export class PublishermanuscriptComponent implements OnInit, OnDestroy {
   manuscripts: any;
   hoveredDiv: string;
   manuscriptGenre: any;
+  genre: any;
+  searchManuscript$ = new Subject<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +45,40 @@ export class PublishermanuscriptComponent implements OnInit, OnDestroy {
         this.id = +params['id'];
       }));
     this.getManuscript();
+    this.allGenre();
+  }
+
+  sortBy(sort) {
+    this.subscription.set('sortSub', this.manuscriptService
+      .sortManuscript(sort, this.id)
+      .subscribe(res => {
+        this.manuscripts = res;
+      }))
+  }
+
+  manuscriptSearch(text) {
+    this.searchManuscript$.next(text)
+    this.subscription.set('searchSubscription', this.manuscriptService
+      .search(this.searchManuscript$, this.id)
+      .subscribe(res => {
+        this.manuscripts = res;
+      }))
+  }
+
+  sortByGenre(sort) {
+    this.subscription.set('sortSub', this.manuscriptService
+      .sortManuscriptGenre(sort, this.id)
+      .subscribe(res => {
+        this.manuscripts = res;
+      }))
+  }
+
+  allGenre() {
+    this.subscription.set('genreSub', this.genreService
+      .allGenre()
+      .subscribe(genres => {
+        this.genre = genres;
+      }))
   }
 
   hideDescription(selectedDiv) {

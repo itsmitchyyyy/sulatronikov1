@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone, Output, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { LoginService } from '../login/login.service';
 import { SharedService } from '../shared.service';
 import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { UserService } from '../../pages/users/user.service';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ import { UserService } from '../../pages/users/user.service';
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   user: any;
   searchUser$ = new Subject<string>();
   isAuthenticated: boolean;
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
   isSearched;
   searchData: any;
   isSearching;
+
   private subscription = new Map<String, Subscription>();
 
   constructor(
@@ -36,6 +38,10 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.isUserAuthenticated();
+    this.loginService.authenticated.subscribe(res => {
+      const data = JSON.parse(localStorage.getItem('storedPop'));
+      this.isAuthenticated = data;
+    })
   }
 
   login() {
@@ -133,6 +139,11 @@ export class NavbarComponent implements OnInit {
       return this.user.firstName;
     }
     return 'Unknown';
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
+
   }
 
 }

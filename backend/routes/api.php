@@ -49,3 +49,6 @@ Route::get('editManuscript', 'ManuscriptController@edit');
 Route::post('updateManuscript', 'ManuscriptController@update');
 Route::get('authorManuscript', 'ManuscriptController@authorManuscriptUnpublished');
 Route::get('deleteManuscript' ,'ManuscriptController@delete');
+Route::get('sortManuscript', 'ManuscriptController@sortBy');
+Route::get('sortManuscriptGenre', 'ManuscriptController@sortByGenre');
+Route::get('searchManuscript', 'ManuscriptController@searchManuscript');

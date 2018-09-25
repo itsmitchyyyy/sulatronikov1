@@ -1,13 +1,16 @@
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../user.service';
 import { SharedService } from '../../../../../shared/shared.service';
+import { LoginService } from '../../../../../shared/login/login.service';
+import { NavbarComponent } from '../../../../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-authorprofile',
   templateUrl: './authorprofile.component.html',
-  styleUrls: ['./authorprofile.component.scss']
+  styleUrls: ['./authorprofile.component.scss'],
+  providers: [NavbarComponent]
 })
 export class AuthorprofileComponent implements OnInit, OnDestroy {
   id: number;
@@ -19,12 +22,16 @@ export class AuthorprofileComponent implements OnInit, OnDestroy {
   confirmPassword;
   newPassword;
   imgSrc: any;
-  profilePicture;
+  profilePicture;;
+
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private sharedService: SharedService,
+    private router: Router,
+    private loginService: LoginService,
+    private navbarComponent: NavbarComponent
   ) { }
 
   ngOnInit() {
@@ -36,6 +43,15 @@ export class AuthorprofileComponent implements OnInit, OnDestroy {
     if (this.id != null) {
       this.userProfile();
     }
+  }
+
+  deactivate() {
+    const data = { id: this.id, status: 0 };
+    this.subscription.set('updateSub', this.userService
+      .updateStatus(data)
+      .subscribe(() => {
+        this.navbarComponent.logout();
+      }))
   }
 
   addProfilePicture(event) {

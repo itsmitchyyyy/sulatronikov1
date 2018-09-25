@@ -29,18 +29,21 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
 
   updateStatus(id) {
-    const data = {id: id, status: 1};
+    const data = { id: id, status: 1 };
     this.subscription.set('updateSub', this.userService
       .updateStatus(data)
       .subscribe(() => {
+        this.allUsers();
         this.sharedService.openSnackBar('Status updated', null, { duration: 2000 });
       }))
   }
 
   deleteUser(id) {
+    const data = { id: id };
     this.subscription.set('deleteeSub', this.userService
-      .deleteUser(id)
+      .deleteUser(data)
       .subscribe(() => {
+        this.allUsers();
         this.sharedService.openSnackBar('User deleted', null, { duration: 2000 });
       }))
   }
