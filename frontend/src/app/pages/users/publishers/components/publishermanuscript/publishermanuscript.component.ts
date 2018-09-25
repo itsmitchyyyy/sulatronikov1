@@ -27,6 +27,7 @@ export class PublishermanuscriptComponent implements OnInit, OnDestroy {
   id: number;
   private subscription = new Map<String, Subscription>();
   manuscripts: any;
+  publishedManuscripts;
   hoveredDiv: string;
   manuscriptGenre: any;
   genre: any;
@@ -45,6 +46,7 @@ export class PublishermanuscriptComponent implements OnInit, OnDestroy {
         this.id = +params['id'];
       }));
     this.getManuscript();
+    this.getUnPublishedManuscript();
     this.allGenre();
   }
 
@@ -94,6 +96,14 @@ export class PublishermanuscriptComponent implements OnInit, OnDestroy {
       .getManuscript(this.id)
       .subscribe(res => {
         this.manuscripts = res;
+      }));
+  }
+
+  getUnPublishedManuscript() {
+    this.subscription.set('manuscriptSubscription', this.manuscriptService
+      .getPublishedManuscript(this.id)
+      .subscribe(res => {
+        this.publishedManuscripts = res;
       }));
   }
 

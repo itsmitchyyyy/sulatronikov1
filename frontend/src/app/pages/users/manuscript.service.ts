@@ -17,6 +17,13 @@ export class ManuscriptService {
       );
   }
 
+  getPublishedManuscript(manuscriptID: any): Observable<any> {
+    return this.http.get<any>('http://127.0.0.1:8000/api/publishedGet', { params: { id: manuscriptID } })
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
   editManuscript(id: any): Observable<any> {
     return this.http.get<any>('http://127.0.0.1:8000/api/editManuscript', { params: { id: id } })
       .pipe(
@@ -37,6 +44,14 @@ export class ManuscriptService {
         catchError(val => of(val))
       );
   }
+
+  authorPublishedManuscript(id): Observable<any> {
+    return this.http.get<any>('http://127.0.0.1:8000/api/authorManuscriptPublished', { params: { id: id } })
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
 
   deleteManuscript(id): Observable<any> {
     return this.http.get<any>('http://127.0.0.1:8000/api/deleteManuscript', { params: { id: id } })

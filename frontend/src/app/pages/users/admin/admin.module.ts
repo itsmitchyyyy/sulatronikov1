@@ -5,6 +5,7 @@ import { PageRoutingModule } from "../../page.routing.module";
 import { AppMaterialModule } from "../../../app.material.modules";
 import { AdminComponent } from "./admin.component";
 import { AccountsComponent } from "./components/accounts/accounts.component";
+import { PublishedbooksComponent } from './components/publishedbooks/publishedbooks.component';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { AccountsComponent } from "./components/accounts/accounts.component";
     ],
     declarations: [
         AdminComponent,
-        AccountsComponent
+        AccountsComponent,
+        PublishedbooksComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

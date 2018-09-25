@@ -1,19 +1,29 @@
 <div class="manuscript-container mt-2 mb-2">
   <div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
     <div class="flex-grow-1 justify-content-center align-items-center d-flex">
-      <a [routerLink]="['/publishers/profile', id, 'edit']" class="text-black-50 text-font"><strong>Profile</strong></a>
+      <a [routerLink]="['/publishers/profile', id, 'edit']" class="text-black-50 text-font">
+        <strong>Profile</strong>
+      </a>
     </div>
     <div class="flex-grow-1 justify-content-center align-items-center d-flex">
-      <a [routerLink]="['/publishers/profile', id, 'books']" class="text-body text-font"><strong>Books</strong></a>
+      <a [routerLink]="['/publishers/profile', id, 'books']" class="text-body text-font">
+        <strong>Books</strong>
+      </a>
     </div>
     <div class="flex-grow-1 justify-content-center align-items-center d-flex">
-      <a [routerLink]="['/publishers/profile', id, 'message']" class="text-black-50 text-font"><strong>Message</strong></a>
+      <a [routerLink]="['/publishers/profile', id, 'message']" class="text-black-50 text-font">
+        <strong>Message</strong>
+      </a>
     </div>
     <div class="flex-grow-1 justify-content-center align-items-center d-flex">
-      <a [routerLink]="['/publishers/profile', id, 'writer']" class="text-black-50 text-font"><strong>Copy Writer</strong></a>
+      <a [routerLink]="['/publishers/profile', id, 'writer']" class="text-black-50 text-font">
+        <strong>Copy Writer</strong>
+      </a>
     </div>
     <div class="flex-grow-1 justify-content-center align-items-center d-flex">
-      <a [routerLink]="['/publishers/profile', id, 'notification']" class="text-black-50 text-font"><strong>Notification</strong></a>
+      <a [routerLink]="['/publishers/profile', id, 'notification']" class="text-black-50 text-font">
+        <strong>Notification</strong>
+      </a>
     </div>
   </div>
   <div class="d-flex flex-column mt-2 mb-2">
@@ -39,7 +49,9 @@
       </div>
       <div class="flex-grow-1 d-flex justify-content-center">
         <div class="form-group w-75">
-          <label><span class="sr-only">Search</span></label>
+          <label>
+            <span class="sr-only">Search</span>
+          </label>
           <input type="text" (keyup)="manuscriptSearch($event.target.value)" class="mt-2 form-control" placeholder="Search">
         </div>
       </div>
@@ -48,17 +60,16 @@
       <div class="d-flex flex-column w-50">
         <div class="d-flex flex-row justify-content-center w-100">
           <h4>Unpublished</h4>
-          <a class="pointer" [routerLink]="['/publishers/profile', id, 'books','add']" [matTooltip]="'Add Book'"
-            matTooltipPosition="above">
+          <a class="pointer" [routerLink]="['/publishers/profile', id, 'books','add']" [matTooltip]="'Add Book'" matTooltipPosition="above">
             <mat-icon>add</mat-icon>
           </a>
         </div>
         <div class="d-flex flex-row flex-wrap justify-content-center mr-2 border">
           <div class="d-flex flex-row flex-wrap unpublished-container">
-            <div class="pointer unpublished-list m-1 position-relative" (mouseenter)="showDescription(manuscript.manuscriptID)"
-              (mouseleave)="hideDescription(manuscript.manuscriptID)" [routerLink]="[manuscript.manuscriptID, 'edit']" *ngFor="let manuscript of manuscripts">
+            <div class="pointer unpublished-list m-1 position-relative" (mouseenter)="showDescription(manuscript.manuscriptID)" (mouseleave)="hideDescription(manuscript.manuscriptID)"
+              [routerLink]="[manuscript.manuscriptID, 'edit']" *ngFor="let manuscript of manuscripts">
               <a>
-                <img [src]="manuscript.photo" class="w-100 h-100">
+                <img [src]="manuscript.photo ? manuscript.photo : '../../../../../../assets/images/blank.png'" class="w-100 h-100">
               </a>
               <div *ngIf="(hoveredDiv === manuscript.manuscriptID + '-active') ? true : false" [@slideInOut] class="d-flex flex-column text-white w-100 position-absolute description">
                 <div class="d-flex flex-row flex-wrap">
@@ -77,7 +88,9 @@
                   <span>Genre: {{ manuscript.genreName }}</span>
                 </div>
                 <div class="d-flex flex-row flex-wrap">
-                  <span>Author: <strong class="text-capitalize">{{ manuscript.firstName }} {{ manuscript.lastName }}</strong></span>
+                  <span>Author:
+                    <strong class="text-capitalize">{{ manuscript.firstName }} {{ manuscript.lastName }}</strong>
+                  </span>
                 </div>
               </div>
             </div>
@@ -85,13 +98,41 @@
         </div>
       </div>
       <div class="d-flex flex-column w-50">
-        <div class="text-center w-100">
+        <div class="d-flex flex-row justify-content-center w-100">
           <h4>Published</h4>
+          <a class="pointer" [routerLink]="['/publishers/profile', id, 'books','add']" [matTooltip]="'Add Book'" matTooltipPosition="above">
+            <mat-icon>add</mat-icon>
+          </a>
         </div>
         <div class="flex-row flex-wrap d-flex justify-content-center ml-2 border">
           <div class="d-flex flex-row flex-wrap published-container">
-            <div class="published-list m-1" *ngFor="let array of fakeArray">
-              <img src="http://via.placeholder.com/350x150" class="h-100 w-100">
+            <div class="pointer published-list m-1 position-relative" (mouseenter)="showDescription(manuscript.manuscriptID)" (mouseleave)="hideDescription(manuscript.manuscriptID)"
+              [routerLink]="[manuscript.manuscriptID, 'edit']" *ngFor="let manuscript of publishedManuscripts">
+              <a>
+                  <img [src]="manuscript.photo ? manuscript.photo : '../../../../../../assets/images/blank.png'" class="w-100 h-100">
+                </a>
+                <div *ngIf="(hoveredDiv === manuscript.manuscriptID + '-active') ? true : false" [@slideInOut] class="d-flex flex-column text-white w-100 position-absolute description">
+                  <div class="d-flex flex-row flex-wrap">
+                    <h5>Title: {{ manuscript.title }}</h5>
+                  </div>
+                  <div class="d-flex flex-row flex-wrap">
+                    <p>Date Posted: {{ manuscript.publishedDate | date }}</p>
+                  </div>
+                  <div class="d-flex flex-column flex-grow-1">
+                    <span>Content:</span>
+                    <div class="d-flex flex-row flex-wrap">
+                      <span>{{ manuscript.sypnosis }}</span>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row flex-wrap">
+                    <span>Genre: {{ manuscript.genreName }}</span>
+                  </div>
+                  <div class="d-flex flex-row flex-wrap">
+                    <span>Author:
+                      <strong class="text-capitalize">{{ manuscript.firstName }} {{ manuscript.lastName }}</strong>
+                    </span>
+                  </div>
+                </div>
             </div>
           </div>
         </div>

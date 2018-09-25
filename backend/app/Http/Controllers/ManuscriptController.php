@@ -28,6 +28,7 @@ class ManuscriptController extends Controller
      $manuscript->authorID = $request->request->get('authorID');
      $manuscript->publisherID = $request->request->get('publisherID');
      $manuscript->genreID = $request->request->get('genreID');
+     $manuscript->status = $request->request->get('status');
      $manuscript->save();
     }
 
@@ -45,6 +46,36 @@ class ManuscriptController extends Controller
             ])
             ->get();
         return $manuscript;
+    }
+
+    public function publishedGet(){
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+            ->join('users', 'users.id', '=', 'manuscripts.authorID')
+            ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+            ->select('*', 
+            'manuscripts.created_at as publishedDate',
+            'manuscripts.id as manuscriptID')
+            ->where('manuscripts.publisherID', $id)
+            ->where('manuscripts.status',1)
+            ->orWhere('manuscripts.status',2)
+            ->get();
+        return $manuscript;
+    }
+
+    public function authorManuscriptPublished(){
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+            ->join('users', 'users.id', '=', 'manuscripts.authorID')
+            ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+            ->select('*', 
+            'manuscripts.created_at as publishedDate',
+            'manuscripts.id as manuscriptID')
+            ->where('manuscripts.authorID', $id)
+            ->where('manuscripts.status',1)
+            ->orWhere('manuscripts.status',2)
+            ->get();
+            return $manuscript;
     }
 
     public function authorManuscriptUnpublished(){
@@ -90,7 +121,19 @@ class ManuscriptController extends Controller
                 $manuscript->authorID = $request->request->get('authorID');
                 $manuscript->publisherID = $request->request->get('publisherID');
                 $manuscript->genreID = $request->request->get('genreID');
+                $manuscript->status = $request->request->get('status');
                 $manuscript->save();
+    }
+
+    public function getPendingManuscripts(){
+        $manuscript = DB::table('manuscripts')
+            ->join('users', 'users.id', '=', 'manuscripts.authorID')
+            ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+            ->select('*', 
+            'manuscripts.created_at as publishedDate',
+            'manuscripts.id as manuscriptID')
+            ->where('manuscripts.status',1)
+            ->get();
     }
 
     public function delete(){

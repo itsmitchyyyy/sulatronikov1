@@ -64,6 +64,13 @@
               <option value="{{ genre.id }}" *ngFor="let genre of genres">{{ genre.genreName }}</option>
             </select>
           </div>
+          <div class="form-group w-75">
+            <label>Status</label>
+            <select class="form-control" formControlName="status">
+              <option value="0">Unpublished</option>
+              <option value="1">For Publish</option>
+            </select>
+          </div>
         </div>
         <div class="align-items-end d-flex flex-column-reverse flex-grow-1">
           <div class="form-group">
