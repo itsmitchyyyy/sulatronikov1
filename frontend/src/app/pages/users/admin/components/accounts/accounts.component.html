@@ -25,11 +25,11 @@
         <span class="text-capitalize">{{ user.roles[0].name }}</span>
       </td>
       <td>
-        <button matTooltip="Disapprove" matTooltipPosition="above" class="bg-transparent border-0" *ngIf="user.roles[0].name === 'publisher'">
-          <mat-icon class="text-danger pointer">not_interested</mat-icon>
+        <button matTooltip="Disapprove" matTooltipPosition="above" class="bg-transparent border-0" *ngIf="user.roles[0].name === 'publisher' && user.status === 0">
+          <mat-icon class="text-danger pointer" (click)="updateStatus(user.id)">not_interested</mat-icon>
         </button>
         <button matTooltip="Delete" matTooltipPosition="above" class="bg-transparent border-0">
-          <mat-icon class="text-danger pointer">delete_forever</mat-icon>
+          <mat-icon class="text-danger pointer" (click)="deleteUser(user.id)">delete_forever</mat-icon>
         </button>
       </td>
     </tr>

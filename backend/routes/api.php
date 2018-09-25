@@ -23,6 +23,8 @@ Route::group(['middleware' => ['jwt.auth']], function(){
 Route::post('user/register', 'RegisterController@register');
 Route::post('user/login', 'LoginController@login');
 Route::post('addProfilePic', 'UserController@profile');
+Route::post('updateStatus', 'UserController@updateStatus');
+Route::post('deleteUser', 'UserController@deleteUser');
 Route::get('allPublisher', 'UserCOntroller@allPublisher');
 Route::get('allUser', 'UserController@show');
 Route::get('allAuthor', 'UserCOntroller@allAuthor');

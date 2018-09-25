@@ -136,4 +136,12 @@ class UserController extends Controller
         return $copyWriter;
     }
 
+    public function updateStatus(Request $request){
+        User::find($request->id)->update($request->except(['id']));
+    }
+
+    public function deleteUser(Request $request){
+        User::find($request->id)->delete();
+    }
+
 }

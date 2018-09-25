@@ -20,9 +20,18 @@ class LoginController extends Controller
         }
         $credentials = $request->only('username','password');
         try {
-            if(! $token = JWTAuth::attempt($credentials)){
-                    return response()->json(['error' => 'Invalid credentials'], 401);
+            if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
+                if(Auth::user()->status == 1){
+                    $token = JWTAuth::attempt($credentials);
+                }else{
+                    return response()->json(['error' => 'Account not activated'], 401);
                 }
+            }else{
+                return response()->json(['error' => 'Invalid credentials'], 401);
+            }
+            // if(! $token = JWTAuth::attempt($credentials)){
+            //         return response()->json(['error' => 'Invalid credentials'], 401);
+            //     }
         } catch(JWTException $e){
             return response()->json(['error' => 'could not create token'], 500);
         }

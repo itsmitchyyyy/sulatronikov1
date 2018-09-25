@@ -15,13 +15,27 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  updateStatus(data): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/updateStatus', data).
+    pipe(
+      catchError(val => of(val))
+    );
+  }
+
+  deleteUser(data): Observable<any> {
+    return this.http.post<any>('http://127.0.0.1:8000/api/deleteUser', data).
+    pipe(
+      catchError(val => of(val))
+    );
+  }
+
   allUser(): Observable<any> {
     return this.http.get<any>('http://127.0.0.1:8000/api/allUser')
       .pipe(
         catchError(val => of(val))
       );
   }
-  
+
   getUser(userId: any): Observable<any> {
     return this.http.get<any>('http://127.0.0.1:8000/api/getUser', { params: { id: userId } })
       .pipe(
