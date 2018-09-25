@@ -149,4 +149,56 @@ class ManuscriptController extends Controller
         ->get();
         return $manuscript;
     }
+
+    public function sortByAuth(){
+        $sort = $_GET['sort'];
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+        ->join('users', 'users.id', '=', 'manuscripts.authorID')
+        ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+        ->select('*', 
+        'manuscripts.created_at as publishedDate',
+        'manuscripts.id as manuscriptID')
+        ->where([
+            ['manuscripts.authorID', '=', $id],
+            ['manuscripts.status','=',0]
+        ])
+        ->orderBy('manuscripts.title', $sort)
+        ->get();
+        return $manuscript;
+    }
+
+    public function sortByAuthGenre(){
+        $sort = $_GET['sort'];
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+        ->join('users', 'users.id', '=', 'manuscripts.authorID')
+        ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+        ->select('*', 
+        'manuscripts.created_at as publishedDate',
+        'manuscripts.id as manuscriptID')
+        ->where([
+            ['manuscripts.authorID', '=', $id],
+            ['manuscripts.genreID','=',$sort]
+        ])
+        ->get();
+        return $manuscript;
+    }
+
+    public function searchAuthManuscript(){
+        $sort = $_GET['sort'];
+        $id = $_GET['id'];
+        $manuscript = DB::table('manuscripts')
+        ->join('users', 'users.id', '=', 'manuscripts.authorID')
+        ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
+        ->select('*', 
+        'manuscripts.created_at as publishedDate',
+        'manuscripts.id as manuscriptID')
+        ->where([
+            ['manuscripts.authorID', '=', $id],
+            ['manuscripts.title','LIKE', '%'.$sort.'%']
+        ])
+        ->get();
+        return $manuscript;
+    }
 }

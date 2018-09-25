@@ -73,4 +73,34 @@ export class ManuscriptService {
         catchError(val => of(val))
       );
   }
+
+
+  sortAuthManuscript(sort, id){
+    return this.http.get<any>('http://127.0.0.1:8000/api/sortAuthManuscript', { params: { id: id, sort: sort } })
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
+  sorAuthManuscriptGenre(sort, id){
+    return this.http.get<any>('http://127.0.0.1:8000/api/sortAuthManuscriptGenre', { params: { id: id, sort: sort } })
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
+
+  searchAuth(terms: Observable<any>, id) {
+    return terms.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(term => this.searchAuthManuscript(term, id)));
+  }
+
+  searchAuthManuscript(sort, id){
+    return this.http.get<any>('http://127.0.0.1:8000/api/searchAuthManuscript', { params: { id: id, sort: sort } })
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
 }

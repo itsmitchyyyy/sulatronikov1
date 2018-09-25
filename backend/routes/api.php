@@ -52,3 +52,6 @@ Route::get('deleteManuscript' ,'ManuscriptController@delete');
 Route::get('sortManuscript', 'ManuscriptController@sortBy');
 Route::get('sortManuscriptGenre', 'ManuscriptController@sortByGenre');
 Route::get('searchManuscript', 'ManuscriptController@searchManuscript');
+Route::get('sortAuthManuscript', 'ManuscriptController@sortByAuth');
+Route::get('sortAuthManuscriptGenre', 'ManuscriptController@sortByAuthGenre');
+Route::get('searchAuthManuscript', 'ManuscriptController@searchAuthManuscript');

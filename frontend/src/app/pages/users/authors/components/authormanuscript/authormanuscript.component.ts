@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ManuscriptService } from '../../../manuscript.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { GenreService } from '../../../genre.service';
 
 @Component({
   selector: 'app-authormanuscript',
@@ -21,15 +22,17 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class AuthormanuscriptComponent implements OnInit, OnDestroy {
-  fakeArray = new Array(10);
   id: number;
   manuscripts: any;
   hoveredDiv: string;
+  genre: any;
   private subscription = new Map<String, Subscription>();
+  searchManuscript$ = new Subject<string>();
 
   constructor(
     private route: ActivatedRoute,
-    private manuscriptService: ManuscriptService
+    private manuscriptService: ManuscriptService,
+    private genreService: GenreService
   ) { }
 
   ngOnInit() {
@@ -38,7 +41,42 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
         this.id = +params['id'];
       }));
       this.authorManuscript();
+      this.allGenre();
   }
+
+  sortBy(sort) {
+    this.subscription.set('sortSub', this.manuscriptService
+      .sortAuthManuscript(sort, this.id)
+      .subscribe(res => {
+        this.manuscripts = res;
+      }))
+  }
+
+  manuscriptSearch(text) {
+    this.searchManuscript$.next(text)
+    this.subscription.set('searchSubscription', this.manuscriptService
+      .searchAuth(this.searchManuscript$, this.id)
+      .subscribe(res => {
+        this.manuscripts = res;
+      }))
+  }
+
+  sortByGenre(sort) {
+    this.subscription.set('sortSub', this.manuscriptService
+      .sorAuthManuscriptGenre(sort, this.id)
+      .subscribe(res => {
+        this.manuscripts = res;
+      }))
+  }
+
+  allGenre() {
+    this.subscription.set('genreSub', this.genreService
+      .allGenre()
+      .subscribe(genres => {
+        this.genre = genres;
+      }))
+  }
+
 
   hideDescription(selectedDiv) {
     this.hoveredDiv = `${selectedDiv}-inactive`;
