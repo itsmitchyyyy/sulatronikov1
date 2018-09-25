@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
       this.accountCredentials.status = 0;
       return;
     }
+    this.accountCredentials.status = 1;
     this.selectedRole = false;
   }
 

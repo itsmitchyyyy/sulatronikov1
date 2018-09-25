@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('state')->nullable();
             $table->string('zipcode')->nullable();
             $table->text('biography')->nullable();
-            $table->integer('status')->default(1)->nullable();
+            $table->integer('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
