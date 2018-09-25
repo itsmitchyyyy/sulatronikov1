@@ -30,6 +30,8 @@ import { CopywritermessageComponent } from "./users/copywriters/components/copyw
 import { CopywriterviewmessageComponent } from "./users/copywriters/components/copywritermessage/components/copywriterviewmessage/copywriterviewmessage.component";
 import { PublisheditmanuscriptComponent } from "./users/publishers/components/publishermanuscript/components/publisheditmanuscript/publisheditmanuscript.component";
 import { AuthoraddmanuscriptComponent } from "./users/authors/components/authormanuscript/components/authoraddmanuscript/authoraddmanuscript.component";
+import { AdminComponent } from "./users/admin/admin.component";
+import { AccountsComponent } from "./users/admin/components/accounts/accounts.component";
 
 const routes: Routes = [
     {
@@ -108,7 +110,7 @@ const routes: Routes = [
                 component: PublisheraddmanuscriptComponent
             },
             {
-                path :'profile/:id/books/:bookID/edit',
+                path: 'profile/:id/books/:bookID/edit',
                 component: PublisheditmanuscriptComponent
             },
             {
@@ -166,6 +168,17 @@ const routes: Routes = [
                 path: 'profile/:id/message/:authID/conversation/:mesID',
                 component: CopywriterviewmessageComponent
             },
+        ],
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin',
+        component: AdminComponent,
+        children: [
+            {
+                path: 'accounts',
+                component: AccountsComponent
+            }
         ],
         canActivate: [AuthGuard]
     }

@@ -8,7 +8,7 @@
     </button>
 
     <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
-        <ul class="navbar-nav ml-auto" *ngIf="isAuthenticated">
+        <ul class="navbar-nav ml-auto" *ngIf="isAuthenticated && (userRole !== 'admin')">
             <li class="nav-item" routerLinkActive="active">
                 <a routerLink="/home" class="nav-link">Home</a>
             </li>

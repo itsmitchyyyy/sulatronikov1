@@ -1,0 +1,37 @@
+<div class="bg-primary d-flex flex-grow-1 flex-row flex-wrap justify-content-around p-4">
+  <div class="d-flex">
+    <a style="font-size: 24px" class="text-body" [routerLink]="['/admin/accounts']">Accounts</a>
+  </div>
+  <div class="d-flex">
+    <a style="font-size: 24px" class="text-black-50" [routerLink]="['/admin/books']">Published Books</a>
+  </div>
+</div>
+<div class="d-flex flex-row border flex-grow-1 m-4">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Full Name</th>
+      <th>Company/Organization</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let user of users">
+      <td>
+        <span class="text-capitalize">{{ user.firstName }} {{ user.lastName }}</span>
+      </td>
+      <td>
+        <span>{{ user.company }}</span>
+      </td>
+      <td>
+        <span class="text-capitalize">{{ user.roles[0].name }}</span>
+      </td>
+      <td>
+        <button matTooltip="Disapprove" matTooltipPosition="above" class="bg-transparent border-0" *ngIf="user.roles[0].name === 'publisher'">
+          <mat-icon class="text-danger pointer">not_interested</mat-icon>
+        </button>
+        <button matTooltip="Delete" matTooltipPosition="above" class="bg-transparent border-0">
+          <mat-icon class="text-danger pointer">delete_forever</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

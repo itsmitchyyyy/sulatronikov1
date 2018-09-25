@@ -10,8 +10,8 @@
 </div>
 <div class="modal-body">
     <div class="container">
-        <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="isError">
-            <strong>Failed!</strong> Error signing in. Please check your credentials
+        <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="isError && errorMessage">
+            <strong>Failed!</strong> Error signing in. {{ errorMessage['error'].error }}
         </ngb-alert>
         <mat-progress-bar *ngIf="isLoading" class="mb-3" mode="indeterminate" [color]="green"></mat-progress-bar>
         <form #loginForm="ngForm">

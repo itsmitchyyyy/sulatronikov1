@@ -24,6 +24,7 @@ Route::post('user/register', 'RegisterController@register');
 Route::post('user/login', 'LoginController@login');
 Route::post('addProfilePic', 'UserController@profile');
 Route::get('allPublisher', 'UserCOntroller@allPublisher');
+Route::get('allUser', 'UserController@show');
 Route::get('allAuthor', 'UserCOntroller@allAuthor');
 Route::get('getUser', 'UserController@get');
 Route::post('addCopyWriter', 'UserController@addCopyWriter');

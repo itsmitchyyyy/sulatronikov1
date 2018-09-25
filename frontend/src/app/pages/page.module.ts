@@ -7,6 +7,7 @@ import { SharedModule } from "../shared/shared.module";
 import { AuthorModule } from "./users/authors/authors.module";
 import { PublisherModule } from "./users/publishers/publishers.module";
 import { CopyWriterModule } from "./users/copywriters/copywriters.module";
+import { AdminModule } from "./users/admin/admin.module";
 
 @NgModule({
     declarations: [BooksComponent],
@@ -17,6 +18,7 @@ import { CopyWriterModule } from "./users/copywriters/copywriters.module";
         AuthorModule,
         PublisherModule,
         CopyWriterModule,
+        AdminModule,
         PageRoutingModule,
         AppMaterialModule,
     ],

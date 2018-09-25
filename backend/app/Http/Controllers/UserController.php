@@ -37,6 +37,14 @@ class UserController extends Controller
         return $user;
     }
 
+    public function show(){
+        $user = User::whereHas('roles', function($q){
+            $q->where('name', 'publisher')
+            ->orWhere('name', 'author');
+        })->get()->load('roles');
+        return $user;
+    }
+
     public function allPublisher(){
         $user = User::whereHas('roles', function($q){
             $q->where('name','publisher');

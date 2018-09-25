@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   isError: boolean;
   username: string;
   password: string;
+  errorMessage: string;
 
   constructor(private activeModal: NgbActiveModal,
     private loginService: LoginService) { }
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
       this.activeModal.close(true);
     }, (error) => {
         this.isError = true;
+        this.errorMessage = error;
         this.isLoading = false;
     });
   }

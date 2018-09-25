@@ -112,6 +112,15 @@ export class PublisheditmanuscriptComponent implements OnInit, OnDestroy {
       }));
   }
 
+  deleteManuscript() {
+    this.subscription.set('deleteManuscript', this.manuscriptService
+      .deleteManuscript(this.bookID)
+      .subscribe(() => {
+        this.sharedService.openSnackBar('Book deleted', null, { duration: 2000 });
+        window.history.back();
+      }))
+  }
+
   submitBook() {
     const bookData = this.prepareSave();
     this.loading = true;

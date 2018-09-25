@@ -30,7 +30,7 @@ import { PasswordvalidatorDirective } from './passwordvalidator.directive';
         NavbarComponent,
         CarouselComponent,
         FooterComponent,
-        PasswordvalidatorDirective
+        PasswordvalidatorDirective,
     ],
     entryComponents: [
         LoginComponent,

@@ -26,7 +26,8 @@ class User extends Authenticatable
         'city',
         'state',
         'zipcode',
-        'biography'
+        'biography',
+        'status'
     ];
 
     /**

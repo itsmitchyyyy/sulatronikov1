@@ -41,6 +41,7 @@ export class NavbarComponent implements OnInit {
   login() {
     this.modalService.open(LoginComponent, { windowClass: 'custom-modal', size: 'lg', centered: true }).result.then(() => {
       this.isUserAuthenticated();
+      this.loginService.isAuthenticated(true);
     });
   }
 
@@ -54,6 +55,8 @@ export class NavbarComponent implements OnInit {
     this.loginService.logout().subscribe(() => {
       sessionStorage.clear();
       this.isAuthenticated = false;
+      this.loginService.isAuthenticated(false);
+      localStorage.clear();
       this.router.navigate(['home']);
     });
   }
@@ -75,7 +78,7 @@ export class NavbarComponent implements OnInit {
     this.subscription.set('searchSub', this.userService
       .search(this.searchUser$)
       .subscribe(res => {
-        if(res.length < 0){
+        if (res.length < 0) {
           this.searchData = [];
           this.isSearching = false;
           return;
@@ -100,14 +103,22 @@ export class NavbarComponent implements OnInit {
       this.sharedService.openSnackBar('Session Expired', null, {
         duration: 2000
       });
+      localStorage.clear();
       this.router.navigate(['home']);
     });
   }
 
-  navigateProfile(item){
+  navigateProfile(item) {
     this.isSearched = false;
     this.isSearchClicked = false;
-    this.router.navigate([`${item.roles[0].name}s/profile`,item.id]);
+    this.router.navigate([`${item.roles[0].name}s/profile`, item.id]);
+  }
+
+  get userRole() {
+    if (this.user) {
+      return this.user.roles[0].name;
+    }
+    return;
   }
 
   get userProfile() {

@@ -1,6 +1,7 @@
 import { RegisterService } from './register.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit {
   selectedRole;
 
   constructor(private activeModal: NgbActiveModal,
+    private sharedService: SharedService,
     private registerService: RegisterService) { }
 
   ngOnInit() {
@@ -26,9 +28,10 @@ export class RegisterComponent implements OnInit {
     this.activeModal.dismiss('Dismiss');
   }
 
-  getRole(event){
-    if(event === 'publisher'){
+  getRole(event) {
+    if (event === 'publisher') {
       this.selectedRole = true;
+      this.accountCredentials.status = 0;
       return;
     }
     this.selectedRole = false;
@@ -40,10 +43,12 @@ export class RegisterComponent implements OnInit {
       if (res && res.token) {
         sessionStorage.setItem('currentUser', JSON.stringify({ token: res.token }));
         sessionStorage.setItem('authenticated', JSON.stringify({ isAuthenticated: true }));
-        this.activeModal.close(true);
       } else if (res && (res.email || res.username)) {
         this.hasErrors = res;
+      } else {
+        this.sharedService.openSnackBar('Registered Succesfully, Please wait for the admin to approve', null, { duration: 2000 })
       }
+      this.activeModal.close(true);
       this.isLoading = false;
     });
   }

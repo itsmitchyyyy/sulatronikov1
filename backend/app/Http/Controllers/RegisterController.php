@@ -25,22 +25,25 @@ class RegisterController extends Controller
             return response()->json($validator->errors());
         }
         $role = $request->get('role');
-        $user = User::create([
-            'firstName' => $request->get('firstName'), 
-            'username' => $request->get('username'),
-            'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
-            'lastName' => $request->get('lastName'), 
-            'contact' => $request->get('contact'),
-            'company' => $request->get('company'),
-            'address' => $request->get('address'),
-            'city' => $request->get('city'),
-            'state' => $request->get('state'),
-            'zipcode' => $request->get('zipcode'),
-        ]);
+            $user = User::create([
+                'firstName' => $request->get('firstName'), 
+                'username' => $request->get('username'),
+                'email' => $request->get('email'),
+                'password' => Hash::make($request->get('password')),
+                'lastName' => $request->get('lastName'), 
+                'contact' => $request->get('contact'),
+                'company' => $request->get('company'),
+                'address' => $request->get('address'),
+                'city' => $request->get('city'),
+                'state' => $request->get('state'),
+                'zipcode' => $request->get('zipcode'),
+                'status' => $request->get('status')
+            ]);
         $user->roles()->attach(Role::where('name', $role)->first());
+        if($role != 'publisher'){
         $token = JWTAuth::fromUser($user);
 
         return Response::json(compact('token'));
+        }
     }
 }
