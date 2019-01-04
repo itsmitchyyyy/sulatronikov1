@@ -20,10 +20,10 @@
   <div class="d-flex flex-row flex-wrap m-2 p-4 border justify-content-between">
     <div class="d-flex flex-column right-side mr-2">
       <div class="d-flex flex-row flex-wrap justify-content-between">
-        <div class="p-2 w-50">
+        <!-- <div class="p-2 w-50">
           <button class="btn btn-primary w-100">Compose</button>
-        </div>
-        <div class="form-group p-2">
+        </div> -->
+        <div class="form-group w-100">
           <select class="form-control">
             <option>All Messages</option>
           </select>
@@ -38,11 +38,11 @@
       <div class="d-flex flex-row flex-wrap">
         <div class="message-box card">
           <div class="list-group" *ngIf="currentUser">
-              <div class="list-group-item list-group-item-action pointer" [routerLink]="['/publishers/profile', id, 'message', validateSender(message.senderID) ? message.recepientID : message.senderID, 'conversation', message.messageID]"
+            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/publishers/profile', id, 'message', validateSender(message.senderID) ? message.recepientID : message.senderID, 'conversation', message.messageID]"
               *ngFor="let message of messages">
               <div class="d-flex flex-row flex-wrap">
                 <div class="d-flex">
-                  <img class="message-avatar" [src]="validateSender(message.senderID) ? message.senderAvatar : message.recepientAvatar || '../../../../../../assets/images/blank.png'"
+                  <img class="message-avatar" [src]="validateSender(message.senderID) ? message.recepientAvatar : message.senderAvatar || '../../../../../../assets/images/blank.png'"
                     height="50" width="50" style="border-radius:50%">
                 </div>
                 <div class="d-flex flex-column flex-grow-1 ml-2">
@@ -55,11 +55,11 @@
                       </ng-template>
                     </div>
                     <div class="d-flex flex-grow-1 justify-content-end">
-                      <small>{{ message.messageDate | date: 'HH:mm' }}</small>
+                      <small>{{ message.lastSentDate | date: 'HH:mm' }}</small>
                     </div>
                   </div>
                   <div class="d-flex">
-                    <span>{{ (message.content === '') ? 'Sent an attachment' : message.content }}</span>
+                    <span>{{ (message.content === '') ? 'Sent an attachment' : message.lastSentMessage }}</span>
                   </div>
                 </div>
               </div>
@@ -82,8 +82,20 @@
           <div class="form-group w-50">
             <input type="text" class="form-control" formControlName="subject" placeholder="Subject">
           </div>
-          <div class="form-group w-50">
-            <input type="text" class="form-control" readonly formControlName="recepient" placeholder="Type a publisher / author / writer's name">
+          <div class="form-group w-50 position-relative">
+            <input type="text" class="form-control" (keyup)="search($event.target.value)" formControlName="recepient"
+              placeholder="Type a publisher / author / writer's name">
+            <div class="align-items-center bg-white border d-flex justify-content-center p-4 w-100" *ngIf="isSearching">
+              <mat-progress-bar mode="buffer"></mat-progress-bar>
+            </div>
+            <div class="search-user" *ngIf="searchedUser">
+              <div class="user-list" *ngFor="let users of searchedUser" (click)="selectUser(users)">
+                <span>
+                  <img [src]="(users.avatar) ? users.avatar : '../../../../../../assets/images/blank.png'" alt="User Image">
+                </span>
+                <span>{{ users.firstName }} {{ users.lastName }}</span>
+              </div>
+            </div>
           </div>
           <div class="form-group w-50">
             <textarea class="form-control" cols="30" formControlName="content" rows="10" placeholder="Type your message..."></textarea>

@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../user.service';
 import { SharedService } from '../../../../../shared/shared.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MessageService } from '../../../message.service';
 import { LoginService } from '../../../../../shared/login/login.service';
+import { PublisherService } from '../../publisher.service';
 
 @Component({
   selector: 'app-publishermessage',
@@ -22,6 +23,9 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
   publisher: any;
   messages: any;
   currentUser: any;
+  searchedUser: any;
+  isSearching: boolean;
+  userID: number;
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +33,7 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private sharedService: SharedService,
     private userService: UserService,
+    private publisherService: PublisherService,
     private loginService: LoginService
   ) { }
 
@@ -59,6 +64,27 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.currentUser = res;
       }));
+  }
+
+  search(term) {
+    this.isSearching = true;
+    this.subscription.set('searchUserSubscription', this.publisherService
+      .searchUser(term)
+      .subscribe(res => {
+        this.isSearching = false;
+        if (res.length == []) {
+          this.searchedUser = null;
+          return;
+        }
+
+        this.searchedUser = res;
+      }));
+  }
+
+  selectUser(data) {
+    this.formGroup.get('recepient').setValue(`${data.firstName} ${data.lastName}`);
+    this.userID = data.id;
+    this.searchedUser = null;
   }
 
   getMessages() {
@@ -101,13 +127,13 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
   }
 
   validateSender(id) {
-    if(this.currentUser) {
-     if (id === this.currentUser.id) {
-       return true;
-     }
+    if (this.currentUser) {
+      if (id == this.currentUser.id) {
+        return true;
+      }
     }
-     return false;
-   }
+    return false;
+  }
 
   private prepareSave() {
     let data = new FormData();
@@ -116,7 +142,7 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
     }
     data.append('subject', this.formGroup.get('subject').value);
     data.append('content', this.formGroup.get('content').value);
-    data.append('recepientID', `${this.authID}`);
+    data.append('recepientID', `${this.userID}`);
     data.append('senderID', `${this.id}`);
     return data;
   }

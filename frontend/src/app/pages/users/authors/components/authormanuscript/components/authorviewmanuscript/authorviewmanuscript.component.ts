@@ -67,12 +67,14 @@ export class AuthorviewmanuscriptComponent implements OnInit, OnDestroy {
   }
 
   deleteManuscript() {
-    this.subscription.set('delManuscriptSub', this.manuscriptService
-      .deleteManuscript(this.manuscriptId)
-      .subscribe(() => {
-        this.sharedService.openSnackBar('Manuscript deleted', null, { duration: 2000 })
-        window.history.back();
-      }))
+    if (confirm("Are you sure you want to delete this manuscript?")) {
+      this.subscription.set('delManuscriptSub', this.manuscriptService
+        .deleteManuscript(this.manuscriptId)
+        .subscribe(() => {
+          this.sharedService.openSnackBar('Manuscript deleted', null, { duration: 2000 })
+          window.history.back();
+        }));
+    }
   }
 
   filePreview(event) {

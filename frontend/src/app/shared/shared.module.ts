@@ -13,6 +13,8 @@ import { SlideshowModule } from 'ng-simple-slideshow';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './profile/profile.component';
 import { PasswordvalidatorDirective } from './passwordvalidator.directive';
+import { FilevalueDirective } from './filevalue.directive';
+import { FilevalidatorDirective } from './filevalidator.directive';
 
 @NgModule({
     declarations: [
@@ -24,7 +26,9 @@ import { PasswordvalidatorDirective } from './passwordvalidator.directive';
         RegisterComponent,
         LandingPageComponent,
         ProfileComponent,
-        PasswordvalidatorDirective
+        PasswordvalidatorDirective,
+        FilevalueDirective,
+        FilevalidatorDirective
     ],
     exports: [
         NavbarComponent,

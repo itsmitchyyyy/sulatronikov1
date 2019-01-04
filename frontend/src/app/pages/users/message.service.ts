@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 
 @Injectable({
@@ -24,13 +24,6 @@ export class MessageService {
       );
   }
 
-  getReplies(id: any): Observable<any> {
-    return this.http.get<any>('http://127.0.0.1:8000/api/getReplies', { params: { id: id } })
-      .pipe(
-        catchError(val => of(val))
-      );
-  }
-
   getMessages(id: any) {
     return this.http.get<any>('http://127.0.0.1:8000/api/getMessage', { params: { id: id } })
       .pipe(
@@ -38,8 +31,22 @@ export class MessageService {
       );
   }
 
-  getMessage(id: any) {
-    return this.http.get<any>('http://127.0.0.1:8000/api/messageConversation', { params: { id: id } })
+  getMessage(param: any) {
+    return this.http.get<any>('http://127.0.0.1:8000/api/messageConversation', { params: param })
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
+
+  searchPublisher(term: Observable<any>){
+    return term.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(res => this.searchPublisher(res)));
+  }
+
+  search(term: string){
+    return this.http.get('http://127.0.0.1:8000/api/searchPublisher', { params: { search: term }})
       .pipe(
         catchError(val => of(val))
       );

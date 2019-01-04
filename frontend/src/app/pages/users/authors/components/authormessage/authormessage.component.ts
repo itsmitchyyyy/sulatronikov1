@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { MessageService } from '../../../message.service';
 import { SharedService } from '../../../../../shared/shared.service';
 import { UserService } from '../../../user.service';
 import { LoginService } from '../../../../../shared/login/login.service';
+import { FilevalidatorDirective } from 'src/app/shared/filevalidator.directive';
 
 @Component({
   selector: 'app-authormessage',
@@ -22,6 +23,8 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
   publisher: any;
   messages: any;
   currentUser: any;
+  searchedPublisher: any;
+  isSearching: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +47,7 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
       'subject': null,
       'content': null,
       'recepient': null,
-      'attachment': null,
+      'attachment': new FormControl("", [FilevalidatorDirective.validate]),
     });
     this.getMessages();
     this.getLoggedIn();
@@ -59,6 +62,26 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.currentUser = res;
       }));
+  }
+
+  searchPublisher(term) {
+    this.isSearching = true;
+    this.subscription.set('searchPublisherSubscription', this.messageService
+      .search(term)
+      .subscribe(res => {
+        this.isSearching = false;
+        if (res.length == []) {
+          this.searchedPublisher = null;
+          return;
+        }
+        this.searchedPublisher = res;
+      }));
+  }
+
+  selectPublisher(data) {
+    this.formGroup.get('recepient').setValue(`${data.firstName} ${data.lastName}`);
+    this.pubID = data.id;
+    this.searchedPublisher = null;
   }
 
   getMessages() {
@@ -101,11 +124,9 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
   }
 
   validateSender(id) {
-   if(this.currentUser) {
-    if (id === this.currentUser.id) {
+    if (id == this.id) {
       return true;
     }
-   }
     return false;
   }
 
@@ -118,6 +139,7 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
     data.append('content', this.formGroup.get('content').value);
     data.append('recepientID', `${this.pubID}`);
     data.append('senderID', `${this.id}`);
+    data.append('uid', `${this.id}${this.pubID}`);
     return data;
   }
 

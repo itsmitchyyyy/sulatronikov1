@@ -45,6 +45,22 @@ class UserController extends Controller
         return $user;
     }
 
+    public function searchUsers(){
+        $searchTerm = $_GET['search'];
+        if($searchTerm == null) {
+            return [];
+        }
+
+        $user = User::whereHas('roles', function($q){
+            $q->whereIn('name', ['publisher','author','author']);
+        })
+        ->where(DB::raw('CONCAT(firstName," ",lastName)'), 'LIKE', "%".$searchTerm."%")
+        ->get();
+        return $user;
+    }
+
+//Publisher
+
     public function allPublisher(){
         $user = User::whereHas('roles', function($q){
             $q->where('name','publisher');
@@ -52,6 +68,23 @@ class UserController extends Controller
         return $user;
     }
 
+    public function searchPublisher(){
+        $searchTerm = $_GET['search'];
+        if($searchTerm == null) {
+            return [];
+        }
+
+        $user = User::whereHas('roles', function($q){
+            $q->where('name', 'publisher');
+        })
+        ->where(DB::raw('CONCAT(firstName," ",lastName)'), 'LIKE', "%".$searchTerm."%")
+        ->get();
+        return $user;
+        
+    }
+
+
+//Author
     public function allAuthor(){
         $user = User::whereHas('roles', function($q){
             $q->where('name','author');

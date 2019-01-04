@@ -32,6 +32,45 @@
 			.buttons{
 				width: 15%;
 			}
+
+			.search-user {
+				display: flex;
+				background: white;
+				position: absolute;
+				width: 100%;
+				border: 1px solid #ced4da;
+				max-height: 30vh;
+				overflow:auto;
+
+				.user-list {
+					display: flex;
+					flex-direction: row;
+					justify-content: flex-start;
+					align-items: center;
+					width: 100%;
+					height: 10vh;
+
+					span {
+						padding: .5em;
+
+						&:nth-child(1) {
+							height: inherit;
+							width: 5vw;
+
+							img {
+								height: 100%;
+								width: 100%;
+								border-radius: 50%;
+							}
+						}
+					}
+				}
+
+				&:hover{
+					background: $primary;
+					cursor: pointer;
+				}
+			}
 		}
 
 	}

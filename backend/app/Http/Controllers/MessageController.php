@@ -5,18 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Message;
 use DB;
+use Response;
 use Illuminate\Support\Facades\Input;
 class MessageController extends Controller
 {
     //
     public function create(Request $request){
-        $verify = Message::where([
-            ['senderID','=', $request->request->get('senderID')],
-            ['recepientID','=', $request->request->get('recepientID')]
-        ])->exists();
-        if($verify){
-            $this.replyMessage($request);
-        }else{
         if(Input::hasFile('attachment')){
             $messageContent = Input::file('attachment');
             $messageContent->move('docs', $messageContent->getClientOriginalName());
@@ -24,21 +18,37 @@ class MessageController extends Controller
         }else{
             $docs_path = null;
         }
+
+        /* Message::create([
+            'subject' => $request->request->get('subject'),
+            'attachment' => $docs_path,
+            'content' => $request->request->get('content'),
+            'recepientID' => $request->request->get('recepientID'),
+            'senderID' => $request->request->get('senderID')
+        ]) */
         $message = new Message();
         $message->subject = $request->request->get('subject');
         $message->attachment = $docs_path;
         $message->content = $request->request->get('content');
         $message->recepientID = $request->request->get('recepientID');
         $message->senderID = $request->request->get('senderID');
+        $message->uid = 'message-'.$request->request->get('uid');
         $message->save();
-    }
     }
 
     public function getMessages(){
         $id = $_GET['id'];
+        $user = DB::table('messages')
+            ->join('users as recepient', 'recepient.id', '=', 'messages.recepientID')
+            ->join('users as sender', 'sender.id', '=', 'messages.senderID')
+            ->where('messages.senderID',$id)
+            ->orWhere('messages.recepientID', $id)
+            ->first();
+
         $message = DB::table('messages')
             ->join('users as recepient', 'recepient.id', '=', 'messages.recepientID')
             ->join('users as sender', 'sender.id', '=', 'messages.senderID')
+            ->where('messages.uid', 'message-12')
             ->select('*', 
             'recepient.firstName as recepientFirstName', 
             'recepient.lastName as recepientLastName', 
@@ -49,17 +59,36 @@ class MessageController extends Controller
             'sender.id as sendID',
             'sender.avatar as senderAvatar',
             'messages.updated_at as messageDate',
-            'messages.id as messageID')
-            ->where('messages.recepientID', $id)
-            ->orWhere('messages.senderID', $id)
-            ->groupBy('messages.recepientID', 'messages.senderID')
-            ->orderByDesc('messages.created_at')
+            'messages.id as messageID',
+             DB::raw('MAX(messages.content) as lastSentMessage, 
+             MAX(messages.created_at) as lastSentDate'))
+            ->groupBy('messages.uid')
             ->get();
+        // $message = DB::table('messages')
+        //     ->join('users as recepient', 'recepient.id', '=', 'messages.recepientID')
+        //     ->join('users as sender', 'sender.id', '=', 'messages.senderID')
+        //     ->select('*', 
+        //     'recepient.firstName as recepientFirstName', 
+        //     'recepient.lastName as recepientLastName', 
+        //     'recepient.id as repID',
+        //     'recepient.avatar as recepientAvatar', 
+        //     'sender.firstName as senderFirstName', 
+        //     'sender.lastName as senderLastName', 
+        //     'sender.id as sendID',
+        //     'sender.avatar as senderAvatar',
+        //     'messages.updated_at as messageDate',
+        //     'messages.id as messageID',
+        //      DB::raw('MAX(messages.content) as lastSentMessage, 
+        //      MAX(messages.created_at) as lastSentDate'))
+        //      ->where('messages.senderID',$id)
+        //      ->orWhere('messages.recepientID', $id)
+        //      ->groupBy('messages.uid')
+        //      ->get();
         return $message;
     }
 
     public function getMessage(){
-       $id = $_GET['id'];
+       $uid = $_GET['uid'];
        $message = DB::table('messages')
            ->join('users as recepient', 'recepient.id', '=', 'messages.recepientID')
            ->join('users as sender', 'sender.id', '=', 'messages.senderID')
@@ -70,7 +99,7 @@ class MessageController extends Controller
            'recepient.avatar as recepientAvatar',
            'messages.updated_at as messageDate',
            'messages.id as messageID')
-           ->where('messages.id', $id)
+           ->where('messages.uid', $uid)
            ->get(); 
         return $message;
     }

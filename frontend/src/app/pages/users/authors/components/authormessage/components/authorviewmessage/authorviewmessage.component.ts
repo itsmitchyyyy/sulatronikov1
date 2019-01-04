@@ -21,11 +21,11 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
   isSending: boolean;
   pubID: number;
   mesID: number;
+  uid: number;
   publisher: any;
   messages: any;
   currentUser: any;
   conversations: any;
-  replies: any;
 
   constructor(
     private fb: FormBuilder,
@@ -45,10 +45,12 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
         if (params.hasOwnProperty('mesID')) {
           this.mesID = +params['mesID'];
         }
+        if (params.hasOwnProperty('uid')) {
+          this.uid = +params['uid'];
+        }
 
         this.getMessages();
         this.getMessage();
-        this.getReplies();
         this.getLoggedIn();
         if (this.pubID) {
           this.getPublisher();
@@ -70,23 +72,15 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
 
   getMessages() {
     this.subscription.set('messagesSubscription', this.messageService
-      .getMessages(this.id)
+      .getMessages(this.uid)
       .subscribe(res => {
         this.messages = res;
       }));
   }
 
-  getReplies() {
-    this.subscription.set('repliesSub', this.messageService
-      .getReplies(this.mesID)
-      .subscribe(res => {
-        this.replies = res;
-      }));
-  }
-
   getMessage() {
     this.subscription.set('messageSubscription', this.messageService
-      .getMessage(this.mesID)
+      .getMessage({ uid: this.uid})
       .subscribe(res => {
         this.conversations = res;
       }));
@@ -120,7 +114,7 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
     this.isSending = true;
     const messageData = this.prepareSave();
     this.subscription.set('messageSubscription', this.messageService
-      .replyMessage(messageData)
+      .addMessage(messageData)
       .subscribe(() => {
         this.isSending = false;
         this.sharedService.openSnackBar('Message sent', null, { duration: 2000 })
@@ -128,7 +122,6 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
         this.attachment = null;
         this.getMessage();
         this.getMessages();
-        this.getReplies();
       }))
 
   }
@@ -141,9 +134,9 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
     if (this.formGroup.get('content').value !== null) {
       data.append('content', this.formGroup.get('content').value);
     }
-    data.append('messageID', `${this.mesID}`);
     data.append('recepientID', `${this.pubID}`);
     data.append('senderID', `${this.id}`);
+    data.append('uid', `${this.uid}`);
     return data;
   }
 

@@ -1,14 +1,12 @@
-import { Component, OnInit, ViewEncapsulation, NgZone, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { LoginService } from '../login/login.service';
 import { SharedService } from '../shared.service';
-import { MatSnackBar } from '@angular/material';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { UserService } from '../../pages/users/user.service';
-import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-navbar',
@@ -41,7 +39,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.loginService.authenticated.subscribe(res => {
       const data = JSON.parse(localStorage.getItem('storedPop'));
       this.isAuthenticated = data;
-    })
+    });
+
   }
 
   login() {

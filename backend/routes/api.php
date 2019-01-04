@@ -22,6 +22,7 @@ Route::group(['middleware' => ['jwt.auth']], function(){
 });
 Route::post('user/register', 'RegisterController@register');
 Route::post('user/login', 'LoginController@login');
+//USER CONTROLLER
 Route::post('addProfilePic', 'UserController@profile');
 Route::post('updateStatus', 'UserController@updateStatus');
 Route::post('deleteUser', 'UserController@deleteUser');
@@ -35,15 +36,23 @@ Route::get('allCopyPub', 'UserController@allCopyPub');
 Route::get('allCopyWriters', 'UserController@allCopyWriter');
 Route::post('updateUser', 'UserController@update');
 Route::post('updatePassword', 'UserController@updatePassword');
-Route::post('addManuscript', 'ManuscriptController@create');
+Route::get('searchUser', 'UserController@search');
+Route::get('searchPublisher', 'UserController@searchPublisher');
+Route::get('search', 'UserController@searchUsers');
+
+//GENRE CONTROLLER
 Route::get('allGenre', 'GenreController@all');
 Route::get('findGenre', 'GenreController@find');
-Route::get('searchUser', 'UserController@search');
+
+//MESSAGE CONTROLLER
 Route::post('addMessage', 'MessageController@create');
 Route::post('replyMessage', 'MessageController@replyMessage');
 Route::get('getReplies', 'MessageController@getReplies');
 Route::get('getMessage', 'MessageController@getMessages');
 Route::get('messageConversation', 'MessageController@getMessage');
+
+//MANUSCRIPT CONTROLLER
+Route::post('addManuscript', 'ManuscriptController@create');
 Route::get('getManuscript', 'ManuscriptController@get');
 Route::get('editManuscript', 'ManuscriptController@edit');
 Route::post('updateManuscript', 'ManuscriptController@update');
