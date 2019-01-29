@@ -5,19 +5,52 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Message;
 use DB;
+use Carbon\Carbon;
 use Response;
 use Illuminate\Support\Facades\Input;
 class MessageController extends Controller
 {
     //
     public function create(Request $request){
-        if(Input::hasFile('attachment')){
-            $messageContent = Input::file('attachment');
-            $messageContent->move('docs', $messageContent->getClientOriginalName());
-            $docs_path = "http://127.0.0.1:8000/docs/".$messageContent->getClientOriginalName();
-        }else{
-            $docs_path = null;
-        }
+
+        $message = DB::table('messages')
+        ->where(['user_one' => $request->request->get('senderID'), 'user_two' => $request->request->get('recepientID')])
+        ->orWhere(['user_one' => $request->request->get('recepientID'), 'user_two' => $request->request->get('senderID')])
+        ->first();
+
+        $messageId = null;
+
+        if ($message == null){
+            $messageId = Message::insertGetId([
+            'user_one' => $request->request->get('senderID'),
+            'user_two' => $request->request->get('recepientID'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        } else {
+        $messageId = $message->id;
+    }   
+            if(Input::hasFile('attachment')){
+                $messageContent = Input::file('attachment');
+                $messageContent->move('docs', $messageContent->getClientOriginalName());
+                $docs_path = "http://127.0.0.1:8000/docs/".$messageContent->getClientOriginalName();
+            }else{
+                $docs_path = null;
+            }
+
+            DB::table('message_reply')
+                ->insert([
+                    'subject' => $request->request->get('subject'),
+                    'attachment' => $docs_path,
+                    'content' => $request->request->get('content'),
+                    'user_id' => $request->request->get('recepientID'),
+                    'message_id' => $messageId,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+      
+
+    
 
         /* Message::create([
             'subject' => $request->request->get('subject'),
@@ -26,16 +59,54 @@ class MessageController extends Controller
             'recepientID' => $request->request->get('recepientID'),
             'senderID' => $request->request->get('senderID')
         ]) */
-        $message = new Message();
-        $message->subject = $request->request->get('subject');
-        $message->attachment = $docs_path;
-        $message->content = $request->request->get('content');
-        $message->recepientID = $request->request->get('recepientID');
-        $message->senderID = $request->request->get('senderID');
-        $message->uid = 'message-'.$request->request->get('uid');
-        $message->save();
+        // $message = new Message();
+        // $message->subject = $request->request->get('subject');
+        // $message->attachment = $docs_path;
+        // $message->content = $request->request->get('content');
+        // $message->recepientID = $request->request->get('recepientID');
+        // $message->senderID = $request->request->get('senderID');
+        // $message->uid = 'message-'.$request->request->get('uid');
+        // $message->save();
     }
 
+    public function getConversation(){
+        $id = $_GET['id'];
+        $conversation = DB::table('users')
+         ->join('message_reply as reply', 'reply.user_id', '=', 'users.id')
+         ->join('messages as message', 'message.id', '=', 'reply.message_id')
+         ->select('*', DB::raw('CASE WHEN message.user_one = '.$id.' THEN message.user_two = users.id
+         WHEN message.user_two = '.$id.' THEN message.user_one = users.id END AND message.id = reply.message_id
+         AND (message.user_one = '.$id.' OR message.user_two = '.$id.')'))
+         ->orderByDesc('message.id')
+         ->get();
+
+         return $conversation;
+    }
+
+    public function lastConversation(){
+
+        $id = $_GET['id'];
+        $conversation =  DB::table('message_reply')
+          ->where('message_reply.message_id', $id)
+          ->join('messages as message', 'message.id', '=', 'message_reply.message_id')
+          ->join('users as recepient', 'recepient.id', '=', 'message.user_two')
+          ->join('users as sender', 'sender.id', '=', 'message.user_one')
+          ->select('*', 
+          'sender.firstName as senderfirstName',
+          'sender.lastName as senderlastName',
+          'sender.avatar as senderavatar',
+          'sender.id as senderID',
+          'recepient.firstName as recepientfirstName',
+          'recepient.lastName as recepientlastName',
+          'recepient.avatar as recepientavatar',
+          'recepient.id as recepientID',
+          'message_reply.created_at as lastSentDate',)
+          ->orderBy('message_reply.id', 'DESC')
+          ->limit(1)
+          ->get();
+
+         return $conversation;
+    }
     public function getMessages(){
         $id = $_GET['id'];
         $user = DB::table('messages')

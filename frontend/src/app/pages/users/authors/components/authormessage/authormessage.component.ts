@@ -49,8 +49,8 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
       'recepient': null,
       'attachment': new FormControl("", [FilevalidatorDirective.validate]),
     });
-    this.getMessages();
     this.getLoggedIn();
+    this.getConversation();
     if (this.pubID) {
       this.getPublisher();
     }
@@ -84,11 +84,15 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
     this.searchedPublisher = null;
   }
 
-  getMessages() {
-    this.subscription.set('messageSubscription', this.messageService
-      .getMessages(this.id)
+  getConversation() {
+    this.subscription.set('conversationSubscription', this.messageService
+      .getConversation(this.id)
       .subscribe(res => {
-        this.messages = res;
+        this.subscription.set('lastConversationSubscription', this.messageService
+          .lastConversation(res[0].id)
+          .subscribe(res => {
+            this.messages = res;
+          }))
       }));
   }
 
@@ -118,16 +122,9 @@ export class AuthormessageComponent implements OnInit, OnDestroy {
         this.sharedService.openSnackBar('Message sent', null, { duration: 2000 })
         this.formGroup.reset();
         window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
-        this.getMessages();
+        this.getConversation();
       }))
 
-  }
-
-  validateSender(id) {
-    if (id == this.id) {
-      return true;
-    }
-    return false;
   }
 
   private prepareSave() {

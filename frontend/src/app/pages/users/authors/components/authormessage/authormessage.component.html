@@ -38,20 +38,24 @@
       <div class="d-flex flex-row flex-wrap">
         <div class="message-box card">
           <div class="list-group" *ngIf="messages">
-            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/authors/profile', id, 'message', validateSender(message.senderID) ? message.recepientID : message.senderID, 'conversation', message.uid]"
+            <div class="list-group-item list-group-item-action pointer" [routerLink]="['/authors/profile', id, 'message', (message.senderID == id) ? message.recepientID : message.senderID, 'conversation']"
               *ngFor="let message of messages">
               <div class="d-flex flex-row flex-wrap">
                 <div class="d-flex">
-                  <img class="message-avatar" [src]="validateSender(message.senderID) ? message.recepientAvatar : message.senderAvatar || '../../../../../../assets/images/blank.png'"
+                  <img *ngIf="(message.senderavatar == '' || message.recepientavatar == ''); else senderavatar" class="message-avatar" [src]="'../../../../../../assets/images/blank.png'"
                     height="50" width="50">
+                  <ng-template #senderavatar>
+                    <img class="message-avatar" [src]="(message.senderID == id) ? message.senderavatar : message.recepientavatar"
+                      height="50" width="50">
+                  </ng-template>
                 </div>
                 <div class="d-flex flex-column flex-grow-1 ml-2">
                   <div class="d-flex flex-row flex-wrap">
                     <div class="d-flex flex-grow-1">
-                      <span *ngIf="validateSender(message.senderID); else sender">{{ message.recepientFirstName }} {{
-                        message.recepientLastName }}</span>
+                      <span *ngIf="(message.senderID == id); else sender">{{ message.recepientfirstName }} {{
+                        message.recepientlastName }}</span>
                       <ng-template #sender>
-                        <span>{{ message.senderFirstName }} {{ message.senderLastName }}</span>
+                        <span>{{ message.senderfirstName }} {{ message.senderlastName }}</span>
                       </ng-template>
                     </div>
                     <div class="d-flex flex-grow-1 justify-content-end">
@@ -59,7 +63,7 @@
                     </div>
                   </div>
                   <div class="d-flex">
-                    <span>{{ (message.content === '') ? 'Sent an attachment' : message.lastSentMessage }}</span>
+                    <span>{{ (message.content == '') ? 'Sent an attachment' : message.content }}</span>
                   </div>
                 </div>
               </div>

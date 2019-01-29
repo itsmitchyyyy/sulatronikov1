@@ -51,7 +51,8 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
       'recepient': null,
       'attachment': null,
     });
-    this.getMessages();
+    
+    this.getConversation();
     this.getLoggedIn();
     if (this.authID) {
       this.getAuthor();
@@ -85,6 +86,18 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
     this.formGroup.get('recepient').setValue(`${data.firstName} ${data.lastName}`);
     this.userID = data.id;
     this.searchedUser = null;
+  }
+
+  getConversation() {
+    this.subscription.set('conversationSubscription', this.messageService
+      .getConversation(this.id)
+      .subscribe(res => {
+        this.subscription.set('lastConversationSubscription', this.messageService
+          .lastConversation(res[0].id)
+          .subscribe(res => {
+            this.messages = res;
+          }))
+      }));
   }
 
   getMessages() {
@@ -121,18 +134,9 @@ export class PublishermessageComponent implements OnInit, OnDestroy {
         this.sharedService.openSnackBar('Message sent', null, { duration: 2000 })
         this.formGroup.reset();
         window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
-        this.getMessages();
+        this.getConversation();
       }))
 
-  }
-
-  validateSender(id) {
-    if (this.currentUser) {
-      if (id == this.currentUser.id) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private prepareSave() {
