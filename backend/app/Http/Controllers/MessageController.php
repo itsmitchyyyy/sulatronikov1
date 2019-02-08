@@ -122,7 +122,7 @@ class MessageController extends Controller
           'recepient.lastName as recepientlastName',
           'recepient.avatar as recepientavatar',
           'recepient.id as recepientID',
-          'message_reply.created_at as lastSentDate',)
+          'message_reply.created_at as lastSentDate')
           ->orderBy('message_reply.id', 'DESC')
           ->limit(1)
           ->get();
