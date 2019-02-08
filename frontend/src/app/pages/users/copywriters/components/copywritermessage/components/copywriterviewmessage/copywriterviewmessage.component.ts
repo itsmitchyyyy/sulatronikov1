@@ -47,7 +47,7 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
 
         this.getMessages();
         this.getMessage();
-        this.getReplies();
+        // this.getReplies();
         this.getLoggedIn();
         if (this.authID) {
           this.getAuthor();
@@ -77,13 +77,13 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
       }));
   }
 
-  getReplies() {
-    this.subscription.set('repliesSub', this.messageService
-      .getReplies(this.mesID)
-      .subscribe(res => {
-        this.replies = res;
-      }));
-  }
+  // getReplies() {
+  //   this.subscription.set('repliesSub', this.messageService
+  //     .getReplies(this.mesID)
+  //     .subscribe(res => {
+  //       this.replies = res;
+  //     }));
+  // }
 
   getMessage() {
     this.subscription.set('messageSubscription', this.messageService
@@ -129,7 +129,7 @@ export class CopywriterviewmessageComponent implements OnInit, OnDestroy {
         this.attachment = null;
         this.getMessage();
         this.getMessages();
-        this.getReplies();
+        // this.getReplies();
       }))
 
   }

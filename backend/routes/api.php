@@ -52,6 +52,7 @@ Route::get('getMessage', 'MessageController@getMessages');
 Route::get('messageConversation', 'MessageController@getMessage');
 Route::get('conversationList', 'MessageController@getConversation');
 Route::get('lastConversation', 'MessageController@lastConversation');
+Route::get('messageConversationList', 'MessageController@messageConversation');
 
 //MANUSCRIPT CONTROLLER
 Route::post('addManuscript', 'ManuscriptController@create');

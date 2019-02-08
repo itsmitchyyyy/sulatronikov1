@@ -38,6 +38,13 @@ export class MessageService {
       );
   }
 
+  conversationList(id: any){
+    return this.http.get<any>('http://127.0.0.1:8000/api/messageConversationList', { params: { id: id} })
+    .pipe(
+      catchError(val => of(val))
+    );
+  }
+
   getMessages(id: any) {
     return this.http.get<any>('http://127.0.0.1:8000/api/getMessage', { params: { id: id } })
       .pipe(

@@ -41,14 +41,16 @@ export class PublisherviewmessageComponent implements OnInit, OnDestroy {
         if (params.hasOwnProperty('authID')) {
           this.authID = +params['authID'];
         }
-        if (params.hasOwnProperty('mesID')) {
-          this.mesID = +params['mesID'];
+        if (params.hasOwnProperty('messageId')) {
+          this.mesID = +params['messageId'];
         }
 
-        this.getMessages();
-        this.getMessage();
-        this.getReplies();
+        // this.getMessages();
+        // this.getMessage();
+
         this.getLoggedIn();
+        this.getConversation();
+        this.messageConversation();
         if (this.authID) {
           this.getAuthor();
         }
@@ -57,6 +59,26 @@ export class PublisherviewmessageComponent implements OnInit, OnDestroy {
       'content': null,
       'attachment': null,
     });
+  }
+
+  messageConversation() {
+    this.subscription.set('messageConversationList', this.messageService
+    .conversationList(this.mesID)
+    .subscribe(res => {
+      this.conversations = res;
+    }));
+  }
+
+  getConversation() {
+    this.subscription.set('conversationSubscription', this.messageService
+      .getConversation(this.id)
+      .subscribe(res => {
+        this.subscription.set('lastConversationSubscription', this.messageService
+          .lastConversation(res[0].id)
+          .subscribe(res => {
+            this.messages = res;
+          }))
+      }));
   }
 
   getLoggedIn() {
@@ -76,13 +98,13 @@ export class PublisherviewmessageComponent implements OnInit, OnDestroy {
   }
 
   
-  getReplies() {
-    this.subscription.set('repliesSub', this.messageService
-      .getReplies(this.mesID)
-      .subscribe(res => {
-        this.replies = res;
-      }));
-  }
+  // getReplies() {
+  //   this.subscription.set('repliesSub', this.messageService
+  //     .getReplies(this.mesID)
+  //     .subscribe(res => {
+  //       this.replies = res;
+  //     }));
+  // }
 
   getMessage() {
     this.subscription.set('messageSubscription', this.messageService
@@ -120,15 +142,14 @@ export class PublisherviewmessageComponent implements OnInit, OnDestroy {
     this.isSending = true;
     const messageData = this.prepareSave();
     this.subscription.set('messageSubscription', this.messageService
-      .replyMessage(messageData)
+      .addMessage(messageData)
       .subscribe(() => {
         this.isSending = false;
         this.sharedService.openSnackBar('Message sent', null, { duration: 2000 })
         this.formGroup.reset();
-        this.attachment = null;
-        this.getMessage();
-        this.getMessages();
-        this.getReplies();
+        window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
+        this.getConversation();
+        this.messageConversation();
       }))
 
   }
@@ -137,13 +158,14 @@ export class PublisherviewmessageComponent implements OnInit, OnDestroy {
     let data = new FormData();
     if (this.attachment) {
       data.append('attachment', this.attachment, this.attachment.name);
-    }
+    } 
     if (this.formGroup.get('content').value !== null) {
       data.append('content', this.formGroup.get('content').value);
     }
-    data.append('messageID', `${this.mesID}`);
+    data.append('content', this.formGroup.get('content').value);
     data.append('recepientID', `${this.authID}`);
     data.append('senderID', `${this.id}`);
+    data.append('uid', `${this.id}${this.authID}`);
     return data;
   }
 

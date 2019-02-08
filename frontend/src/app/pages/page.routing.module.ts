@@ -76,7 +76,7 @@ const routes: Routes = [
                 component: AuthormessageComponent
             },
             {
-                path: 'profile/:id/message/:pubID/conversation',
+                path: 'profile/:id/message/:pubID/conversation/:messageId',
                 component: AuthorviewmessageComponent
             },
             {
@@ -127,7 +127,7 @@ const routes: Routes = [
                 component: PublishermessageComponent
             },
             {
-                path: 'profile/:id/message/:authID/conversation/:mesID',
+                path: 'profile/:id/message/:authID/conversation/:messageId',
                 component: PublisherviewmessageComponent
             },
             {

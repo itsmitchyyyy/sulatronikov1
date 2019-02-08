@@ -42,16 +42,18 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
         if (params.hasOwnProperty('pubID')) {
           this.pubID = +params['pubID'];
         }
-        if (params.hasOwnProperty('mesID')) {
-          this.mesID = +params['mesID'];
+        if (params.hasOwnProperty('messageId')) {
+          this.mesID = +params['messageId'];
         }
         if (params.hasOwnProperty('uid')) {
           this.uid = +params['uid'];
         }
 
-        this.getMessages();
-        this.getMessage();
+        // this.getMessages();
+        // this.getMessage();
         this.getLoggedIn();
+        this.getConversation();
+        this.messageConversation();
         if (this.pubID) {
           this.getPublisher();
         }
@@ -60,6 +62,18 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
       'content': null,
       'attachment': null,
     });
+  }
+
+  getConversation() {
+    this.subscription.set('conversationSubscription', this.messageService
+      .getConversation(this.id)
+      .subscribe(res => {
+        this.subscription.set('lastConversationSubscription', this.messageService
+          .lastConversation(res[0].id)
+          .subscribe(res => {
+            this.messages = res;
+          }))
+      }));
   }
 
   getLoggedIn() {
@@ -76,6 +90,14 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.messages = res;
       }));
+  }
+
+  messageConversation() {
+    this.subscription.set('messageConversationList', this.messageService
+    .conversationList(this.mesID)
+    .subscribe(res => {
+      this.conversations = res;
+    }));
   }
 
   getMessage() {
@@ -119,10 +141,10 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
         this.isSending = false;
         this.sharedService.openSnackBar('Message sent', null, { duration: 2000 })
         this.formGroup.reset();
-        this.attachment = null;
-        this.getMessage();
-        this.getMessages();
-      }))
+        window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
+        this.getConversation();
+        this.messageConversation();
+      }));
 
   }
 
@@ -130,13 +152,14 @@ export class AuthorviewmessageComponent implements OnInit, OnDestroy {
     let data = new FormData();
     if (this.attachment) {
       data.append('attachment', this.attachment, this.attachment.name);
-    }
+    } 
     if (this.formGroup.get('content').value !== null) {
       data.append('content', this.formGroup.get('content').value);
     }
+    data.append('content', this.formGroup.get('content').value);
     data.append('recepientID', `${this.pubID}`);
     data.append('senderID', `${this.id}`);
-    data.append('uid', `${this.uid}`);
+    data.append('uid', `${this.id}${this.pubID}`);
     return data;
   }
 

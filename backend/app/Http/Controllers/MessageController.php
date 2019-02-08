@@ -83,6 +83,28 @@ class MessageController extends Controller
          return $conversation;
     }
 
+    public function messageConversation() {
+        $id = $_GET['id'];
+        $conversation =  DB::table('message_reply')
+          ->where('message_reply.message_id', $id)
+          ->join('messages as message', 'message.id', '=', 'message_reply.message_id')
+          ->join('users as recepient', 'recepient.id', '=', 'message.user_two')
+          ->join('users as sender', 'sender.id', '=', 'message.user_one')
+          ->select('*', 
+          'sender.firstName as senderfirstName',
+          'sender.lastName as senderlastName',
+          'sender.avatar as senderavatar',
+          'sender.id as senderID',
+          'recepient.firstName as recepientfirstName',
+          'recepient.lastName as recepientlastName',
+          'recepient.avatar as recepientavatar',
+          'recepient.id as recepientID',
+          'message_reply.created_at as lastSentDate')
+          ->get();
+          
+         return $conversation;
+    }
+
     public function lastConversation(){
 
         $id = $_GET['id'];
