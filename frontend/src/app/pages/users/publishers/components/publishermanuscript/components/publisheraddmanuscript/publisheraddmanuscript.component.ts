@@ -45,8 +45,7 @@ export class PublisheraddmanuscriptComponent implements OnInit, OnDestroy {
       'title': null,
       'sypnosis': null,
       'author': null,
-      'genreID': null,
-      'status': null
+      'genreID': null
     });
     this.allGenre();
   }
@@ -116,7 +115,7 @@ export class PublisheraddmanuscriptComponent implements OnInit, OnDestroy {
     input.append('authorID', this.authorID);
     input.append('publisherID', `${this.id}`);
     input.append('genreID', this.form.get('genreID').value);
-    input.append('status', this.form.get('status').value);
+    input.append('status', "1");
     return input;
   }
 

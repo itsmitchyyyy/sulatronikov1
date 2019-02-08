@@ -1,0 +1,28 @@
+@import '../../../../../../../../assets/variables';
+
+.transaction{
+	&-container{
+		.navigation{
+			border-radius: 20px;
+
+			.text-font{
+				font-size: 20px;
+			}
+        }
+        
+        .add-photo{
+			&-container{
+				width: 15%;
+				.image-label{
+					height: 200px;
+					cursor: pointer;
+					.f-60{
+						font-size: 60px;
+						height: 60px;
+						width: 60px;
+					}
+				}
+			}
+		}
+    }
+}

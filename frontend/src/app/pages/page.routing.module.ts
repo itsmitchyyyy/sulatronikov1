@@ -33,6 +33,7 @@ import { AuthoraddmanuscriptComponent } from "./users/authors/components/authorm
 import { AdminComponent } from "./users/admin/admin.component";
 import { AccountsComponent } from "./users/admin/components/accounts/accounts.component";
 import { PublishedbooksComponent } from "./users/admin/components/publishedbooks/publishedbooks.component";
+import { PublishertransactionassignComponent } from "./users/publishers/components/publishertransaction/components/publishertransactionassign/publishertransactionassign.component";
 
 const routes: Routes = [
     {
@@ -134,6 +135,10 @@ const routes: Routes = [
                 path: 'profile/:id/writer',
                 component: PublishertransactionComponent
             },
+            {
+                path: 'profile/:id/writer/assign/:copyId',
+                component: PublishertransactionassignComponent
+            }, 
             {
                 path: 'profile/:id/writer/add',
                 component: PublishertransactionaddonComponent

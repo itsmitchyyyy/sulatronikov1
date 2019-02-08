@@ -15,6 +15,7 @@ import { PublisherviewmessageComponent } from './components/publishermessage/com
 import { PublishertransactionaddonComponent } from './components/publishertransaction/components/publishertransactionaddon/publishertransactionaddon.component';
 import { PublisheraddmanuscriptComponent } from './components/publishermanuscript/components/publisheraddmanuscript/publisheraddmanuscript.component';
 import { PublisheditmanuscriptComponent } from './components/publishermanuscript/components/publisheditmanuscript/publisheditmanuscript.component';
+import { PublishertransactionassignComponent } from './components/publishertransaction/components/publishertransactionassign/publishertransactionassign.component';
 @NgModule({
     declarations: [
         PublishersComponent,
@@ -29,6 +30,7 @@ import { PublisheditmanuscriptComponent } from './components/publishermanuscript
         PublishertransactionaddonComponent,
         PublisheraddmanuscriptComponent,
         PublisheditmanuscriptComponent,
+        PublishertransactionassignComponent,
     ],
     exports: [
         PublishersComponent,
