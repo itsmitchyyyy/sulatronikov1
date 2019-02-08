@@ -28,7 +28,7 @@ class ManuscriptController extends Controller
      $manuscript->authorID = $request->request->get('authorID');
      $manuscript->publisherID = $request->request->get('publisherID');
      $manuscript->genreID = $request->request->get('genreID');
-    //  $manuscript->status = $request->request->get('status');
+     $manuscript->status = $request->request->get('status');
      $manuscript->save();
     }
 
