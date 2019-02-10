@@ -22,20 +22,11 @@
       <div class="flex-row flex-wrap d-flex w-100">
         <div class="d-flex flex-column add-photo-container">
           <div class="form-group">
-            <label for="copywriterAvatar" class="w-100">
-              <div [matTooltip]="imgSrc ? 'Change Photo' : 'Add Photo'" matTooltipPosition="above" class="align-items-center image-label border d-flex flex-column justify-content-center">
-                <div *ngIf="!imgSrc; else imagePreview">
-                  <mat-icon class="f-60">add_a_photo</mat-icon>
-                  <span>Add Photo</span>
-                </div>
-                <ng-template #imagePreview>
+              <div class="align-items-center image-label border d-flex flex-column justify-content-center">
                   <div class="h-100">
                     <img [src]="imgSrc" class="h-100 w-100">
                   </div>
-                </ng-template>
               </div>
-            </label>
-            <input type="file" (change)="fileUpload($event)" id="copywriterAvatar" class="fade" #fileInput>
           </div>
         </div>
         <div class="d-flex flex-column ml-5 w-50">
@@ -49,10 +40,33 @@
               <option value="{{ genre.id }}" *ngFor="let genre of genres">{{ genre.genreName }}</option>
             </select>
           </div>
+          <div class="form-group w-75 position-relative">
+            <label>Author</label>
+            <input type="text" class="form-control" (keyup)="search($event.target.value)" formControlName="recepient">
+            <div class="align-items-center bg-white border d-flex justify-content-center p-4 w-100" *ngIf="isSearching">
+              <mat-progress-bar mode="buffer"></mat-progress-bar>
+            </div>
+            <div class="search-user" *ngIf="searchedUser">
+              <div class="user-list" *ngFor="let users of searchedUser" (click)="selectUser(users)">
+                <span>
+                  <img [src]="(users.avatar) ? users.avatar : '../../../../../../assets/images/blank.png'" alt="User Image">
+                </span>
+                <span>{{ users.firstName }} {{ users.lastName }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group w-75">
+              <label>Manuscript Title</label>
+              <input type="text" formControlName="title" class="form-control">
+          </div>
+          <div class="form-group w-75">
+            <label>Document</label>
+            <input type="file" class="form-control" formControlName="attachment" (change)="addAttachment($event)">
+          </div>
         </div>
         <div class="align-items-end d-flex flex-column-reverse flex-grow-1">
           <div class="form-group">
-            <button class="btn btn-primary" [disabled]="loading" (click)="addCopyWriter()">Save Changes</button>
+            <button class="btn btn-primary" [disabled]="loading" (click)="assignCopyWriter()">Save Changes</button>
           </div>
         </div>
       </div>

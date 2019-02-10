@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/pages/users/user.service';
 import { GenreService } from 'src/app/pages/users/genre.service';
 import { SharedService } from 'src/app/shared/shared.service';
+import { PublisherService } from '../../../../publisher.service';
+import { CopywriterService } from 'src/app/pages/users/copywriter.service';
 
 @Component({
   selector: 'app-publishertransactionassign',
@@ -21,6 +23,10 @@ export class PublishertransactionassignComponent implements OnInit, OnDestroy {
   copyId: number;
   genres: any;
   loading: boolean = false;
+  searchedUser: any;
+  isSearching: boolean;
+  attachment: File;
+  authorId:  number;
   private subscription = new Map<String, Subscription>();
 
   constructor(
@@ -28,7 +34,9 @@ export class PublishertransactionassignComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private genreSerivce: GenreService,
-    private sharedService: SharedService
+    private publisherService: PublisherService,
+    private sharedService: SharedService,
+    private copyWriterService: CopywriterService
   ) { }
 
   ngOnInit() {
@@ -42,10 +50,41 @@ export class PublishertransactionassignComponent implements OnInit, OnDestroy {
       }
 
       this.form = this.fb.group({
-        'genreID': null
+        'genreID': null,
+        'attachment': null,
+        'title': null,
+        'recepient': null
       });
       
     this.allGenre();
+  }
+
+  selectUser(data) {
+    this.form.get('recepient').setValue(`${data.firstName} ${data.lastName}`);
+    this.authorId = data.id;
+    this.searchedUser = null;
+  }
+
+  search(term) {
+    this.isSearching = true;
+    this.subscription.set('searchUserSubscription', this.publisherService
+      .searchUser(term)
+      .subscribe(res => {
+        this.isSearching = false;
+        if (res.length == []) {
+          this.searchedUser = null;
+          return;
+        }
+
+        this.searchedUser = res;
+      }));
+  }
+
+  addAttachment(event) {
+    if (event.target.files.length > 0) {
+      this.attachment = event.target.files[0];
+      this.form.get('attachment').setValue(this.attachment);
+    }
   }
 
   allGenre() {
@@ -56,21 +95,17 @@ export class PublishertransactionassignComponent implements OnInit, OnDestroy {
   }
 
   assignCopyWriter() {
-    const copyWriterData = this.prepareSave();
+    const assignCopyWriterData = this.prepareSave();
     this.loading = true;
-    this.subscription.set('copyWriterSub', this.userService.
-      addCopyWriter(copyWriterData)
-      .subscribe((res) => {
-        const copyPubData = { id: res, pubId: this.id }
-        this.subscription.set('copyWriterPubSub', this.userService
-          .addCopyWriterPub(copyPubData).subscribe(() => {
-            this.loading = false;
-            this.sharedService.openSnackBar('Copywriter Added', null, { duration: 2000 })
-            this.imgSrc = null;
-            this.form.reset();
-            window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
-          }))
-      }))
+    this.subscription.set('assignCopyWriter', this.copyWriterService
+    .assignCopyWriter(assignCopyWriterData)
+    .subscribe(res => {
+      this.loading = false;
+      this.sharedService.openSnackBar('Copywriter Assigned', null, { duration: 2000 })
+      this.imgSrc = null;
+      this.form.reset();
+      window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
+    }));
   }
 
 
@@ -96,7 +131,12 @@ export class PublishertransactionassignComponent implements OnInit, OnDestroy {
 
   private prepareSave() {
     let input = new FormData();
+    input.append('copywriterId', `${this.id}`);
     input.append('genreID', this.form.get('genreID').value);
+    input.append('authorId', `${this.authorId}`);
+    input.append('title', this.form.get('title').value);
+    input.append('attachment', this.form.get('attachment').value);
+    input.append('status', 'pending');
     return input;
   }
 

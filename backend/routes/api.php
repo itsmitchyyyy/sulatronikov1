@@ -72,3 +72,6 @@ Route::get('authorManuscriptPublished', 'ManuscriptController@authorManuscriptPu
 Route::get('pendingManuscripts', 'ManuscriptController@getPendingManuscripts');
 Route::get('publishBook', 'ManuscriptController@publishBook');
 Route::get('allBooks', 'ManuscriptController@allBooks');
+
+//COPYWRITER
+Route::post('assignCopyWriter', 'CopyWriterController@create');

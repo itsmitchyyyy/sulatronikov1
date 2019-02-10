@@ -17,8 +17,10 @@ class CreateCopyWriterAssignTable extends Migration
             $table->increments('id');
             $table->integer('copywriterId')->unsigned();
             $table->integer('authorId')->unsigned();
+            $table->integer('genreId')->unsigned();
             $table->string('title');
             $table->string('attachment');
+            $table->string('status');
             $table->timestamps();
         });
     }

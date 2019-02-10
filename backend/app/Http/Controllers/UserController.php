@@ -96,7 +96,7 @@ class UserController extends Controller
         $user = new User();
         if(Input::hasFile('avatar')){
             $messageContent = Input::file('avatar');
-            $messageContent->move('docs', $messageContent->getClientOriginalName());
+            $messageContent->move('uploads', $messageContent->getClientOriginalName());
             $docs_path = "http://127.0.0.1:8000/uploads/".$messageContent->getClientOriginalName();
         }else{
             $docs_path = null;
