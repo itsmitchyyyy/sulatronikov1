@@ -1,0 +1,61 @@
+<div class="assign-container mt-2 mb-2">
+    <div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
+      <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+        <a [routerLink]="['/writers/profile', id, 'edit']" class="text-black-50 text-font"><strong>Profile</strong></a>
+      </div>
+      <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+        <a [routerLink]="['/writers/profile', id, 'books']" class="text-black-50 text-font"><strong>Published Books</strong></a>
+      </div>
+      <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+        <a [routerLink]="['/writers/profile', id, 'works']" class="text-black-50 text-font"><strong>Work in Progress</strong></a>
+      </div>
+      <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+        <a [routerLink]="['/writers/profile', id, 'manuscripts']" class="text-body text-font"><strong>Assigned Manuscripts</strong></a>
+      </div>
+      <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+        <a [routerLink]="['/writers/profile', id, 'notification']" class="text-black-50 text-font"><strong>Notification</strong></a>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column mt-2">
+      <div class="d-flex flex-row justify-content-end p-2">
+        <div class="form-group w-25 m-2">
+          <input type="text" class="form-control" placeholder="Search assign manuscript">
+        </div>
+        <div class="form-group m-2">
+          <input type="text" class="form-control" placeholder="Filter by date">
+        </div>
+      </div>
+      <div class="d-flex flex-row flex-wrap">
+        <div class="d-flex flex-column manuscripts-container m-2" *ngFor="let manuscript of manuscripts">
+          <div class="d-flex align-self-center image-container">
+            <img src="../../../../../../assets/images/blank.png" alt="">
+          </div>
+          <div class="d-flex flex-row justify-content-between">
+            <span class="p-2">Username: </span>
+            <span class="p-2">{{ manuscript.copyWriterUsername }}</span>
+          </div>
+          <div class="d-flex flex-row flex-wrap justify-content-between">
+              <span class="p-2">Genre: </span>
+              <span class="p-2">{{ manuscript.genreName }}</span>
+          </div>
+          <div class="d-flex flex-row flex-wrap justify-content-between">
+              <span class="p-2">Author: </span>
+              <span class="p-2">{{ manuscript.authorFirstName }} {{ manuscript.authorLastName }}</span>
+          </div>
+          <div class="d-flex flex-row flex-wrap justify-content-between">
+              <span class="p-2">Manuscript Title: </span>
+              <span class="p-2">{{ manuscript.title }}</span>
+          </div>
+          <div class="d-flex flex-row flex-wrap justify-content-between">
+              <span class="p-2">Document: </span>
+              <span class="p-2">
+                  <a href="{{ manuscript.copyWriterAttachment }}" class="w-100" target="_blank" download>
+                  {{ manuscript.copyWriterAttachment.replace('http://127.0.0.1:8000/docs/','') }}
+                </a>
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

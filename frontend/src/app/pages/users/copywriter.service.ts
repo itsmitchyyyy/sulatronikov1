@@ -16,4 +16,11 @@ export class CopywriterService {
       catchError(val => of(val))
     )
   }
+
+  getManuscripts(id): Observable<any> {
+    return this.http.get<any>('http://127.0.0.1:8000/api/assignedManuscripts', {params: {id: id}})
+    .pipe(
+      catchError(val => of(val))
+    )
+  }
 }

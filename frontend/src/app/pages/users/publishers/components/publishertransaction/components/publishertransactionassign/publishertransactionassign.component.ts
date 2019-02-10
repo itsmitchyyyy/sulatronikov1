@@ -131,12 +131,12 @@ export class PublishertransactionassignComponent implements OnInit, OnDestroy {
 
   private prepareSave() {
     let input = new FormData();
-    input.append('copywriterId', `${this.id}`);
+    input.append('copywriterId', `${this.copyId}`);
     input.append('genreID', this.form.get('genreID').value);
     input.append('authorId', `${this.authorId}`);
     input.append('title', this.form.get('title').value);
     input.append('attachment', this.form.get('attachment').value);
-    input.append('status', 'pending');
+    input.append('status', 'pending');  
     return input;
   }
 

@@ -75,3 +75,4 @@ Route::get('allBooks', 'ManuscriptController@allBooks');
 
 //COPYWRITER
 Route::post('assignCopyWriter', 'CopyWriterController@create');
+Route::get('assignedManuscripts', 'CopyWriterController@getAssignManuscripts');

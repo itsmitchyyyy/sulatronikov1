@@ -34,6 +34,7 @@ import { AdminComponent } from "./users/admin/admin.component";
 import { AccountsComponent } from "./users/admin/components/accounts/accounts.component";
 import { PublishedbooksComponent } from "./users/admin/components/publishedbooks/publishedbooks.component";
 import { PublishertransactionassignComponent } from "./users/publishers/components/publishertransaction/components/publishertransactionassign/publishertransactionassign.component";
+import { CopywriterassignmanuscriptsComponent } from "./users/copywriters/components/copywriterassignmanuscripts/copywriterassignmanuscripts.component";
 
 const routes: Routes = [
     {
@@ -174,6 +175,10 @@ const routes: Routes = [
                 path: 'profile/:id/message/:authID/conversation/:mesID',
                 component: CopywriterviewmessageComponent
             },
+            {
+                path: 'profile/:id/manuscripts',
+                component: CopywriterassignmanuscriptsComponent
+            }
         ],
         canActivate: [AuthGuard]
     },

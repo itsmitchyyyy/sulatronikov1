@@ -8,9 +8,10 @@ import { PageRoutingModule } from "../../page.routing.module";
 import { AppMaterialModule } from "../../../app.material.modules";
 import { CopywritermessageComponent } from './components/copywritermessage/copywritermessage.component';
 import { CopywriterviewmessageComponent } from './components/copywritermessage/components/copywriterviewmessage/copywriterviewmessage.component';
+import { CopywriterassignmanuscriptsComponent } from './components/copywriterassignmanuscripts/copywriterassignmanuscripts.component';
 
 @NgModule({
-    declarations: [CopywritersComponent, CopywriterlistComponent, CopywriterprofileComponent, CopywritermessageComponent, CopywriterviewmessageComponent],
+    declarations: [CopywritersComponent, CopywriterlistComponent, CopywriterprofileComponent, CopywritermessageComponent, CopywriterviewmessageComponent, CopywriterassignmanuscriptsComponent],
     exports: [CopywritersComponent],
     imports: [
         SharedModule,
