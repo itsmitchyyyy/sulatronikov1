@@ -92,6 +92,7 @@ export class AuthoraddmanuscriptComponent implements OnInit, OnDestroy {
     input.append('sypnosis', this.formGroup.get('sypnosis').value);
     input.append('authorID', `${this.id}`);
     input.append('genreID', this.formGroup.get('genreID').value);
+    input.append('status', '0');
     return input;
   }
 

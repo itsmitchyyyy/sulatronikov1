@@ -50,7 +50,18 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
     this.subscription.set('sortSub', this.manuscriptService
       .sortAuthManuscript(sort, this.id)
       .subscribe(res => {
-        this.manuscripts = res;
+        // this.manuscripts = res;
+        let published = [];
+        let unpublished = [];
+        res.map((data) => {
+          if (data.manuscriptStatus == 1) {
+            published.push(data);
+          } else {
+            unpublished.push(data);
+          }
+        });
+        this.manuscripts = unpublished;
+        this.publishedManuscripts = published;
       }))
   }
 
@@ -59,7 +70,18 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
     this.subscription.set('searchSubscription', this.manuscriptService
       .searchAuth(this.searchManuscript$, this.id)
       .subscribe(res => {
-        this.manuscripts = res;
+        // this.manuscripts = res;
+        let published = [];
+        let unpublished = [];
+        res.map((data) => {
+          if (data.manuscriptStatus == 1) {
+            published.push(data);
+          } else {
+            unpublished.push(data);
+          }
+        });
+        this.manuscripts = unpublished;
+        this.publishedManuscripts = published;
       }))
   }
 
@@ -67,8 +89,18 @@ export class AuthormanuscriptComponent implements OnInit, OnDestroy {
     this.subscription.set('sortSub', this.manuscriptService
       .sorAuthManuscriptGenre(sort, this.id)
       .subscribe(res => {
-        this.manuscripts = res;
-      }))
+        let published = [];
+        let unpublished = [];
+        res.map((data) => {
+          if (data.manuscriptStatus == 1) {
+            published.push(data);
+          } else {
+            unpublished.push(data);
+          }
+        });
+        this.manuscripts = unpublished;
+        this.publishedManuscripts = published;
+      }));
   }
 
   allGenre() {

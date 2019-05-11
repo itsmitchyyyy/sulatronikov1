@@ -54,7 +54,18 @@ export class PublishermanuscriptComponent implements OnInit, OnDestroy {
     this.subscription.set('sortSub', this.manuscriptService
       .sortManuscript(sort, this.id)
       .subscribe(res => {
-        this.manuscripts = res;
+        // this.manuscripts = res;
+        let published = [];
+        let unpublished = [];
+        res.map((data) => {
+          if (data.manuscriptStatus == 1) {
+            published.push(data);
+          } else {
+            unpublished.push(data);
+          }
+        });
+        this.manuscripts = unpublished;
+        this.publishedManuscripts = published;
       }))
   }
 
@@ -63,7 +74,18 @@ export class PublishermanuscriptComponent implements OnInit, OnDestroy {
     this.subscription.set('searchSubscription', this.manuscriptService
       .search(this.searchManuscript$, this.id)
       .subscribe(res => {
-        this.manuscripts = res;
+        // this.manuscripts = res;
+        let published = [];
+        let unpublished = [];
+        res.map((data) => {
+          if (data.manuscriptStatus == 1) {
+            published.push(data);
+          } else {
+            unpublished.push(data);
+          }
+        });
+        this.manuscripts = unpublished;
+        this.publishedManuscripts = published;
       }))
   }
 
@@ -71,7 +93,18 @@ export class PublishermanuscriptComponent implements OnInit, OnDestroy {
     this.subscription.set('sortSub', this.manuscriptService
       .sortManuscriptGenre(sort, this.id)
       .subscribe(res => {
-        this.manuscripts = res;
+        // this.manuscripts = res;
+        let published = [];
+        let unpublished = [];
+        res.map((data) => {
+          if (data.manuscriptStatus == 1) {
+            published.push(data);
+          } else {
+            unpublished.push(data);
+          }
+        });
+        this.manuscripts = unpublished;
+        this.publishedManuscripts = published;
       }))
   }
 

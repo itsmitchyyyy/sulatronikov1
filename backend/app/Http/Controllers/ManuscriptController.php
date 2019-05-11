@@ -70,7 +70,8 @@ class ManuscriptController extends Controller
             ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
             ->select('*', 
             'manuscripts.created_at as publishedDate',
-            'manuscripts.id as manuscriptID')
+            'manuscripts.id as manuscriptID',
+            'manuscripts.status as manuscriptStatus')
             ->where('manuscripts.authorID', $id)
             ->where('manuscripts.status',1)
             ->orWhere('manuscripts.status',2)
@@ -85,7 +86,8 @@ class ManuscriptController extends Controller
             ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
             ->select('*', 
             'manuscripts.created_at as publishedDate',
-            'manuscripts.id as manuscriptID')
+            'manuscripts.id as manuscriptID',
+            'manuscripts.status as manuscriptStatus')
             ->where([
                 ['manuscripts.authorID', '=', $id],
                 ['manuscripts.status','=',0]
@@ -164,10 +166,10 @@ class ManuscriptController extends Controller
         ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
         ->select('*', 
         'manuscripts.created_at as publishedDate',
-        'manuscripts.id as manuscriptID')
+        'manuscripts.id as manuscriptID',
+        'manuscripts.status as manuscriptStatus')
         ->where([
-            ['manuscripts.publisherID', '=', $id],
-            ['manuscripts.status','=',0]
+            ['manuscripts.publisherID', '=', $id]
         ])
         ->orderBy('manuscripts.title', $sort)
         ->get();
@@ -182,7 +184,8 @@ class ManuscriptController extends Controller
         ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
         ->select('*', 
         'manuscripts.created_at as publishedDate',
-        'manuscripts.id as manuscriptID')
+        'manuscripts.id as manuscriptID',
+        'manuscripts.status as manuscriptStatus')
         ->where([
             ['manuscripts.publisherID', '=', $id],
             ['manuscripts.genreID','=',$sort]
@@ -199,7 +202,8 @@ class ManuscriptController extends Controller
         ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
         ->select('*', 
         'manuscripts.created_at as publishedDate',
-        'manuscripts.id as manuscriptID')
+        'manuscripts.id as manuscriptID',
+        'manuscripts.status as manuscriptStatus')
         ->where([
             ['manuscripts.publisherID', '=', $id],
             ['manuscripts.title','LIKE', '%'.$sort.'%']
@@ -216,10 +220,10 @@ class ManuscriptController extends Controller
         ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
         ->select('*', 
         'manuscripts.created_at as publishedDate',
-        'manuscripts.id as manuscriptID')
+        'manuscripts.id as manuscriptID',
+        'manuscripts.status as manuscriptStatus')
         ->where([
-            ['manuscripts.authorID', '=', $id],
-            ['manuscripts.status','=',0]
+            ['manuscripts.authorID', '=', $id]
         ])
         ->orderBy('manuscripts.title', $sort)
         ->get();
@@ -234,7 +238,8 @@ class ManuscriptController extends Controller
         ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
         ->select('*', 
         'manuscripts.created_at as publishedDate',
-        'manuscripts.id as manuscriptID')
+        'manuscripts.id as manuscriptID',
+        'manuscripts.status as manuscriptStatus')
         ->where([
             ['manuscripts.authorID', '=', $id],
             ['manuscripts.genreID','=',$sort]
@@ -251,7 +256,8 @@ class ManuscriptController extends Controller
         ->join('genres', 'genres.id', '=', 'manuscripts.genreID')
         ->select('*', 
         'manuscripts.created_at as publishedDate',
-        'manuscripts.id as manuscriptID')
+        'manuscripts.id as manuscriptID',
+        'manuscripts.status as manuscriptStatus')
         ->where([
             ['manuscripts.authorID', '=', $id],
             ['manuscripts.title','LIKE', '%'.$sort.'%']

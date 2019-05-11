@@ -9,9 +9,12 @@ import { AppMaterialModule } from "../../../app.material.modules";
 import { CopywritermessageComponent } from './components/copywritermessage/copywritermessage.component';
 import { CopywriterviewmessageComponent } from './components/copywritermessage/components/copywriterviewmessage/copywriterviewmessage.component';
 import { CopywriterassignmanuscriptsComponent } from './components/copywriterassignmanuscripts/copywriterassignmanuscripts.component';
+import { CopywriterboardComponent } from './components/copywriterboard/copywriterboard.component';
+import { CardComponent } from './components/copywriterboard/card/card.component';
+import { ListComponent } from './components/copywriterboard/list/list.component';
 
 @NgModule({
-    declarations: [CopywritersComponent, CopywriterlistComponent, CopywriterprofileComponent, CopywritermessageComponent, CopywriterviewmessageComponent, CopywriterassignmanuscriptsComponent],
+    declarations: [CopywritersComponent, CopywriterlistComponent, CopywriterprofileComponent, CopywritermessageComponent, CopywriterviewmessageComponent, CopywriterassignmanuscriptsComponent, CopywriterboardComponent, CardComponent, ListComponent],
     exports: [CopywritersComponent],
     imports: [
         SharedModule,
