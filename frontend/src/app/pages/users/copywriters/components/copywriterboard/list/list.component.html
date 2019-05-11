@@ -1,0 +1,15 @@
+<div class="list" (dragover)="allowDrop($event)" (drop)="drop($event)">
+  <p class="list--title"><strong>{{list.name}}</strong></p>
+  <div class="cards">
+    <div *ngFor="let cardId of list.cards;">
+      <app-card [hidden]="selectedIndex == cardId" (dblclick)="onEditDisplayAddCard(cardId, $event)" [card]="cardStore.getCard(cardId)"></app-card>
+    </div>
+  </div>
+
+  <input type="text" #editCardInput *ngIf="displayEditCard"
+    (keyup.enter)="onEditEnter(editCardInput.value); displayEditCard=false;" autofocus>
+  <input type="text" #addCardInput
+    (keyup.enter)="onEnter(addCardInput.value); addCardInput.value=''; displayAddCard=false;" *ngIf="displayAddCard"
+    autofocus>
+  <a [routerLink]="" class="list__newcard" (click)="toggleDisplayAddCard()">Add a card</a>
+</div>

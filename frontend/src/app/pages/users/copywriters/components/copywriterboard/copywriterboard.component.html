@@ -1,0 +1,27 @@
+<div class="board-container mt-2 mb-2">
+    <div class="d-flex flex-row flex-wrap justify-content-between bg-primary navigation p-4">
+        <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+            <a [routerLink]="['/writers/profile', id, 'edit']" class="text-black-50 text-font"><strong>Profile</strong></a>
+        </div>
+        <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+            <a [routerLink]="['/writers/profile', id, 'books']" class="text-black-50 text-font"><strong>Published
+                    Books</strong></a>
+        </div>
+        <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+            <a [routerLink]="['/writers/profile', id, 'manuscripts', 'progress']"
+                class="text-black-50 text-font"><strong>Work in Progress</strong></a>
+        </div>
+        <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+            <a [routerLink]="['/writers/profile', id, 'manuscripts']" class="text-body text-font"><strong>Assigned
+                    Manuscripts</strong></a>
+        </div>
+        <div class="flex-grow-1 justify-content-center align-items-center d-flex">
+            <a [routerLink]="['/writers/profile', id, 'notification']"
+                class="text-black-50 text-font"><strong>Notification</strong></a>
+        </div>
+    </div>
+
+    <div class="board-container-card">
+        <app-list class="mt-4" *ngFor="let list of lists" [list]="list" [cardStore]="cardStore"></app-list>
+    </div>
+</div>

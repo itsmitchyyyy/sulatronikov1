@@ -1,0 +1,21 @@
+@import '../../../../../../assets/variables';
+
+.board{
+	&-container{
+		.navigation{
+			border-radius: 20px;
+
+			.text-font{
+				font-size: 20px;
+			}
+        }
+        &-card {
+            background: #ffffff;
+            display: flex;
+            padding: 0 5px;
+            height: 100vh;
+            overflow-x: scroll;
+            justify-content: center;
+        }
+    }
+}
