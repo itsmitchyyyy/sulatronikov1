@@ -37,4 +37,11 @@ export class PublisherService {
         catchError(val => of(val))
       );
   }
+
+  addRating(rating: any) {
+    return this.http.post<any>('http://127.0.0.1:8000/api/rating/add', rating)
+      .pipe(
+        catchError(val => of(val))
+      );
+  }
 }

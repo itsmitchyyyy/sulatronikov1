@@ -4,6 +4,10 @@
     .publisher{
         &-right{
             width: 60%;
+            .cursor-pointer {
+                cursor: pointer;
+            }
+            
             .ribbon{
                 font-weight: bolder;
                 font-size: 24px;
