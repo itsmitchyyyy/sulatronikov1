@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PublisherService } from '../../publisher.service';
 import { Subscription } from 'rxjs';
+import { MatTableDataSource } from '@angular/material';
+import { Publisher } from '../../publishers';
 
 @Component({
   selector: 'app-publisher-tlist',
@@ -8,8 +10,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./publisher-tlist.component.scss']
 })
 export class PublisherTlistComponent implements OnInit, OnDestroy {
+  ratingRange = new Array(5);
+  displayedColumns: string[] = ['avatar', 'username', 'average'];
+  role = 'publisher';
   fakeArray = new Array(12);
-  publishers: any;
+  publishers = new MatTableDataSource<Publisher>();
   private subscription = new Map<String, Subscription>();
   constructor(
     private publisherService: PublisherService
@@ -21,9 +26,17 @@ export class PublisherTlistComponent implements OnInit, OnDestroy {
 
   allPublisher() {
     this.subscription.set('publisherSubcription', this.publisherService
-      .allPublishers().subscribe(res => {
-        this.publishers = res;
+      .communityList(this.role).subscribe(res => {
+        this.publishers.data = res as Publisher[];
       }));
+  }
+
+  counter(i: number) {
+    return new Array(Math.round(i));
+  }
+
+  doFilter(value: string) {
+    this.publishers.filter = value.trim().toLocaleLowerCase();
   }
 
   ngOnDestroy() {

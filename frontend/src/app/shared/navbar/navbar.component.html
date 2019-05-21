@@ -29,15 +29,15 @@
             </li> -->
             <li class="nav-item dropdown" ngbDropdown>
                 <a ngbDropdownToggle class="pointer nav-link dropdown-toggle" data-toggle="dropdown">
-                    Clubs
+                    Community
                 </a>
                 <div class="dropdown-menu" ngbDropdownMenu>
                     <a routerLink="/authors/list" class="dropdown-item">Authors</a>
                     <a routerLink="/publishers/list" class="dropdown-item">Publishers</a>
-                    <a routerLink="/writers/list" class="dropdown-item">Copywriters</a>
+                    <!-- <a routerLink="/writers/list" class="dropdown-item">Copywriters</a> -->
                 </div>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link pointer" (click)="isSearchClicked = !isSearchClicked">Search</a>
                 <div class="search-box" *ngIf="isSearchClicked">
                     <input type="text" name="search" (keyup)="userSearch($event.target.value)" class="form-control">
@@ -57,7 +57,7 @@
                         </ng-template>
                     </div>
                 </div>
-            </li>
+            </li> -->
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" *ngIf="!isAuthenticated">

@@ -1,11 +1,34 @@
 <div class="mt-5 authors-container">
-  <div class="authors-list mb-5">
-    <div matTooltip="View Publisher" matTooltipPosition="above" [routerLink]="'../profile/' + publisher.id" class="authors-list-photo d-flex justify-content-center flex-column align-items-center"
-      *ngFor="let publisher of publishers">
-      <img [src]="publisher.avatar || '../../../../../../assets/images/blank.png'" class="w-50 flex-grow-1">
-      <div>
-        <span class="text-capitalize">{{ publisher.firstName }} {{ publisher.lastName }}</span>
-      </div>
-    </div>
+  <div class="authors">
+    <mat-form-field>
+        <input type="text" matInput (keyup)="doFilter($event.target.value)" placeholder="Filter Search">
+    </mat-form-field>
+    <table mat-table [dataSource]="publishers" class="mat-elevation-z8">
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef>Avatar</th>
+        <th mat-cell *matCellDef="let user"> <img [src]="user.avatar" alt="avatar" height="100" width="100"></th>
+      </ng-container>
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Username</th>
+        <th mat-cell *matCellDef="let user"> {{ user.username }}</th>
+      </ng-container>
+      <ng-container matColumnDef="average">
+        <th mat-header-cell *matHeaderCellDef>Ratings</th>
+        <th mat-cell *matCellDef="let user">
+          <div class="d-flex flex-row">
+            <span *ngFor="let value of ratingRange; let i = index">
+              <ng-container *ngIf="user.average > i; else fillUpStar">
+                  <mat-icon style="color: yellow">star</mat-icon>
+              </ng-container>
+              <ng-template #fillUpStar>
+                  <mat-icon >star_border</mat-icon>
+              </ng-template>
+            </span>
+          </div>
+        </th>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
 </div>

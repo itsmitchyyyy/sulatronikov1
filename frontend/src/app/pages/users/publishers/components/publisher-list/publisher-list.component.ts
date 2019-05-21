@@ -92,8 +92,8 @@ export class PublisherListComponent implements OnInit, OnDestroy {
     let form = new FormData();
     form.append('rating', `${this.rating}`);
     form.append('review', this.textReview.nativeElement.value);
-    form.append('publisherID', `${this.id}`);
-    form.append('authorID', this.currentUser.id);
+    form.append('rateable_id', `${this.id}`);
+    form.append('user_id', this.currentUser.id);
     return form;
   }
 

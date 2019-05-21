@@ -177,4 +177,16 @@ class UserController extends Controller
         User::find($request->id)->delete();
     }
 
+    public function communityList() {
+        $role = $_GET['search'];
+        $user = User::select('users.*', DB::raw('avg(ratings.rating) as average'))
+                ->leftJoin('ratings', 'ratings.rateable_id', '=' ,'users.id')
+                ->join('role_user', 'role_user.user_id', '=' ,'users.id')
+                ->join('roles', 'roles.id', '=' ,'role_user.role_id')
+                ->groupBy('ratings.rateable_id')
+                ->where('roles.name', $role)
+                ->get();
+        return $user;
+    }
+
 }

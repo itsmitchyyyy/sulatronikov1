@@ -1,8 +1,37 @@
 <div class="mt-5 books-container">
   <!-- <ngb-pagination class="d-flex justify-content-center mb-5" [collectionSize]="120" [maxSize]="10" [rotate]="true" [ellipses]="false"></ngb-pagination> -->
   <div class="book-list mb-5">
-    <div class="book-list-photo d-flex justify-content-center" *ngFor="let book of books">
-      <img [src]="book.photo ? book.photo : '../../../assets/images/blank.png'" alt="Image Here" class="w-50">
+    <div class="book-list-photo d-flex justify-content-center position-relative" (mouseenter)="showDescription(book.id)"
+      (mouseleave)="hideDescription(book.id)" *ngFor="let book of books">
+      <img [src]="book.photo ? book.photo : '../../../assets/images/blank.png'" alt="Image Here" class="w-100 h-100">
+      <div *ngIf="(hoveredDiv === book.id + '-active') ? true : false" [@slideInOut]
+        class="d-flex flex-column text-white w-100 position-absolute description">
+        <div class="d-flex flex-row flex-wrap">
+          <h5>Title: {{ book.title }}</h5>
+        </div>
+        <div class="d-flex flex-row flex-wrap">
+          <p>Date Posted: {{ book.created_at | date }}</p>
+        </div>
+        <div class="d-flex flex-column flex-grow-1">
+          <span>Content:</span>
+          <div class="d-flex flex-row flex-wrap">
+            <span>{{ book.sypnosis }}</span>
+          </div>
+        </div>
+        <div class="d-flex flex-row flex-wrap">
+          <span>Genre: {{ book.genreName }}</span>
+        </div>
+        <div class="d-flex flex-row flex-wrap">
+          <span>Author:
+            <strong class="text-capitalize">{{ book.authorfirstName }} {{ book.authorlastName }}</strong>
+          </span>
+        </div>
+        <div class="d-flex flex-row flex-wrap">
+          <span>Publisher:
+            <strong class="text-capitalize">{{ book.publisherfirstName }} {{ book.publisherlastName }}</strong>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <!-- <ngb-pagination class="d-flex justify-content-center mb-5" [collectionSize]="120" [maxSize]="10" [rotate]="true" [ellipses]="false"></ngb-pagination> -->

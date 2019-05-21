@@ -117,7 +117,18 @@ class ManuscriptController extends Controller
     }
 
     function allBooks(){
-        $manuscript = Manuscript::where('status', 2)->get();
+        $manuscript = DB::table('manuscripts')
+            ->leftJoin('users as publisher', 'publisher.id', '=', 'manuscripts.publisherID')
+            ->leftJoin('users as author', 'author.id', '=', 'manuscripts.authorID')
+            ->leftJoin('genres', 'genres.id', '=', 'manuscripts.genreID')
+            ->select('*',
+            'publisher.firstName as publisherfirstName',
+            'publisher.lastName as publisherlastName',
+            'publisher.id as publisherID',
+            'author.firstName as authorfirstName',
+            'author.lastName as authorlastName',
+            'author.id as authorID')
+            ->get();
         return $manuscript;
     }
 

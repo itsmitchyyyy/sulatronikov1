@@ -1,9 +1,13 @@
 @import '../../../../../../assets/variables';
 
-/*  autoprefixer grid: no-autoplace */
-
 ::ng-deep .authors-container {
     .authors{
+        margin-bottom: 2rem;
+        
+        table {
+            width: 100%;
+        }
+
         &-list{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));

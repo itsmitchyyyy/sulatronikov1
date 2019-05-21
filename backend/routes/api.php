@@ -79,3 +79,6 @@ Route::get('assignedManuscripts', 'CopyWriterController@getAssignManuscripts');
 
 // Rating 
 Route::post('rating/add', 'RatingController@create');
+
+// Coommunity 
+Route::get('community/user/list', 'UserController@communityList');

@@ -44,4 +44,11 @@ export class PublisherService {
         catchError(val => of(val))
       );
   }
+
+  communityList(role: any) {
+    return this.http.get<any>('http://127.0.0.1:8000/api/community/user/list', { params: { search: role } })
+    .pipe(
+      catchError(val => of(val))
+    );
+  }
 }
